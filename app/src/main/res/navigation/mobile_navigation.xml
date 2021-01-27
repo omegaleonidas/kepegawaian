@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_Apsensi">
+    <fragment
+        android:id="@+id/navigation_Apsensi"
+        android:name="sidiq.project.kepegawaian.View.ApsensiFragment"
+        android:label="fragment_apsensi"
+        tools:layout="@layout/fragment_apsensi" />
+    <fragment
+        android:id="@+id/navigation_cuti"
+        android:name="sidiq.project.kepegawaian.View.CutiFragment"
+        android:label="fragment_cuti"
+        tools:layout="@layout/fragment_cuti" />
+    <fragment
+        android:id="@+id/navigation_jadwal"
+        android:name="sidiq.project.kepegawaian.View.informasiFragment"
+        android:label="fragment_informasi"
+        tools:layout="@layout/fragment_informasi" />
+    <fragment
+        android:id="@+id/navigation_informasi"
+        android:name="sidiq.project.kepegawaian.View.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="sidiq.project.kepegawaian.RiwayatFragment"
+        android:label="fragment_riwayat"
+        tools:layout="@layout/fragment_riwayat" />
+    <activity
+        android:id="@+id/home3"
+        android:name="sidiq.project.kepegawaian.View.Home"
+        android:label="Home" />
+</navigation>
