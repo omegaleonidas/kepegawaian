@@ -32,7 +32,7 @@ private const val FIlE_NAME = "photo.jpg"
 
 class ApsensiDetail : AppCompatActivity() {
 
-    companion object{
+    companion object {
         private val REQUEST_PERMISSION_REQUEST_CODE = 2020
     }
 
@@ -41,34 +41,46 @@ class ApsensiDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apsensi_detail)
 
+        var calender = Calendar.getInstance()
+        val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+        tvTanggal.text = "$time"
 
 
 
-        btnTakePicture.setOnClickListener {
+
+        imageView.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             photoFile = getPhotoFile(FIlE_NAME)
             // work for API >=24 (start 2026)
-            //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
             val fileProvider =
-                FileProvider.getUriForFile(this, "sidiq.project.kepegawaian.fileprovider", photoFile)
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
+                FileProvider.getUriForFile(
+                    this,
+                    "sidiq.project.kepegawaian.fileprovider",
+                    photoFile
+                )
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
             if (takePictureIntent.resolveActivity(this.packageManager) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_CODE)
             } else {
-                Toast.makeText(this, "unable to oopen camera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "unable to open camera", Toast.LENGTH_SHORT).show()
             }
 
 
         }
 
-        btnGetLocation.setOnClickListener{
+        btnGetLocation.setOnClickListener {
             //check permission
             if (ContextCompat.checkSelfPermission(
-                    applicationContext,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this@ApsensiDetail,
+                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this@ApsensiDetail,
                     arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    ,REQUEST_PERMISSION_REQUEST_CODE)
-            }else {
+                    , REQUEST_PERMISSION_REQUEST_CODE
+                )
+            } else {
                 tvAddress.text = ""
                 tvLatitude.text = ""
                 tvLongitude.text = ""
@@ -104,11 +116,11 @@ class ApsensiDetail : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_PERMISSION_REQUEST_CODE && grantResults.size > 0){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_PERMISSION_REQUEST_CODE && grantResults.size > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation()
-            }else{
-                Toast.makeText(this@ApsensiDetail,"Permission Denied!",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@ApsensiDetail, "Permission Denied!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -123,7 +135,7 @@ class ApsensiDetail : AppCompatActivity() {
         //now getting address from latitude and longitude
 
         val geocoder = Geocoder(this@ApsensiDetail, Locale.getDefault())
-        var addresses:List<Address>
+        var addresses: List<Address>
 
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -143,24 +155,24 @@ class ApsensiDetail : AppCompatActivity() {
             return
         }
         LocationServices.getFusedLocationProviderClient(this@ApsensiDetail)
-            .requestLocationUpdates(locationRequest,object : LocationCallback(){
+            .requestLocationUpdates(locationRequest, object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult?) {
                     super.onLocationResult(locationResult)
                     LocationServices.getFusedLocationProviderClient(this@ApsensiDetail)
                         .removeLocationUpdates(this)
-                    if (locationResult != null && locationResult.locations.size > 0){
-                        var locIndex = locationResult.locations.size-1
+                    if (locationResult != null && locationResult.locations.size > 0) {
+                        var locIndex = locationResult.locations.size - 1
 
                         var latitude = locationResult.locations.get(locIndex).latitude
                         var longitude = locationResult.locations.get(locIndex).longitude
-                        tvLatitude.text = "Latitude: "+latitude
-                        tvLongitude.text = "Longitude: "+longitude
+                        tvLatitude.text = "Latitude: " + latitude
+                        tvLongitude.text = "Longitude: " + longitude
 
-                        addresses = geocoder.getFromLocation(latitude,longitude,1)
+                        addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
-                        var address:String = addresses[0].getAddressLine(0)
+                        var address: String = addresses[0].getAddressLine(0)
                         tvAddress.text = address
-                        if (tvAddress != null){
+                        if (tvAddress != null) {
                             loader.visibility = View.GONE
                         }
                     }
@@ -168,7 +180,6 @@ class ApsensiDetail : AppCompatActivity() {
             }, Looper.getMainLooper())
 
     }
-
 
 
 }

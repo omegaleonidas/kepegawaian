@@ -9,36 +9,70 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:text="Login"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView3"
+        android:layout_width="258dp"
+        android:layout_height="266dp"
         app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.753" />
 
-    <EditText
-        android:id="@+id/tvid"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:hint=" username"
+        app:layout_constraintVertical_bias="0.195"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/login">
 
-        android:textSize="15dp"
-        android:textStyle="italic"
 
+    </com.airbnb.lottie.LottieAnimationView>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="409dp"
+        android:layout_height="91dp"
+
+        android:src="@drawable/atas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.47"></EditText>
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="262dp"
+        android:layout_height="39dp"
+        android:background="@drawable/baground_botton"
+        android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.795" />
+
+    <EditText
+        android:id="@+id/tvid"
+        android:layout_width="344dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:drawableStart="@drawable/ic_baseline_account_box_24"
+
+        android:hint="username"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587">
+
+    </EditText>
 
     <EditText
         android:id="@+id/tvPassword"
@@ -49,30 +83,44 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
 
-        android:hint=" password"
+        android:hint="password"
+        android:drawableStart="@drawable/ic_baseline_enhanced_encryption_24"
+        android:drawableLeft="@drawable/ic_baseline_enhanced_encryption_24"
         android:inputType="textPassword"
         android:textSize="15dp"
-
-
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587" />
+        app:layout_constraintVertical_bias="0.676" />
 
     <ImageView
-        android:layout_width="406dp"
-        android:layout_height="135dp"
+        android:id="@+id/imageView3"
+        android:layout_width="409dp"
+        android:layout_height="91dp"
         android:src="@drawable/bawahh"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="494dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
 
-    </ImageView>>
+    </ImageView>
 
-
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username"
+        android:textColor="@color/purple_500"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
