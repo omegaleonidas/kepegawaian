@@ -46,8 +46,6 @@ class ApsensiDetail : AppCompatActivity() {
         tvTanggal.text = "$time"
 
 
-
-
         imageView.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             photoFile = getPhotoFile(FIlE_NAME)

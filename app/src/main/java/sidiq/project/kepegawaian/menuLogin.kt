@@ -34,10 +34,9 @@ class menuLogin : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnMenuLogin ->
-                navControler.navigate(R.id.action_menuLogin_to_registerFragment)
-
+                  navControler.navigate(R.id.action_menuLogin_to_loginFragment)
             R.id.btnMenuRegister ->
-                navControler.navigate(R.id.action_menuLogin_to_loginFragment)
+                  navControler.navigate(R.id.action_menuLogin_to_registerFragment)
 
         }
     }

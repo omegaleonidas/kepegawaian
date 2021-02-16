@@ -112,7 +112,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052"
-        tools:src="@drawable/ic_baseline_fingerprint_24" />
+        android:src="@drawable/ic_action_name" />
 
     <Button
         android:id="@+id/btnGetLocation"

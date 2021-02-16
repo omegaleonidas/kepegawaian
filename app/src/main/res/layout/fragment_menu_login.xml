@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
     tools:context=".menuLogin">
 
+
     <ImageView
-        android:layout_width="409dp"
-        android:layout_height="91dp"
+        android:layout_width="417dp"
+
+        android:layout_height="89dp"
         android:src="@drawable/atass"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,11 +19,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView3"
-        android:layout_width="258dp"
-        android:layout_height="266dp"
+        android:layout_width="241dp"
+        android:layout_height="244dp"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,14 +37,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:layout_width="161dp"
-        android:layout_height="130dp"
+        android:layout_width="137dp"
+        android:layout_height="104dp"
         android:src="@drawable/ic_baseline_fingerprint_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.777" />
 
     <Button
         android:id="@+id/btnMenuLogin"
@@ -54,10 +53,8 @@
         android:background="@drawable/baground_button_white"
         android:text="Login"
         android:textColor="#FDFDFD"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +68,6 @@
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
