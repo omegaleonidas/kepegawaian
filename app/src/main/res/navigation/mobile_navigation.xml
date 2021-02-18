@@ -24,7 +24,11 @@
         android:id="@+id/navigation_profile"
         android:name="sidiq.project.kepegawaian.View.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_loginOTP2"
+            app:destination="@id/loginOTP2" />
+    </fragment>
     <fragment
 
         android:id="@+id/navigation_jadwal"
@@ -35,4 +39,9 @@
         android:id="@+id/home3"
         android:name="sidiq.project.kepegawaian.View.Home"
         android:label="Home" />
+    <activity
+        android:id="@+id/loginOTP2"
+        android:name="sidiq.project.kepegawaian.loginOTP"
+        android:label="activity_login_o_t_p"
+        tools:layout="@layout/activity_login_o_t_p" />
 </navigation>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "796325979494",
+    "project_id": "kepegawaian-50748",
+    "storage_bucket": "kepegawaian-50748.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796325979494:android:076f3bf3c0ca4699d2d4a7",
+        "android_client_info": {
+          "package_name": "sidiq.project.kepegawaian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796325979494-1pc7d3e3a0vi3li0lnp9c4f38cq5k70n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC7MMsV5BSBU0y7YA1RKrlTOaFpKbyXnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796325979494-1pc7d3e3a0vi3li0lnp9c4f38cq5k70n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

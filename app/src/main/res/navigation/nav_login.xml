@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_login"
-    app:startDestination="@id/menuLogin">
+    app:startDestination="@id/loginOTP">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -51,4 +51,9 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+    <activity
+        android:id="@+id/loginOTP"
+        android:name="sidiq.project.kepegawaian.loginOTP"
+        android:label="activity_login_o_t_p"
+        tools:layout="@layout/activity_login_o_t_p" />
 </navigation>

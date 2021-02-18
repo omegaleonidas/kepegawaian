@@ -22,7 +22,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navControler = Navigation.findNavController(view)
+
         btnRegister.setOnClickListener(this)
 
 

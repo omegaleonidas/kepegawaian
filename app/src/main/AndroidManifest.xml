@@ -15,8 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kepegawaian">
-
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".verivikasiOTP"></activity>
+        <activity android:name=".loginOTP" />
+        <activity android:name=".MainActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
