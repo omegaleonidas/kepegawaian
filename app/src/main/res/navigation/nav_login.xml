@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_login"
-    app:startDestination="@id/loginOTP">
+    app:startDestination="@id/home2">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_home2"
             app:destination="@id/home2" />
+        <action
+            android:id="@+id/action_loginFragment_to_verivikasiOTP"
+            app:destination="@id/verivikasiOTP" />
     </fragment>
     <activity
         android:id="@+id/home2"
@@ -37,6 +40,9 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_menuLogin_to_loginOTP"
+            app:destination="@id/loginOTP" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -56,4 +62,9 @@
         android:name="sidiq.project.kepegawaian.loginOTP"
         android:label="activity_login_o_t_p"
         tools:layout="@layout/activity_login_o_t_p" />
+    <activity
+        android:id="@+id/verivikasiOTP"
+        android:name="sidiq.project.kepegawaian.verivikasiOTP"
+        android:label="activity_verivikasi_o_t_p"
+        tools:layout="@layout/activity_verivikasi_o_t_p" />
 </navigation>

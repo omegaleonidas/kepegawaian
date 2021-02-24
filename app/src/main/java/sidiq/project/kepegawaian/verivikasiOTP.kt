@@ -19,22 +19,23 @@ class verivikasiOTP : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verivikasi_o_t_p)
 
-        auth=FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
-        val storedVerificationId=intent.getStringExtra("storedVerificationId")
+        val storedVerificationId = intent.getStringExtra("storedVerificationId")
 
 //        Reference
-        val verify=findViewById<Button>(R.id.verifyBtn)
-        val otpGiven=findViewById<EditText>(R.id.id_otp)
+        val verify = findViewById<Button>(R.id.verifyBtn)
+        val otpGiven = findViewById<EditText>(R.id.id_otp)
 
-        verify.setOnClickListener{
-            var otp=otpGiven.text.toString().trim()
-            if(!otp.isEmpty()){
-                val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    storedVerificationId.toString(), otp)
+        verify.setOnClickListener {
+            var otp = otpGiven.text.toString().trim()
+            if (!otp.isEmpty()) {
+                val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(
+                    storedVerificationId.toString(), otp
+                )
                 signInWithPhoneAuthCredential(credential)
-            }else{
-                Toast.makeText(this,"Enter OTP", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Enter OTP", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,7 +51,7 @@ class verivikasiOTP : AppCompatActivity() {
 // Sign in failed, display a message and update the UI
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
 // The verification code entered was invalid
-                        Toast.makeText(this,"Invalid OTP",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Invalid OTP", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
