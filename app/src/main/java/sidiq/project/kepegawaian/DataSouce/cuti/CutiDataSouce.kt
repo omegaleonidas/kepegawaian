@@ -20,13 +20,13 @@ class CutiDataSouce :PageKeyedDataSource <Long,Data>(){
         params: LoadInitialParams<Long>,
         callback: LoadInitialCallback<Long, Data>
     ) {
-        api.InsertCuti("11111","2020-02-30","2020-04-12","pergi liburan","2020-02-25")
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(){
-                t->
-                t.results.data .let {   callback.onResult(it,null,2L)}
-            }
+//        api.InsertCuti("11111","2020-02-30","2020-04-12","pergi liburan","2020-02-25")
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(){
+//                t->
+//                t.results.data .let {   callback.onResult(it,null,2L)}
+//            }
 
 
     }

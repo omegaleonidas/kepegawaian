@@ -55,7 +55,7 @@ class loginOTP : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Failed"+e.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
