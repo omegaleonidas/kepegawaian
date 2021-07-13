@@ -25,6 +25,9 @@ class Home : AppCompatActivity() {
                 R.id.navigation_Apsensi, R.id.navigation_cuti,R.id.navigation_informasi,R.id.navigation_jadwal,R.id.navigation_profile))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
     }
 }
 
