@@ -44,22 +44,20 @@ class RiwayatFragment : Fragment() {
 
 
 
-        viewModel = ViewModelProviders.of(this).get(AbsensiViewModel::class.java)
 
-        viewModel?.absensiMVVMModel?.observe(this, Observer {
-            val adapter = AdapterApsensi()
-            adapter.submitList(it)
-            binding?.recylerRiwayat?.apply {
-                binding?.recylerRiwayat?.setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context)
-                recyler_riwayat.adapter = adapter
+
 
             }
 
 
-        })
+
+    fun  getData(){
+
+    }
+
     }
 
 
-}
+
+
 

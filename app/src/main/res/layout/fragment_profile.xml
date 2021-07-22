@@ -133,7 +133,7 @@
               app:layout_constraintVertical_bias="0.111" />
 
           <TextView
-              android:id="@+id/textView10"
+              android:id="@+id/tvNama"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="37dp"
@@ -157,7 +157,7 @@
               app:layout_constraintVertical_bias="0.174" />
 
           <TextView
-              android:id="@+id/textView12"
+              android:id="@+id/tvNip"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="121212121"
@@ -201,7 +201,7 @@
               app:layout_constraintVertical_bias="0.529">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/editText23"
+                  android:id="@+id/tv_alamat"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp" />
@@ -227,7 +227,7 @@
               app:layout_constraintVertical_bias="0.661">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/tvTaasdasd"
+                  android:id="@+id/tvTanggalMasuk1"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp" />
@@ -251,7 +251,7 @@
               app:layout_constraintVertical_bias="0.794">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/edext"
+                  android:id="@+id/tvPendidikanTerakhir"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp" />
@@ -275,7 +275,7 @@
               app:layout_constraintVertical_bias="0.663">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/editText"
+                  android:id="@+id/tvAgama"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp" />
@@ -301,7 +301,7 @@
               app:layout_constraintVertical_bias="0.264">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/editText3"
+                  android:id="@+id/tvEmail"
                   android:textSize="15dp"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
@@ -327,7 +327,7 @@
               app:layout_constraintVertical_bias="0.387">
 
               <com.google.android.material.textfield.TextInputEditText
-                  android:id="@+id/editText1"
+                  android:id="@+id/tvTelepon"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="15dp" />
@@ -358,7 +358,7 @@
         app:layout_constraintVertical_bias="0.818" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit"

@@ -7,18 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_informasi.view.*
 import retrofit2.Call
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
-import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
+import sidiq.project.kepegawaian.adapter.AdapterInformasi
+import sidiq.project.kepegawaian.databinding.FragmentInformasiBinding
+import sidiq.project.kepegawaian.model.informasi.Informasi
 import sidiq.project.kepegawaian.model.informasi.InformasiResponse
-import javax.security.auth.callback.Callback
 
 class informasiFragment : Fragment() {
 
-
-    private var sharedPreferences : PreferenceManager? = null
+    private var binding: FragmentInformasiBinding? = null
+    private var sharedPreferences: PreferenceManager? = null
+    private var adapter: AdapterInformasi? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,46 +30,60 @@ class informasiFragment : Fragment() {
     ): View? {
 
         sharedPreferences = PreferenceManager(requireContext())
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_informasi, container, false)
+        binding = FragmentInformasiBinding.inflate(inflater, container, false)
+        val view = binding?.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         getData()
+
         super.onViewCreated(view, savedInstanceState)
     }
 
-    fun getData(){
+    fun getData() {
 
         var retrofit = ApiServices.restApi()
-        Log.e("token ",""+sharedPreferences?.getToken())
-        retrofit.getInformasi("bearer "+sharedPreferences?.getToken() ).enqueue(object : retrofit2.Callback<InformasiResponse>{
-            override fun onFailure(call: Call<InformasiResponse>, t: Throwable) {
-               Log.e("error",t.message)
-            }
-
-            override fun onResponse(
-                call: Call<InformasiResponse>,
-                response: Response<InformasiResponse>
-            ) {
-                val informasi = response.body()
-
-                if (response.isSuccessful){
-                    Toast.makeText(requireContext(), ""+informasi?.data, Toast.LENGTH_SHORT).show()
-
-
-
-
+        Log.e("token ", "" + sharedPreferences?.getToken())
+        retrofit.getInformasi("Bearer " + sharedPreferences?.getToken())
+            .enqueue(object : retrofit2.Callback<InformasiResponse> {
+                override fun onFailure(call: Call<InformasiResponse>, t: Throwable) {
+                    Log.e("error", t.message)
                 }
-            }
 
-        })
+                override fun onResponse(
+                    call: Call<InformasiResponse>,
+                    response: Response<InformasiResponse>
+                ) {
+                    val informasi = response.body()
+
+                    if (response.isSuccessful) {
+                        Toast.makeText(requireContext(), "" + informasi?.data, Toast.LENGTH_SHORT)
+                            .show()
+
+                        showData(informasi!!.data?.informasi)
+                    }
+                }
+
+            })
 
 
     }
 
+    fun showData(informasi: List<Informasi>) {
+
+        binding?.recyclerViewInformasi?.apply {
+            binding?.recyclerViewInformasi?.setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = AdapterInformasi(informasi)
+
+        }
 
 
-
+    }
 }
+
+

@@ -88,11 +88,11 @@ class LoginFragment : Fragment() {
 
     fun login() {
         val request = UserRequest()
-        request.email = binding?.etNip.toString()
-        request.password = binding?.etpassword.toString()
+    val  email = binding?.etNip!!.text.toString()
+      val password = binding?.etpassword!!.text.toString()
 
         val retrofit = ApiServices.restApi()
-        retrofit.getLogin("admin@gmail.com","12345678").enqueue(object :Callback<DataUserRespon>{
+        retrofit.getLogin(email,password).enqueue(object :Callback<DataUserRespon>{
             override fun onFailure(call: Call<DataUserRespon>, t: Throwable) {
               Log.e("error",t.message)
             }

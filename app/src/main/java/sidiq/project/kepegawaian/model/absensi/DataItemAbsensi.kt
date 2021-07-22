@@ -37,21 +37,9 @@ data class DataItemAbsensi(
     val tanggal: String? = null,
 
     @field:SerializedName("alamat")
-    val alamat: String? = null,
+    val alamat: String? = null
 
-    var DIFF_CALLBACK: DiffUtil.ItemCallback<DataItemAbsensi> = object :
-        DiffUtil.ItemCallback<DataItemAbsensi>() {
-        override fun areItemsTheSame(oldItem: DataItemAbsensi, newItem: DataItemAbsensi): Boolean {
-            return oldItem.id == newItem.id
-        }
 
-        override fun areContentsTheSame(
-            oldItem: DataItemAbsensi,
-            newItem: DataItemAbsensi
-        ): Boolean {
-            return oldItem.equals(newItem)
-        }
-    }
 
 
 )
