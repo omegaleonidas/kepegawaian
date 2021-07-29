@@ -120,55 +120,58 @@
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintVertical_bias="0.071" />
 
-          <TextView
-              android:id="@+id/textView"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Nama : "
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.28"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintVertical_bias="0.111" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama : "
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
 
-          <TextView
-              android:id="@+id/tvNama"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="37dp"
-              android:text="hidayatul sidiq"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintVertical_bias="0.048" />
+    <TextView
+        android:id="@+id/tvNama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:text="hidayatul sidiq"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06" />
 
-          <TextView
-              android:id="@+id/textView11"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="nip :"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.264"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintVertical_bias="0.174" />
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nip :"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
 
-          <TextView
-              android:id="@+id/tvNip"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="121212121"
-              app:layout_constraintBottom_toBottomOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintHorizontal_bias="0.471"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              app:layout_constraintVertical_bias="0.172" />
+    <TextView
+        android:id="@+id/tvNip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="121212121"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.474"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.154" />
 
-          <Button
+    <Button
               android:id="@+id/btnLogout"
               android:layout_width="41dp"
               android:layout_height="40dp"
@@ -285,7 +288,7 @@
               android:id="@+id/editTextTextPersonName4"
               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
               android:layout_width="match_parent"
-              android:layout_height="49dp"
+              android:layout_height="54dp"
               android:layout_marginStart="50dp"
               android:layout_marginLeft="50dp"
               android:layout_marginEnd="32dp"
@@ -302,7 +305,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                   android:id="@+id/tvEmail"
-                  android:textSize="15dp"
+
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content" />
           </com.google.android.material.textfield.TextInputLayout>
@@ -368,6 +371,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.936" />
+
+
+
+
+
+
 
 
 

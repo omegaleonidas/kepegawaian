@@ -15,7 +15,11 @@ class PreferenceManager (private  val context: Context) {
 
     companion object {
         const val KEY_TOKEN = "key_token"
+        const val ID = "id_pegawai"
+        const val NIP = "nip"
     }
+
+
 
     fun saveToken( key:String, value: String?){
 
@@ -28,4 +32,21 @@ class PreferenceManager (private  val context: Context) {
         return sharePreference.getString(KEY_TOKEN,null)
     }
 
+    fun saveNip( key:String,value: Int){
+        editor.putInt(key,value)
+        editor.apply()
+    }
+
+    fun getNip()  :Int?{
+        return sharePreference.getInt(NIP,0)
+    }
+
+    fun saveId( key:String,value: Int){
+        editor.putInt(key,value)
+        editor.apply()
+    }
+
+    fun getId()  :Int?{
+        return sharePreference.getInt(ID,0)
+    }
 }

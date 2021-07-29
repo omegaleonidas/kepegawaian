@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_view.view.*
 import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.databinding.CardViewBinding
+import sidiq.project.kepegawaian.model.absensi.Absensi
+
 import sidiq.project.kepegawaian.model.absensi.DataItemAbsensi
 
-class AdapterApsensi(private val data: List<DataItemAbsensi>) :
+class AdapterApsensi(private val data: List<Absensi>) :
     RecyclerView.Adapter<AdapterApsensi.apsensiHolder>() {
 
 
@@ -23,11 +25,11 @@ class AdapterApsensi(private val data: List<DataItemAbsensi>) :
 
 
     class apsensiHolder(var binding: CardViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindTo(item: DataItemAbsensi?) {
+        fun bindTo(item: Absensi?) {
 
             binding.tvTanggal1.text = item?.tanggal
-            binding.tvJamMasuk.text = item?.jamMasuk
-            binding.tvJamKeluar.text = item?.jamSelesai
+            binding.tvJamMasuk.text = item?.jam_masuk
+            binding.tvJamKeluar.text = item?.jam_selesai
             binding.tvAlamat.text = item?.alamat
 
 

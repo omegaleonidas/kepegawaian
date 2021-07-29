@@ -13,6 +13,7 @@ data class User(
 	val createdAt: String? = null,
 	val emailVerifiedAt: Any? = null,
 	val id: Int? = null,
+	val nip:Int? = null,
 	val email: String? = null
 )
 

@@ -19,7 +19,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.Storage.PreferenceManager
+import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.ID
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.KEY_TOKEN
+import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NIP
 import sidiq.project.kepegawaian.ViewModel.RegisterViewModel
 import sidiq.project.kepegawaian.databinding.FragmentLoginBinding
 import sidiq.project.kepegawaian.model.DataItem
@@ -100,13 +102,18 @@ class LoginFragment : Fragment() {
             override fun onResponse(call: Call<DataUserRespon>, response: Response<DataUserRespon>) {
                val user = response.body()
                 Log.e("token",response.message())
+
             if (response.isSuccessful){
 
                 val user = response.body()
 //
                 if (response.isSuccessful){
 
+                    Log.e("token1","${user?.user!!.id}")
+
                     shareferenceManager?.saveToken(KEY_TOKEN,user?.token!!)
+                    shareferenceManager?.saveNip(NIP,user?.user!!.nip!!)
+                    shareferenceManager?.saveId(ID,user?.user!!.id!!)
 
                     val intent = Intent(requireContext(),Home::class.java)
                     startActivity(intent)

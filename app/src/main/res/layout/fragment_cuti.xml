@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
 
         android:ems="10"
-        android:inputType="date"
+
         android:hint="tanggal awal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,8 @@
         app:layout_constraintVertical_bias="0.212" >
 
     <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tanggalAwal"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -83,6 +85,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tanggalKeterangan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -106,13 +109,14 @@
         app:layout_constraintVertical_bias="0.345" >
 
     <com.google.android.material.textfield.TextInputEditText
+       android:id="@+id/tanggalAkhir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnCuti"
         android:layout_width="138dp"
         android:layout_height="40dp"
         android:layout_marginTop="7dp"
@@ -124,6 +128,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.701" />
+
+
+
 
     <ImageView
         android:id="@+id/imageView5"
