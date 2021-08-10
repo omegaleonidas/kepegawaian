@@ -40,8 +40,8 @@ interface ApiInterface {
     @POST("ApiCutiTambah")
     fun InsertCuti(
         @Query("nip") nip: Int,
-        @Query("tanggal_mulai") tanggal_mulai: Int,
-        @Query("tanggal_akhir") tanggal_akhir: Int,
+        @Query("tanggal_mulai") tanggal_mulai: String,
+        @Query("tanggal_akhir") tanggal_akhir: String,
         @Query("alasan_cuti") alasan_cuti:String,
         @Query("tanggal") tanggal: String,
         @Query("lama_cuti")lama_cuti: Int, @Header("Authorization") token:String)

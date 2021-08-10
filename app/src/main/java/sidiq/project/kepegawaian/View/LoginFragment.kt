@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
 
         btnLogin.setOnClickListener {
             login()
-            Toast.makeText(context, " sudah di klik", Toast.LENGTH_SHORT).show()
+           
         }
 
     }
@@ -118,12 +118,10 @@ class LoginFragment : Fragment() {
                     val intent = Intent(requireContext(),Home::class.java)
                     startActivity(intent)
                     requireActivity().finish()
-
-
-
                 }
 
             }else{
+                Toast.makeText(requireContext(), " data tidak ada", Toast.LENGTH_SHORT).show()
              Log.e("error","data tidak ada")
             }
             }

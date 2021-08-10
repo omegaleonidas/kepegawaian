@@ -18,6 +18,7 @@ import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.ViewModel.CutiViewModel
 import sidiq.project.kepegawaian.databinding.FragmentCutiBinding
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
+import java.lang.Math.E
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -115,18 +116,20 @@ class CutiFragment : androidx.fragment.app.Fragment() {
 
 
         var tanggal_awal = binding?.tanggalAwal?.text.toString()
-        var awal = tanggal_awal.toInt()
+       // var awal = tanggal_awal.toInt()
         var tanggal_akhir = binding?.tanggalAkhir?.text.toString()
-        var akhir = tanggal_akhir.toInt()
+      //  var akhir = tanggal_akhir.toInt()
         var calender = Calendar.getInstance()
-        var time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+        val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+
+        Log.e("data tanggal  ","$time")
 
 
         var retrofit = ApiServices.restApi()
         retrofit.InsertCuti(
             nip!!,
-            awal,
-            akhir,
+            tanggal_awal,
+            tanggal_akhir,
             alasan_cuti,
             time,
             lama_cuti,
