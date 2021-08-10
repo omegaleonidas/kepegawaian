@@ -11,8 +11,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_home2"
-            app:destination="@id/home2" />
+            android:id="@+id/action_loginFragment_to_loginOTP"
+            app:destination="@id/loginOTP" />
     </fragment>
     <activity
         android:id="@+id/home2"
@@ -37,9 +37,6 @@
             app:exitAnim="@anim/fragment_close_exit"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
-            android:id="@+id/action_menuLogin_to_loginOTP"
-            app:destination="@id/loginOTP" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

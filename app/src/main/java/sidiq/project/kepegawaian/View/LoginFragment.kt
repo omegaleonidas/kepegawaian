@@ -18,10 +18,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
+import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.ID
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.KEY_TOKEN
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NIP
+import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NOHP
 import sidiq.project.kepegawaian.ViewModel.RegisterViewModel
 import sidiq.project.kepegawaian.databinding.FragmentLoginBinding
 import sidiq.project.kepegawaian.model.DataItem
@@ -114,10 +116,13 @@ class LoginFragment : Fragment() {
                     shareferenceManager?.saveToken(KEY_TOKEN,user?.token!!)
                     shareferenceManager?.saveNip(NIP,user?.user!!.nip!!)
                     shareferenceManager?.saveId(ID,user?.user!!.id!!)
+                    shareferenceManager?.saveNoHp(NOHP,user?.user!!.nohp!!)
+                    navControler.navigate(R.id.action_loginFragment_to_loginOTP)
 
-                    val intent = Intent(requireContext(),Home::class.java)
-                    startActivity(intent)
-                    requireActivity().finish()
+                  //  val intent = Intent(requireContext(),Home::class.java)
+//                    startActivity(intent)
+//                    requireActivity().finish()
+//
                 }
 
             }else{

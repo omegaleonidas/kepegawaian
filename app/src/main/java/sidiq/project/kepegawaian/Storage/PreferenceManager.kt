@@ -17,6 +17,8 @@ class PreferenceManager (private  val context: Context) {
         const val KEY_TOKEN = "key_token"
         const val ID = "id_pegawai"
         const val NIP = "nip"
+        const val NOHP = "no_hp"
+
     }
 
 
@@ -49,4 +51,15 @@ class PreferenceManager (private  val context: Context) {
     fun getId()  :Int?{
         return sharePreference.getInt(ID,0)
     }
+
+
+    fun saveNoHp( key:String,value: Int){
+        editor.putInt(key,value)
+        editor.apply()
+    }
+
+    fun getNoHp()  :Int?{
+        return sharePreference.getInt(NOHP,0)
+    }
+
 }

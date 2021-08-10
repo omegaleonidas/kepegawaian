@@ -58,7 +58,7 @@ class menuLogin : Fragment(), View.OnClickListener {
 
                 override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    navControler.navigate(R.id.action_menuLogin_to_loginOTP)
+              //      navControler.navigate(R.id.action_menuLogin_to_loginOTP)
 
                 }
 

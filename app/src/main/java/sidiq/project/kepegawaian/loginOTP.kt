@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.View.Home
 import java.util.concurrent.TimeUnit
 
@@ -21,8 +22,11 @@ class loginOTP : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    private var sharedPreferences: PreferenceManager? = null
+
+
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    lateinit var navControler: NavController
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,7 @@ class loginOTP : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        sharedPreferences = PreferenceManager(this)
 //        Reference
         val Login = findViewById<Button>(R.id.loginBtn)
 
@@ -78,8 +83,12 @@ class loginOTP : AppCompatActivity() {
     }
 
     private fun login() {
-        val mobileNumber = findViewById<EditText>(R.id.phoneNumber)
-        var number = mobileNumber.text.toString().trim()
+
+
+        val mobileNumber = "" +sharedPreferences?.getNoHp()!!
+        var number = mobileNumber
+
+        Log.e("nomor telepon terbaca",""+sharedPreferences?.getNoHp()!!)
 
         if (!number.isEmpty()) {
             number = "+62" + number

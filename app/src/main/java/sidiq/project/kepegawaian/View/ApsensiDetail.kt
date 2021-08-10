@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_apsensi_detail.*
 import sidiq.project.kepegawaian.R
 import java.io.File
 import java.util.*
+import kotlin.math.log
 
 private const val REQUEST_CODE = 42
 private lateinit var photoFile: File
@@ -44,26 +45,14 @@ class ApsensiDetail : AppCompatActivity() {
         tvTanggal.text = "$time"
 
 
-//        imageView.setOnClickListener {
-//            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//            photoFile = getPhotoFile(FIlE_NAME)
-//            // work for API >=24 (start 2026)
-//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
-//            val fileProvider =
-//                FileProvider.getUriForFile(
-//                    this,
-//                    "sidiq.project.kepegawaian.fileprovider",
-//                    photoFile
-//                )
-//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-//            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
-//                startActivityForResult(takePictureIntent, REQUEST_CODE)
-//            } else {
-//                Toast.makeText(this, "unable to open camera", Toast.LENGTH_SHORT).show()
-//            }
-//
-//
-//        }
+
+
+
+
+
+
+
+
 
         btnGetLocation.setOnClickListener {
             //check permission
@@ -88,10 +77,10 @@ class ApsensiDetail : AppCompatActivity() {
 
     }
 
-    private fun getPhotoFile(fileName: String): File {
-        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(fileName, ".jpg", storageDirectory)
-    }
+
+
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -173,16 +162,27 @@ class ApsensiDetail : AppCompatActivity() {
                         var address: String = addresses[0].getAddressLine(0)
                         tvAddress.text = address
 
-                        var jarak = getDistance(latitude,longitude,latitude,longitude)
-                        Log.e("jarak lokasi = ","$jarak")
+                        var jarak = getDistance(-0.469531,100.3663178,latitude,longitude)
+
+                        if (jarak!! <=50.00){
+
+                            Log.e("bisa ambil apsen ","$jarak")
+                        }else{
+                            Log.e("tidak bisa ambil absen","$jarak ")
+                        }
+
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
                         }
+
                     }
                 }
             }, Looper.getMainLooper())
 
     }
+
+
+
 
 
 
