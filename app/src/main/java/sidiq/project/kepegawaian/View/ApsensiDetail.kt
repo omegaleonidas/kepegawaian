@@ -9,14 +9,12 @@ import android.location.Geocoder
 import android.os.Bundle
 import android.os.Environment
 import android.os.Looper
-import android.provider.MediaStore
-import android.text.format.DateFormat
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
@@ -46,26 +44,26 @@ class ApsensiDetail : AppCompatActivity() {
         tvTanggal.text = "$time"
 
 
-        imageView.setOnClickListener {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            photoFile = getPhotoFile(FIlE_NAME)
-            // work for API >=24 (start 2026)
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
-            val fileProvider =
-                FileProvider.getUriForFile(
-                    this,
-                    "sidiq.project.kepegawaian.fileprovider",
-                    photoFile
-                )
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_CODE)
-            } else {
-                Toast.makeText(this, "unable to open camera", Toast.LENGTH_SHORT).show()
-            }
-
-
-        }
+//        imageView.setOnClickListener {
+//            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            photoFile = getPhotoFile(FIlE_NAME)
+//            // work for API >=24 (start 2026)
+//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
+//            val fileProvider =
+//                FileProvider.getUriForFile(
+//                    this,
+//                    "sidiq.project.kepegawaian.fileprovider",
+//                    photoFile
+//                )
+//            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
+//            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
+//                startActivityForResult(takePictureIntent, REQUEST_CODE)
+//            } else {
+//                Toast.makeText(this, "unable to open camera", Toast.LENGTH_SHORT).show()
+//            }
+//
+//
+//        }
 
         btnGetLocation.setOnClickListener {
             //check permission
@@ -163,13 +161,20 @@ class ApsensiDetail : AppCompatActivity() {
 
                         var latitude = locationResult.locations.get(locIndex).latitude
                         var longitude = locationResult.locations.get(locIndex).longitude
-                        tvLatitude.text = "Latitude: " + latitude
+
+
+                        tvLatitude.text = "$latitude"
+                        Log.e("latitude","$latitude")
                         tvLongitude.text = "Longitude: " + longitude
 
                         addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
+
                         var address: String = addresses[0].getAddressLine(0)
                         tvAddress.text = address
+
+                        var jarak = getDistance(latitude,longitude,latitude,longitude)
+                        Log.e("jarak lokasi = ","$jarak")
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
                         }
@@ -178,6 +183,37 @@ class ApsensiDetail : AppCompatActivity() {
             }, Looper.getMainLooper())
 
     }
+
+
+
+    private fun getDistance(
+        latitudeTujuan: Double,
+        longitudeTujuan: Double,
+        latitudeUser: Double,
+        longitudeUser: Double
+    ): Double? {
+        /* VARIABLE */
+        val pi = 3.14159265358979
+        val R = 6371e3
+        val latRad1 = latitudeTujuan * (pi / 180)
+        val latRad2 = latitudeUser * (pi / 180)
+        val deltaLatRad = (latitudeUser - latitudeTujuan) * (pi / 180)
+        val deltaLonRad = (longitudeUser - longitudeTujuan) * (pi / 180)
+
+        /* RUMUS HAVERSINE */
+        val a =
+            Math.sin(deltaLatRad / 2) * Math.sin(deltaLatRad / 2) + Math.cos(
+                latRad1
+            ) * Math.cos(latRad2) * Math.sin(deltaLonRad / 2) * Math.sin(
+                deltaLonRad / 2
+            )
+        val c =
+            2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return R * c
+    }
+
+
+
 
 
 }
