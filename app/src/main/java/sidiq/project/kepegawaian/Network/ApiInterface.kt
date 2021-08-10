@@ -3,6 +3,7 @@ package sidiq.project.kepegawaian.Network
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.*
+import sidiq.project.kepegawaian.model.absensi.Absensi
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
 import sidiq.project.kepegawaian.model.informasi.InformasiResponse
@@ -33,10 +34,6 @@ interface ApiInterface {
 
 
 
-
-
-
-
     @POST("ApiCutiTambah")
     fun InsertCuti(
         @Query("nip") nip: Int,
@@ -46,6 +43,21 @@ interface ApiInterface {
         @Query("tanggal") tanggal: String,
         @Query("lama_cuti")lama_cuti: Int, @Header("Authorization") token:String)
     : Call<CutiResponse>
+
+
+    @POST("ApiAbsensi")
+    fun InsertAbsensi(
+        @Query("nip") nip: Int,
+        @Query("tanggal")tanggal: String,
+        @Query("jam_masuk")jam_masuk:String,
+        @Query("alamat")alamat:String,
+        @Query("keterangan")keterangan:String, @Header("Authorization") token:String)
+    :Call<absensiResponse>
+
+
+
+
+
 
 
 

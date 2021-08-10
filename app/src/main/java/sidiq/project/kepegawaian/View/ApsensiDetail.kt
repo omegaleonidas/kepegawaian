@@ -20,7 +20,12 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_apsensi_detail.*
+import retrofit2.Call
+import retrofit2.Response
+import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.R
+import sidiq.project.kepegawaian.Storage.PreferenceManager
+import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import java.io.File
 import java.util.*
 import kotlin.math.log
@@ -28,6 +33,7 @@ import kotlin.math.log
 private const val REQUEST_CODE = 42
 private lateinit var photoFile: File
 private const val FIlE_NAME = "photo.jpg"
+private var sharedPreferences: PreferenceManager? = null
 
 class ApsensiDetail : AppCompatActivity() {
 
@@ -35,14 +41,25 @@ class ApsensiDetail : AppCompatActivity() {
         private val REQUEST_PERMISSION_REQUEST_CODE = 2020
     }
 
+    val c = Calendar.getInstance()
+    val year = c.get(Calendar.YEAR)
+    val month = c.get(Calendar.MONTH)
+    val day = c.get(Calendar.DAY_OF_MONTH)
+
+    val date = "" + year + "-" + month + "-" + day
+
+
+    var calender = Calendar.getInstance()
+    val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apsensi_detail)
+        sharedPreferences = PreferenceManager(this)
 
-        var calender = Calendar.getInstance()
-        val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
         tvTanggal.text = "$time"
+
 
 
 
@@ -71,11 +88,13 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
                 getCurrentLocation()
+
             }
         }
 
 
     }
+
 
 
 
@@ -109,6 +128,39 @@ class ApsensiDetail : AppCompatActivity() {
             }
         }
     }
+
+    //nip:Int,tanggal:String,jam_masuk:String,alamat:String,keterangan:String
+
+    private fun InsertAbsensi(){
+        val retrofit = ApiServices.restApi()
+
+        val c = Calendar.getInstance()
+
+
+        retrofit.InsertAbsensi(sharedPreferences?.getNip()!!,date,time,
+            "secata b","hadir","Bearer " + sharedPreferences?.getToken())
+            .enqueue(object :retrofit2.Callback<absensiResponse>{
+                override fun onFailure(call: Call<absensiResponse>, t: Throwable) {
+              Log.e("res tidak masuk ",t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<absensiResponse>,
+                    response: Response<absensiResponse>
+                ) {
+                   Log.e("data abnsensi tersimpan","")
+                }
+
+            })
+
+
+
+
+
+
+
+    }
+
 
     private fun getCurrentLocation() {
 
@@ -162,12 +214,13 @@ class ApsensiDetail : AppCompatActivity() {
                         var address: String = addresses[0].getAddressLine(0)
                         tvAddress.text = address
 
-                        var jarak = getDistance(-0.469531,100.3663178,latitude,longitude)
+                        var jarak = getDistance(latitude,longitude,latitude,longitude)
 
                         if (jarak!! <=50.00){
-
+                            InsertAbsensi()
                             Log.e("bisa ambil apsen ","$jarak")
                         }else{
+
                             Log.e("tidak bisa ambil absen","$jarak ")
                         }
 
