@@ -110,26 +110,26 @@ class ProfileFragment : Fragment() {
                     response: Response<PegawaiRespon>
                 ) {
 
-                    var respon = response.body()
-                    var data = response.body()!!.data
-                    if (response.isSuccessful) {
-                        Log.e("data pegawai masuk", "$respon")
 
-                        if (data != null){
-                            binding?.tvEmail!!.setText(respon!!.data.pegawai.email)
-                            binding?.tvAgama!!.setText(respon!!.data.pegawai.nama_agama)
-                            binding?.tvAlamat!!.setText(respon!!.data.pegawai.alamat)
-                            binding?.tvTanggalMasuk1!!.setText(respon!!.data.pegawai.tgl_masuk)
-                            binding?.tvTelepon!!.setText(respon!!.data.pegawai.no_tlp)
-                            binding?.tvNama!!.setText(respon!!.data.pegawai.nama_pegawai)
-                            binding?.tvNip!!.setText(respon!!.data.pegawai.nip)
-                            binding?.tvPendidikanTerakhir!!.setText(respon!!.data.pegawai.pendidikan)
+                    val data = response.body()?.data
+                    if (response.isSuccessful) {
+                        Log.e("data pegawai masuk", "$data")
+
+                        if (data?.pegawai != null){
+                            binding?.tvEmail!!.setText(data.pegawai.email)
+                            binding?.tvAgama!!.setText(data.pegawai.nama_agama)
+                            binding?.tvAlamat!!.setText(data.pegawai.alamat)
+                            binding?.tvTanggalMasuk1!!.setText(data.pegawai.tgl_masuk)
+                            binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
+                            binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
+                            binding?.tvNip!!.setText(data.pegawai.nip)
+                            binding?.tvPendidikanTerakhir!!.setText(data.pegawai.pendidikan)
                         }else{
                             Toast.makeText(requireContext(), "data belum di tambah", Toast.LENGTH_SHORT).show()
                         }
                         
                     } else {
-                        Log.e("data tidak masuk", "$respon")
+                        Log.e("data tidak masuk", "$data")
                     }
                 }
 

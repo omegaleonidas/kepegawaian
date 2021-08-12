@@ -21,6 +21,7 @@ import sidiq.project.kepegawaian.adapter.AdapterInformasi
 import sidiq.project.kepegawaian.databinding.ActivityMainBinding
 import sidiq.project.kepegawaian.databinding.FragmentRiwayatBinding
 import sidiq.project.kepegawaian.model.absensi.Absensi
+
 import sidiq.project.kepegawaian.model.absensi.DataItemAbsensi
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import sidiq.project.kepegawaian.model.informasi.Informasi
@@ -57,7 +58,7 @@ class RiwayatFragment : Fragment() {
 
     fun getData() {
         val retrofit = ApiServices.restApi()
-        retrofit.getRiwayatabsensi(sharedPreferences?.getId()!!, "Bearer " + sharedPreferences?.getToken()).enqueue(object : retrofit2.Callback<absensiResponse> {
+        retrofit.getRiwayatabsensi(sharedPreferences?.getNip()!!, "Bearer " + sharedPreferences?.getToken()).enqueue(object : retrofit2.Callback<absensiResponse> {
             override fun onFailure(call: Call<absensiResponse>, t: Throwable) {
                 Log.e("",t.message)
             }

@@ -6,12 +6,13 @@ import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,10 +26,12 @@ import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
+import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
+import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
+
 import java.io.File
 import java.util.*
-import kotlin.math.log
 
 private const val REQUEST_CODE = 42
 private lateinit var photoFile: File
@@ -41,12 +44,23 @@ class ApsensiDetail : AppCompatActivity() {
         private val REQUEST_PERMISSION_REQUEST_CODE = 2020
     }
 
-    val c = Calendar.getInstance()
+
+    var tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
+    val c = Calendar.getInstance(tz)
     val year = c.get(Calendar.YEAR)
     val month = c.get(Calendar.MONTH)
     val day = c.get(Calendar.DAY_OF_MONTH)
+    val hour = c.get(Calendar.HOUR_OF_DAY)
+    val minute = c.get(Calendar.MINUTE)
+    val second = c.get(Calendar.MILLISECOND)
+
+    var lat: Double = 0.0
+    var jarak: Double? = 0.0
+    var lokasi: String? = null
+
 
     val date = "" + year + "-" + month + "-" + day
+    val waktu = "" + hour + ":" + minute
 
 
     var calender = Calendar.getInstance()
@@ -60,6 +74,57 @@ class ApsensiDetail : AppCompatActivity() {
 
         tvTanggal.text = "$time"
 
+
+        Log.e("jumlah jam ", "" + hour)
+
+
+
+
+
+
+            btnAbsensiPagi.setOnClickListener {
+                //check permission
+                if (ContextCompat.checkSelfPermission(
+                        applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this@ApsensiDetail,
+                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        , REQUEST_PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    tvAddress.text = ""
+                    tvLatitude.text = ""
+                    tvLongitude.text = ""
+                    loader.visibility = View.VISIBLE
+                    Toast.makeText(applicationContext, "telah melakukan absensi", Toast.LENGTH_SHORT).show()
+                    getCurrentLocation()
+                    tambahAbsensi()
+                }
+            }
+
+        btnAbsensiSore.setOnClickListener {
+            //check permission
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this@ApsensiDetail,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    , REQUEST_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                tvAddress.text = ""
+                tvLatitude.text = ""
+                tvLongitude.text = ""
+                loader.visibility = View.VISIBLE
+                Toast.makeText(applicationContext, "telah melakukan absensi sore ", Toast.LENGTH_SHORT).show()
+                getCurrentLocation()
+                tambahAbsensiSore()
+            }
+        }
 
 
 
@@ -87,18 +152,14 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
-                getCurrentLocation()
+
+
 
             }
         }
 
 
     }
-
-
-
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -129,34 +190,85 @@ class ApsensiDetail : AppCompatActivity() {
         }
     }
 
-    //nip:Int,tanggal:String,jam_masuk:String,alamat:String,keterangan:String
 
-    private fun InsertAbsensi(){
+    private fun InsertAbsensi(
+        nip: Int,
+        tanggal: String,
+        jam_masuk: String,
+        alamat: String,
+        keterangan: String
+    ) {
         val retrofit = ApiServices.restApi()
 
         val c = Calendar.getInstance()
 
 
-        retrofit.InsertAbsensi(sharedPreferences?.getNip()!!,date,time,
-            "secata b","hadir","Bearer " + sharedPreferences?.getToken())
-            .enqueue(object :retrofit2.Callback<absensiResponse>{
-                override fun onFailure(call: Call<absensiResponse>, t: Throwable) {
-              Log.e("res tidak masuk ",t.message)
+        retrofit.InsertAbsensi(
+            nip, tanggal, jam_masuk,
+            alamat, keterangan, "Bearer " + sharedPreferences?.getToken()
+        )
+            .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
+                override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
                 }
 
                 override fun onResponse(
-                    call: Call<absensiResponse>,
-                    response: Response<absensiResponse>
+                    call: Call<AbsensiInsertResponse>,
+                    response: Response<AbsensiInsertResponse>
                 ) {
-                   Log.e("data abnsensi tersimpan","")
+                    val dataAbsensi = response.body()
+                    if (response.isSuccessful) {
+
+                        sharedPreferences?.saveIdAbsensi(IDABSENSI, dataAbsensi!!.data.id_absensi)
+                        Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
+
+                    }
+
+                    Log.e("data abnsensi tersimpan", "")
+
                 }
 
             })
 
 
+    }
+
+
+    private fun InsertAbsensiSore(
+
+        jam_selesai: String,
+        alamat_sore: String,
+        keterangan_sore: String
+    ) {
+        val retrofit = ApiServices.restApi()
 
 
 
+
+        retrofit.InsertAbsensiSore(
+            sharedPreferences?.getIdAbsensi()!!, jam_selesai, alamat_sore, keterangan_sore
+            , "Bearer " + sharedPreferences?.getToken()
+        )
+            .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
+                override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(
+                    call: Call<AbsensiInsertResponse>,
+                    response: Response<AbsensiInsertResponse>
+                ) {
+                    val dataAbsensi = response.body()
+                    if (response.isSuccessful) {
+
+
+                    }
+
+                    Log.e("data abnsensi tersimpan", "")
+
+                }
+
+            })
 
 
     }
@@ -193,19 +305,22 @@ class ApsensiDetail : AppCompatActivity() {
         }
         LocationServices.getFusedLocationProviderClient(this@ApsensiDetail)
             .requestLocationUpdates(locationRequest, object : LocationCallback() {
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onLocationResult(locationResult: LocationResult?) {
                     super.onLocationResult(locationResult)
                     LocationServices.getFusedLocationProviderClient(this@ApsensiDetail)
                         .removeLocationUpdates(this)
                     if (locationResult != null && locationResult.locations.size > 0) {
-                        var locIndex = locationResult.locations.size - 1
+                        val locIndex = locationResult.locations.size - 1
 
-                        var latitude = locationResult.locations.get(locIndex).latitude
-                        var longitude = locationResult.locations.get(locIndex).longitude
+                        val latitude = locationResult.locations.get(locIndex).latitude
+                        val longitude = locationResult.locations.get(locIndex).longitude
+
+                        lat = latitude
 
 
                         tvLatitude.text = "$latitude"
-                        Log.e("latitude","$latitude")
+                        Log.e("latitude", "$latitude")
                         tvLongitude.text = "Longitude: " + longitude
 
                         addresses = geocoder.getFromLocation(latitude, longitude, 1)
@@ -214,15 +329,10 @@ class ApsensiDetail : AppCompatActivity() {
                         var address: String = addresses[0].getAddressLine(0)
                         tvAddress.text = address
 
-                        var jarak = getDistance(latitude,longitude,latitude,longitude)
+                        lokasi = address
 
-                        if (jarak!! <=50.00){
-                            InsertAbsensi()
-                            Log.e("bisa ambil apsen ","$jarak")
-                        }else{
+                        jarak = getDistance(latitude, longitude, latitude, longitude)
 
-                            Log.e("tidak bisa ambil absen","$jarak ")
-                        }
 
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
@@ -234,24 +344,94 @@ class ApsensiDetail : AppCompatActivity() {
 
     }
 
+    var data: String? = null
+    private fun tambahAbsensi() {
 
+        if (jarak!! <= 5.00) {
+
+
+            if (hour <= 7 && minute <= 15) {
+
+
+                data = "hadir"
+
+
+            } else if (hour <= 7 && minute <= 30) {
+                data = "terlambat"
+
+            } else {
+                data = "alfa"
+            }
+
+
+
+            Log.e("bisa ambil apsen ", "$jarak")
+        } else {
+
+            Log.e("tidak bisa ambil absen", "$jarak ")
+        }
+
+        InsertAbsensi(
+            sharedPreferences?.getNip()!!,
+            date,
+            "$waktu",
+            "$lokasi",
+            data!!
+        )
+    }
+
+
+
+    private fun tambahAbsensiSore() {
+
+        if (jarak!! <= 1.00) {
+
+
+            if (hour <= 7 && minute <= 15) {
+
+
+                data = "hadir"
+
+
+            } else if (hour <= 7 && minute <= 30) {
+                data = "terlambat"
+
+            } else {
+                data = "alfa"
+            }
+
+
+
+            Log.e("bisa ambil apsen ", "$jarak")
+        } else {
+
+            Log.e("tidak bisa ambil absen", "$jarak ")
+        }
+
+        InsertAbsensiSore(
+
+            "$waktu",
+            lokasi!!,
+            data!!
+        )
+    }
 
 
 
 
     private fun getDistance(
-        latitudeTujuan: Double,
-        longitudeTujuan: Double,
+        latitudeSekolah: Double,
+        longitudeSekolah: Double,
         latitudeUser: Double,
         longitudeUser: Double
     ): Double? {
         /* VARIABLE */
         val pi = 3.14159265358979
         val R = 6371e3
-        val latRad1 = latitudeTujuan * (pi / 180)
+        val latRad1 = latitudeSekolah * (pi / 180)
         val latRad2 = latitudeUser * (pi / 180)
-        val deltaLatRad = (latitudeUser - latitudeTujuan) * (pi / 180)
-        val deltaLonRad = (longitudeUser - longitudeTujuan) * (pi / 180)
+        val deltaLatRad = (latitudeUser - latitudeSekolah) * (pi / 180)
+        val deltaLonRad = (longitudeUser - longitudeSekolah) * (pi / 180)
 
         /* RUMUS HAVERSINE */
         val a =
@@ -266,7 +446,6 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
-
-
-
 }
+
+

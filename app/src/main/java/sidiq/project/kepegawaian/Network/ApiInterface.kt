@@ -3,13 +3,14 @@ package sidiq.project.kepegawaian.Network
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.*
-import sidiq.project.kepegawaian.model.absensi.Absensi
+
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
+import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
 import sidiq.project.kepegawaian.model.informasi.InformasiResponse
 import sidiq.project.kepegawaian.model.login.DataUserRespon
 import sidiq.project.kepegawaian.model.pegawai.PegawaiRespon
-import java.util.*
+
 
 interface ApiInterface {
 
@@ -47,17 +48,22 @@ interface ApiInterface {
 
     @POST("ApiAbsensi")
     fun InsertAbsensi(
+
         @Query("nip") nip: Int,
         @Query("tanggal")tanggal: String,
         @Query("jam_masuk")jam_masuk:String,
         @Query("alamat")alamat:String,
         @Query("keterangan")keterangan:String, @Header("Authorization") token:String)
-    :Call<absensiResponse>
+    :Call<AbsensiInsertResponse>
 
 
-
-
-
+    @PUT("ApiAbsensiEdit/{id_absensi}")
+    fun InsertAbsensiSore(
+        @Path("id_absensi") id_absensi: Int,
+        @Query("jam_selesai")jam_selesai:String,
+        @Query("alamat_sore")alamat_sore:String,
+        @Query("keterangan_sore")keterangan_sore:String, @Header("Authorization") token:String)
+            :Call<AbsensiInsertResponse>
 
 
 

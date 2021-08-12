@@ -227,7 +227,7 @@
                 app:layout_constraintVertical_bias="0.15" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnAbsensiPagi"
                 android:layout_width="108dp"
                 android:layout_height="35dp"
                 android:background="@drawable/baground_botton"
@@ -240,7 +240,7 @@
                 app:layout_constraintVertical_bias="0.83" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button5"
+                android:id="@+id/btnAbsensiSore"
                 android:layout_width="125dp"
                 android:layout_height="40dp"
                 android:background="@drawable/baground_botton"
