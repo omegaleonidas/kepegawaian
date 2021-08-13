@@ -19,6 +19,7 @@ class PreferenceManager (private  val context: Context) {
         const val NIP = "nip"
         const val NOHP = "no_hp"
         const val IDABSENSI = "id_absensi"
+        const val NAMAPEGAWAI = "nama_pegawai"
 
     }
 
@@ -71,5 +72,18 @@ class PreferenceManager (private  val context: Context) {
     fun getNoHp()  :Int?{
         return sharePreference.getInt(NOHP,0)
     }
+
+
+    fun saveNama( key:String, value: String?){
+
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun getNama(): String? {
+
+        return sharePreference.getString(NAMAPEGAWAI,null)
+    }
+
 
 }

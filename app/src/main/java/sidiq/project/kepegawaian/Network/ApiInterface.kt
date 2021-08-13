@@ -9,6 +9,7 @@ import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
 import sidiq.project.kepegawaian.model.informasi.InformasiResponse
 import sidiq.project.kepegawaian.model.login.DataUserRespon
+import sidiq.project.kepegawaian.model.pegawai.PegawaiInsertResponse
 import sidiq.project.kepegawaian.model.pegawai.PegawaiRespon
 
 
@@ -30,10 +31,7 @@ interface ApiInterface {
     fun getInformasi(@Header("Authorization")token:String): Call<InformasiResponse>
 
 
-    @GET("pegawaiShow/{id_pegawai}")
-    fun getPegawai(@Path("id_pegawai") id_pegawai: Int, @Header("Authorization") token:String) :Call<PegawaiRespon>
-
-
+  //cuti
 
     @POST("ApiCutiTambah")
     fun InsertCuti(
@@ -45,7 +43,7 @@ interface ApiInterface {
         @Query("lama_cuti")lama_cuti: Int, @Header("Authorization") token:String)
     : Call<CutiResponse>
 
-
+//absensi
     @POST("ApiAbsensi")
     fun InsertAbsensi(
 
@@ -69,5 +67,33 @@ interface ApiInterface {
 
     @GET("detailAbsensiShow/{id_absensi}")
     fun getRiwayatabsensi(@Path("id_absensi") id_absensi : Int, @Header("Authorization") token:String) :Call<absensiResponse>
+
+
+
+    //pegawai
+    @GET("pegawaiShow/{id_pegawai}")
+    fun getPegawai(@Path("id_pegawai") id_pegawai: Int, @Header("Authorization") token:String) :Call<PegawaiRespon>
+
+
+
+//insert Pegawai
+
+    @POST("ApiPegawai")
+    fun InsertPegawai(
+
+        @Query("nip") nip: Int,
+        @Query("nama_pegawai")nama_pegawai: String,
+        @Query("jabatan_id")jabatan_id:Int,
+        @Query("email")email:String,
+        @Query("no_tlp")no_tlp:String,
+        @Query("alamat")alamat:String,
+        @Query("tgl_masuk")tgl_masuk:String,
+        @Query("tmp_lahir")tmp_lahir:String,
+        @Query("id_agama")ig_agama:Int,
+        @Query("gender")gender:String,
+        @Query("pendidikan")pendidikan:String,
+        @Query("foto")foto:String, @Header("Authorization") token:String)
+            :Call<PegawaiInsertResponse>
+
 
 }
