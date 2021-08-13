@@ -113,6 +113,8 @@ class LoginFragment : Fragment() {
                 if (response.isSuccessful){
 
                     Log.e("token1","${user?.user!!.id}")
+                    Log.e("nip", "${user?.user!!.nip}" )
+
 
                     shareferenceManager?.saveToken(KEY_TOKEN,user?.token!!)
                     shareferenceManager?.saveNip(NIP,user?.user!!.nip!!)

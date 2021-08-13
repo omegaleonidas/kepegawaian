@@ -157,6 +157,7 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
+                getCurrentLocation()
 
 
             }
@@ -390,7 +391,8 @@ class ApsensiDetail : AppCompatActivity() {
         if (jarak!! <= 1.00) {
 
 
-            if (hour <= 7 && minute <= 15) {
+            if (hour <= 17  ) {
+
 
 
                 data = "hadir"

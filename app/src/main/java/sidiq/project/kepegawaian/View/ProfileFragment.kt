@@ -94,7 +94,7 @@ class ProfileFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        tvTglMasukInput.setOnClickListener {
+        tvTglMasuk.setOnClickListener {
 
             val dpd = DatePickerDialog(
                 requireContext(),
@@ -188,12 +188,6 @@ class ProfileFragment : Fragment() {
 
         })
 
-
-//        btnEdit.setOnClickListener {
-//
-//            InsertData(isiNip, name!!, dataJabatan, em!!, "$n", alamat, th, tgl, dataAgama, lk, pen)
-//
-//        }
 
 
         btnLogout.setOnClickListener {
@@ -416,7 +410,7 @@ class ProfileFragment : Fragment() {
 
     ) {
         retrofit.UpdatePegawai(
-            sharedPreferences?.getId()!!
+            sharedPreferences?.getNip()!!
             , nip,
             nama_pegawai,
             jabatan_id,
