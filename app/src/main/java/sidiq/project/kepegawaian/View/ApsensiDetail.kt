@@ -82,27 +82,28 @@ class ApsensiDetail : AppCompatActivity() {
 
 
 
-            btnAbsensiPagi.setOnClickListener {
-                //check permission
-                if (ContextCompat.checkSelfPermission(
-                        applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@ApsensiDetail,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        , REQUEST_PERMISSION_REQUEST_CODE
-                    )
-                } else {
-                    tvAddress.text = ""
-                    tvLatitude.text = ""
-                    tvLongitude.text = ""
-                    loader.visibility = View.VISIBLE
-                    Toast.makeText(applicationContext, "telah melakukan absensi", Toast.LENGTH_SHORT).show()
-                    getCurrentLocation()
-                    tambahAbsensi()
-                }
+        btnAbsensiPagi.setOnClickListener {
+            //check permission
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this@ApsensiDetail,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    , REQUEST_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                tvAddress.text = ""
+                tvLatitude.text = ""
+                tvLongitude.text = ""
+                loader.visibility = View.VISIBLE
+                Toast.makeText(applicationContext, "telah melakukan absensi", Toast.LENGTH_SHORT)
+                    .show()
+                getCurrentLocation()
+                tambahAbsensi()
             }
+        }
 
         btnAbsensiSore.setOnClickListener {
             //check permission
@@ -120,7 +121,11 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
-                Toast.makeText(applicationContext, "telah melakukan absensi sore ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    "telah melakukan absensi sore ",
+                    Toast.LENGTH_SHORT
+                ).show()
                 getCurrentLocation()
                 tambahAbsensiSore()
             }
@@ -152,7 +157,6 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
-
 
 
             }
@@ -381,7 +385,6 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
-
     private fun tambahAbsensiSore() {
 
         if (jarak!! <= 1.00) {
@@ -415,8 +418,6 @@ class ApsensiDetail : AppCompatActivity() {
             data!!
         )
     }
-
-
 
 
     private fun getDistance(

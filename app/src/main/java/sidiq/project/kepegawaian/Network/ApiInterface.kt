@@ -76,7 +76,7 @@ interface ApiInterface {
 
 
 
-//insert Pegawai
+        //insert Pegawai
 
     @POST("ApiPegawai")
     fun InsertPegawai(
@@ -93,6 +93,23 @@ interface ApiInterface {
         @Query("gender")gender:String,
         @Query("pendidikan")pendidikan:String,
         @Query("foto")foto:String, @Header("Authorization") token:String)
+            :Call<PegawaiInsertResponse>
+
+    @PUT("ApiPegawaiEdit/{id_pegawai}")
+    fun UpdatePegawai(
+        @Path("id_pegawai") id_pegawai: Int,
+        @Query("nip") nip: Int,
+        @Query("nama_pegawai")nama_pegawai: String,
+        @Query("jabatan_id")jabatan_id:Int,
+        @Query("email")email:String,
+        @Query("no_tlp")no_tlp:String,
+        @Query("alamat")alamat:String,
+        @Query("tgl_masuk")tgl_masuk:String,
+        @Query("tmp_lahir")tmp_lahir:String,
+        @Query("id_agama")ig_agama:Int,
+        @Query("gender")gender:String,
+        @Query("pendidikan")pendidikan:String,
+                @Query("foto")foto:String, @Header("Authorization") token:String)
             :Call<PegawaiInsertResponse>
 
 

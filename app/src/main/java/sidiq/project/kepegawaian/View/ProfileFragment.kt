@@ -41,7 +41,9 @@ class ProfileFragment : Fragment() {
     var dataJabatan: Int = 0
     var jenisKelamin: String? = null
     var name: String? = null
+    var namee: String? = null
     var isiNip: Int = 0
+
     var n: Int? = 0
     var alamat: String? = null
     var em: String? = null
@@ -92,16 +94,21 @@ class ProfileFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        tvTglMasukInput.setOnClickListener{
+        tvTglMasukInput.setOnClickListener {
 
-            val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                // Display Selected date in TextView
-                tvTglMasukInput.setText("" + year + "-" + month + "-" + dayOfMonth)
-            }, year, month, day)
+            val dpd = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in TextView
+                    tvTglMasukInput.setText("" + year + "-" + month + "-" + dayOfMonth)
+                },
+                year,
+                month,
+                day
+            )
             dpd.show()
 
         }
-
 
 
         val agamas = resources.getStringArray(R.array.agama)
@@ -156,7 +163,7 @@ class ProfileFragment : Fragment() {
                 id: Long
             ) {
 
-                jenisKelamin = parent?.getItemIdAtPosition(position).toString()
+                jenisKelamin = parent?.getItemAtPosition(position).toString()
 
 
             }
@@ -279,31 +286,65 @@ class ProfileFragment : Fragment() {
                         if (data?.pegawai != null) {
                             binding?.tvNip!!.setText(data.pegawai.nip)
                             binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
-                            binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
+                           // binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
                             binding?.tvEmail!!.setText(data.pegawai.email)
                             binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
                             binding?.tvAlamat!!.setText(data.pegawai.alamat)
                             binding?.tvTglMasukInput!!.setText(data.pegawai.tgl_masuk)
                             binding?.tvTglLahirInput!!.setText(data.pegawai.tmp_lahir)
-                            binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
-                            binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
+                           // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
+                          //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
 
                             binding?.btnEdit!!.setText("edit")
+                            btnEdit.setOnClickListener {
+
+                                isiNip = sharedPreferences?.getNip()!!
+                                namee = binding?.tvAlamat?.text.toString()
+                                //jabatanID
+                                em = binding?.tvEmail?.text.toString()
+
+                                //   val no = binding?.tvTelepon!!.setText(n!!)
+                                alamat = binding?.tvAlamat?.text.toString()
+                                th = binding?.tvTglMasukInput?.text.toString()
+                                tgl = binding?.tvTglLahirInput?.text.toString()
+//                                id_agama
+                                //gender
+                                pen = binding?.tvPendidikanInput?.text.toString()
+
+                                Log.e("data jenis :", "$jenisKelamin!!")
+
+                                UpdateData(
+                                    isiNip,
+                                    namee!!,
+                                    dataJabatan,
+                                    em!!,
+                                    "$n",
+                                    alamat!!,
+                                    th!!,
+                                    tgl!!,
+                                    dataAgama,
+                                    jenisKelamin!!,
+                                    pen!!
+                                )
+
+
+                            }
 
                         } else {
-                            binding?.tvNip!!.setText(sharedPreferences?.getNip()!!)
-                            binding?.tvTelepon!!.setText(sharedPreferences?.getNoHp()!!)
+
+                            Log.e("nip :", " " + sharedPreferences?.getNip()!!)
+                            tvNip.setText("" + sharedPreferences?.getNip()!!)
+                            binding?.tvTelepon!!.setText("" + sharedPreferences?.getNoHp()!!)
 
 
                             btnEdit.setOnClickListener {
-
                                 isiNip = sharedPreferences?.getNip()!!
                                 name = sharedPreferences?.getNama()
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                             //   val no = binding?.tvTelepon!!.setText(n!!)
+                                //   val no = binding?.tvTelepon!!.setText(n!!)
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()
@@ -326,11 +367,16 @@ class ProfileFragment : Fragment() {
                                     pen!!
                                 )
 
+
+
+
+
+
                                 Log.e("email tidak ada ", "$")
 
                                 Toast.makeText(
                                     requireContext(),
-                                    "button telah di clik $n",
+                                    " Data Pegawai Telah Disimpan ",
                                     Toast.LENGTH_SHORT
                                 ).show()
 
@@ -355,8 +401,57 @@ class ProfileFragment : Fragment() {
     }
 
 
-    fun Edit() {
+    private fun UpdateData(
+        nip: Int,
+        nama_pegawai: String,
+        jabatan_id: Int,
+        email: String,
+        no_tlp: String,
+        alamat: String,
+        tgl_masuk: String,
+        tmp_lahir: String,
+        id_agama: Int,
+        gender: String,
+        pendidikan: String
 
+    ) {
+        retrofit.UpdatePegawai(
+            sharedPreferences?.getId()!!
+            , nip,
+            nama_pegawai,
+            jabatan_id,
+            email,
+            no_tlp,
+            alamat,
+            tgl_masuk,
+            tmp_lahir,
+            id_agama,
+            gender,
+            pendidikan,
+            "foto",
+            "Bearer " + sharedPreferences?.getToken()
+        ).enqueue(object : retrofit2.Callback<PegawaiInsertResponse> {
+            override fun onFailure(call: Call<PegawaiInsertResponse>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<PegawaiInsertResponse>,
+                response: Response<PegawaiInsertResponse>
+
+
+            ) {
+                val dataPegawai = response.body()
+                if (response.isSuccessful) {
+
+                    Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
+
+                }
+
+
+            }
+
+        })
     }
 
 }

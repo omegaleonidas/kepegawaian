@@ -51,7 +51,7 @@ class PreferenceManager (private  val context: Context) {
     }
 
     fun getId()  :Int?{
-        return sharePreference.getInt(IDABSENSI,0)
+        return sharePreference.getInt(ID,0)
     }
 
     fun saveIdAbsensi( key:String,value: Int){
