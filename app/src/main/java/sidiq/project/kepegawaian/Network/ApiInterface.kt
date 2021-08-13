@@ -3,6 +3,7 @@ package sidiq.project.kepegawaian.Network
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Call
 import retrofit2.http.*
+import sidiq.project.kepegawaian.model.absensi.DataInformasiAbsensiRespon
 
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
@@ -111,6 +112,11 @@ interface ApiInterface {
         @Query("pendidikan")pendidikan:String,
                 @Query("foto")foto:String, @Header("Authorization") token:String)
             :Call<PegawaiInsertResponse>
+
+
+    @GET("ApiHitung/{id_absensi}")
+    fun getInformasiAbsensi(@Path("id_absensi") id_absensi : Int, @Header("Authorization") token:String) :Call<DataInformasiAbsensiRespon>
+
 
 
 }
