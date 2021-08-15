@@ -62,7 +62,7 @@ class ApsensiFragment : Fragment() {
             "Bearer " + sharedPreferences?.getToken()
         ).enqueue(object : retrofit2.Callback<DataInformasiAbsensiRespon> {
             override fun onFailure(call: Call<DataInformasiAbsensiRespon>, t: Throwable) {
-
+                Log.e("data failure", t.message )
             }
 
             override fun onResponse(
@@ -71,6 +71,10 @@ class ApsensiFragment : Fragment() {
             ) {
                 val informasidata = response.body()
                 if (response.isSuccessful) {
+
+                    binding?.TvAlfa?.setText(""+informasidata!!.data.alfa)
+                    binding?.TvHadir?.setText(""+informasidata!!.data.hadir)
+                    binding?.TvIzin?.setText(""+informasidata!!.data.cuti)
 
                     Log.e("data alfa", "${informasidata!!.data.alfa} ")
                 }
