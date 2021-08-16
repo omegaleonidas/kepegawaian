@@ -14,7 +14,7 @@ data class User(
 	val emailVerifiedAt: Any? = null,
 	val id: Int? = null,
 	val nip:Int? = null,
-	val nohp:Int? = null,
+	val nohp:Long? = null,
 	val email: String? = null
 )
 

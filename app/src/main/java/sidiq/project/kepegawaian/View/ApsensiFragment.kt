@@ -75,6 +75,11 @@ class ApsensiFragment : Fragment() {
                     binding?.TvAlfa?.setText(""+informasidata!!.data.alfa)
                     binding?.TvHadir?.setText(""+informasidata!!.data.hadir)
                     binding?.TvIzin?.setText(""+informasidata!!.data.cuti)
+                    binding?.TvAlfaSore?.setText(""+informasidata!!.data.alfa_sore)
+                    binding?.TvHadirSore?.setText(""+informasidata!!.data.hadir_sore)
+                    binding?.TvTerlambat?.setText(""+informasidata!!.data.terlambat)
+                    binding?.TvTerlambatSore?.setText(""+informasidata!!.data.terlambat_sore)
+
 
                     Log.e("data alfa", "${informasidata!!.data.alfa} ")
                 }

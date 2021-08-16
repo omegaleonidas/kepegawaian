@@ -54,15 +54,15 @@ class ProfileFragment : Fragment() {
     var namee: String? = null
     var isiNip: Int = 0
 
-    var n: Int? = 0
+    var n: Long? = 0
     var alamat: String? = null
     var em: String? = null
     var pen: String? = null
     var th: String? = null
     var tgl: String? = null
     var ph: String? = null
-    private val GALLERY = 1
-    private val CAMERA = 2
+    val GALLERY = 1
+    val CAMERA = 2
     var lk: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -292,20 +292,20 @@ class ProfileFragment : Fragment() {
                     val data = response.body()?.data
                     if (response.isSuccessful) {
 
-                        n = sharedPreferences?.getNoHp()!!
-                        Log.e("data pegawai masuk", "$data")
+                        n = sharedPreferences?.getNoHp()!!.toLong()
+                        Log.e("data pegawai masuk", "${data?.pegawai?.no_tlp}")
 
                         if (data?.pegawai != null) {
                             binding?.tvNip!!.setText(data.pegawai.nip)
                             binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
-                           // binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
+                            // binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
                             binding?.tvEmail!!.setText(data.pegawai.email)
                             binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
                             binding?.tvAlamat!!.setText(data.pegawai.alamat)
                             binding?.tvTglMasukInput!!.setText(data.pegawai.tgl_masuk)
                             binding?.tvTglLahirInput!!.setText(data.pegawai.tmp_lahir)
-                           // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
-                          //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
+                            // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
+                            //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
 
                             binding?.btnEdit!!.setText("edit")
@@ -356,7 +356,7 @@ class ProfileFragment : Fragment() {
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                                //   val no = binding?.tvTelepon!!.setText(n!!)
+                                  val no = binding?.tvTelepon!!.setText(""+n!!)
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()
@@ -417,7 +417,8 @@ class ProfileFragment : Fragment() {
         val pictureDialog = AlertDialog.Builder(requireContext())
         pictureDialog.setTitle("Select Action")
         val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
-        pictureDialog.setItems(pictureDialogItems
+        pictureDialog.setItems(
+            pictureDialogItems
         ) { dialog, which ->
             when (which) {
                 0 -> choosePhotoFromGallary()
@@ -428,8 +429,10 @@ class ProfileFragment : Fragment() {
     }
 
     fun choosePhotoFromGallary() {
-        val galleryIntent = Intent(Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val galleryIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
 
         startActivityForResult(galleryIntent, GALLERY)
     }
@@ -441,36 +444,33 @@ class ProfileFragment : Fragment() {
         startActivityForResult(intent, CAMERA)
     }
 
-    public override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         super.onActivityResult(requestCode, resultCode, data)
 /* if (resultCode == this.RESULT_CANCELED)
 {
 return
 }*/
-        if (requestCode == GALLERY)
-        {
-            if (data != null)
-            {
+        if (requestCode == GALLERY) {
+            if (data != null) {
                 val contentURI = data!!.data
-                try
-                {
-                    val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, contentURI)
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(
+                        requireContext().contentResolver,
+                        contentURI
+                    )
                     val path = saveImage(bitmap)
                     Toast.makeText(requireContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
                     binding?.imageView2!!.setImageBitmap(bitmap)
 
-                }
-                catch (e: IOException) {
+                } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(requireContext(), "Failed!", Toast.LENGTH_SHORT).show()
                 }
 
             }
 
-        }
-        else if (requestCode == CAMERA)
-        {
+        } else if (requestCode == CAMERA) {
             val thumbnail = data!!.extras!!.get("data") as Bitmap
             binding?.imageView2!!.setImageBitmap(thumbnail)
             saveImage(thumbnail)
@@ -478,36 +478,38 @@ return
         }
     }
 
-    fun saveImage(myBitmap: Bitmap):String {
+    fun saveImage(myBitmap: Bitmap): String {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
-            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
+            (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
+        )
 // have the object build the directory structure, if needed.
-        Log.d("fee",wallpaperDirectory.toString())
-        if (!wallpaperDirectory.exists())
-        {
+        Log.d("fee", wallpaperDirectory.toString())
+        if (!wallpaperDirectory.exists()) {
 
             wallpaperDirectory.mkdirs()
         }
 
-        try
-        {
-            Log.d("heel",wallpaperDirectory.toString())
-            val f = File(wallpaperDirectory, ((Calendar.getInstance()
-                .getTimeInMillis()).toString() + ".jpg"))
+        try {
+            Log.d("heel", wallpaperDirectory.toString())
+            val f = File(
+                wallpaperDirectory, ((Calendar.getInstance()
+                    .getTimeInMillis()).toString() + ".jpg")
+            )
             f.createNewFile()
             val fo = FileOutputStream(f)
             fo.write(bytes.toByteArray())
-            MediaScannerConnection.scanFile(requireContext(),
+            MediaScannerConnection.scanFile(
+                requireContext(),
                 arrayOf(f.getPath()),
-                arrayOf("image/jpeg"), null)
+                arrayOf("image/jpeg"), null
+            )
             fo.close()
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
 
             return f.getAbsolutePath()
-        }
-        catch (e1: IOException) {
+        } catch (e1: IOException) {
             e1.printStackTrace()
         }
 
@@ -517,9 +519,6 @@ return
     companion object {
         private val IMAGE_DIRECTORY = "/bayunugrohoweb"
     }
-
-
-
 
 
     private fun UpdateData(

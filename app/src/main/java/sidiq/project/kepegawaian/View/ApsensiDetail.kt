@@ -33,9 +33,7 @@ import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
 import java.io.File
 import java.util.*
 
-private const val REQUEST_CODE = 42
-private lateinit var photoFile: File
-private const val FIlE_NAME = "photo.jpg"
+
 private var sharedPreferences: PreferenceManager? = null
 
 class ApsensiDetail : AppCompatActivity() {
@@ -72,8 +70,8 @@ class ApsensiDetail : AppCompatActivity() {
         setContentView(R.layout.activity_apsensi_detail)
         sharedPreferences = PreferenceManager(this)
 
-        tvTanggal.text = "$time"
-
+        tvTanggal.text = time
+        getCurrentLocation()
 
         Log.e("jumlah jam ", "" + hour)
 
@@ -98,8 +96,7 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
-                Toast.makeText(applicationContext, "telah melakukan absensi", Toast.LENGTH_SHORT)
-                    .show()
+
                 getCurrentLocation()
                 tambahAbsensi()
             }
@@ -121,11 +118,7 @@ class ApsensiDetail : AppCompatActivity() {
                 tvLatitude.text = ""
                 tvLongitude.text = ""
                 loader.visibility = View.VISIBLE
-                Toast.makeText(
-                    applicationContext,
-                    "telah melakukan absensi sore ",
-                    Toast.LENGTH_SHORT
-                ).show()
+
                 getCurrentLocation()
                 tambahAbsensiSore()
             }
@@ -167,17 +160,17 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            //  val takenImage = data?.extras?.get("data") as Bitmap
-            val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-            imageView.setImageBitmap(takenImage)
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-
-
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            //  val takenImage = data?.extras?.get("data") as Bitmap
+//            val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
+//            imageView.setImageBitmap(takenImage)
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data)
+//        }
+//
+//
+//    }
 
 
     override fun onRequestPermissionsResult(
@@ -263,7 +256,7 @@ class ApsensiDetail : AppCompatActivity() {
                     call: Call<AbsensiInsertResponse>,
                     response: Response<AbsensiInsertResponse>
                 ) {
-                    val dataAbsensi = response.body()
+
                     if (response.isSuccessful) {
 
 
@@ -338,6 +331,7 @@ class ApsensiDetail : AppCompatActivity() {
 
                         jarak = getDistance(latitude, longitude, latitude, longitude)
 
+                       // -0.9095887, 100.3531456, latitude, longitude
 
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
@@ -352,8 +346,12 @@ class ApsensiDetail : AppCompatActivity() {
     var data: String? = null
     private fun tambahAbsensi() {
 
-        if (jarak!! <= 5.00) {
+        if (jarak!! <= 1.00) {
 
+
+
+            Toast.makeText(applicationContext, "telah melakukan absensi pagi", Toast.LENGTH_SHORT)
+                .show()
 
             if (hour <= 7 && minute <= 15) {
 
@@ -367,29 +365,34 @@ class ApsensiDetail : AppCompatActivity() {
             } else {
                 data = "alfa"
             }
+            InsertAbsensi(
+                sharedPreferences?.getNip()!!,
+                date,
+                "$waktu",
+                "$lokasi",
+                data!!
+            )
 
 
 
             Log.e("bisa ambil apsen ", "$jarak")
         } else {
-
+            Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
 
-        InsertAbsensi(
-            sharedPreferences?.getNip()!!,
-            date,
-            "$waktu",
-            "$lokasi",
-            data!!
-        )
+
     }
 
 
     private fun tambahAbsensiSore() {
 
         if (jarak!! <= 1.00) {
-
+            Toast.makeText(
+                applicationContext,
+                "telah melakukan absensi sore ",
+                Toast.LENGTH_SHORT
+            ).show()
 
             if (hour <= 17  ) {
 
@@ -404,21 +407,21 @@ class ApsensiDetail : AppCompatActivity() {
             } else {
                 data = "alfa"
             }
+            InsertAbsensiSore(
 
+                "$waktu",
+                lokasi!!,
+                data!!
+            )
 
 
             Log.e("bisa ambil apsen ", "$jarak")
         } else {
-
+            Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
 
-        InsertAbsensiSore(
 
-            "$waktu",
-            lokasi!!,
-            data!!
-        )
     }
 
 

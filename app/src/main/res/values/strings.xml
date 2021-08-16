@@ -7,8 +7,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="submitted_lang">Submitted language:</string>
-    <string name="menu_apsensi">Apsensi</string>
-    <string name="menu_Cuti">Cutiy</string>
+    <string name="menu_apsensi">Absensi</string>
+    <string name="menu_Cuti">Cuti</string>
     <string name="menu_Riwayat">Riwayat Apsensi</string>
     <string name="menu_jadwal">jadwal Pegawai</string>
     <string name="menu_informasi">informasi</string>

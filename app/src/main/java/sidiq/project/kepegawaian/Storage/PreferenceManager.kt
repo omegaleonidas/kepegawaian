@@ -17,7 +17,7 @@ class PreferenceManager (private  val context: Context) {
         const val KEY_TOKEN = "key_token"
         const val ID = "id_pegawai"
         const val NIP = "nip"
-        const val NOHP = "no_hp"
+        const val  NOHP  = "no_hp"
         const val IDABSENSI = "id_absensi"
         const val NAMAPEGAWAI = "nama_pegawai"
 
@@ -64,13 +64,13 @@ class PreferenceManager (private  val context: Context) {
     }
 
 
-    fun saveNoHp( key:String,value: Int){
-        editor.putInt(key,value)
+    fun saveNoHp( key:String,value: Long){
+        editor.putLong(key,value)
         editor.apply()
     }
 
-    fun getNoHp()  :Int?{
-        return sharePreference.getInt(NOHP,0)
+    fun getNoHp()  :Long?{
+        return sharePreference.getLong(NOHP,0)
     }
 
 

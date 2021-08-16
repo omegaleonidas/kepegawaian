@@ -75,6 +75,7 @@
             android:id="@+id/editTextTextPersonName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="367dp"
+            android:padding="15dp"
             android:layout_height="wrap_content"
 
             android:ems="10"

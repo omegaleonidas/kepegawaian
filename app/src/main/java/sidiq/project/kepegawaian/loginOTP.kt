@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.android.synthetic.main.activity_login_o_t_p.*
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.View.Home
 import java.util.concurrent.TimeUnit
@@ -28,7 +29,6 @@ class loginOTP : AppCompatActivity() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_o_t_p)
@@ -39,6 +39,8 @@ class loginOTP : AppCompatActivity() {
 //        Reference
         val Login = findViewById<Button>(R.id.loginBtn)
 
+//        var nohp = +sharedPreferences?.getNoHp()!!
+//         phoneNumber.setText(""+nohp)
 
         var currentUser = auth.currentUser
         if (currentUser != null) {
@@ -60,7 +62,7 @@ class loginOTP : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed"+e.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Failed" + e.message, Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
@@ -68,16 +70,15 @@ class loginOTP : AppCompatActivity() {
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
 
-                Log.d("TAG","onCodeSent:$verificationId")
+                Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
 
-                var intent = Intent(applicationContext,verivikasiOTP::class.java)
-                intent.putExtra("storedVerificationId",storedVerificationId)
+                var intent = Intent(applicationContext, verivikasiOTP::class.java)
+                intent.putExtra("storedVerificationId", storedVerificationId)
                 startActivity(intent)
             }
         }
-
 
 
     }
@@ -85,10 +86,11 @@ class loginOTP : AppCompatActivity() {
     private fun login() {
 
 
-        val mobileNumber = "" +sharedPreferences?.getNoHp()!!
+        val mobileNumber = "" + sharedPreferences?.getNoHp()!!
         var number = mobileNumber
 
-        Log.e("nomor telepon terbaca",""+sharedPreferences?.getNoHp()!!)
+
+        Log.e("nomor telepon terbaca", "" + sharedPreferences?.getNoHp()!!)
 
         if (!number.isEmpty()) {
             number = "+62" + number
