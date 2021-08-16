@@ -53,6 +53,7 @@ class ProfileFragment : Fragment() {
     var name: String? = null
     var namee: String? = null
     var isiNip: Int = 0
+    var hasilFhoto: String? = null
 
     var n: Long? = 0
     var alamat: String? = null
@@ -238,7 +239,8 @@ class ProfileFragment : Fragment() {
         tmp_lahir: String,
         id_agama: Int,
         gender: String,
-        pendidikan: String
+        pendidikan: String,
+        foto:String
 
     ) {
         retrofit.InsertPegawai(
@@ -253,7 +255,7 @@ class ProfileFragment : Fragment() {
             id_agama,
             gender,
             pendidikan,
-            "foto",
+            foto,
             "Bearer " + sharedPreferences?.getToken()
         ).enqueue(object : retrofit2.Callback<PegawaiInsertResponse> {
             override fun onFailure(call: Call<PegawaiInsertResponse>, t: Throwable) {
@@ -312,7 +314,7 @@ class ProfileFragment : Fragment() {
                             btnEdit.setOnClickListener {
 
                                 isiNip = sharedPreferences?.getNip()!!
-                                namee = binding?.tvAlamat?.text.toString()
+                                namee = binding?.tvNamaPegawaiInput?.text.toString()
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
@@ -376,7 +378,8 @@ class ProfileFragment : Fragment() {
                                     tgl!!,
                                     dataAgama,
                                     jenisKelamin!!,
-                                    pen!!
+                                    pen!!,
+                                    hasilFhoto!!
                                 )
 
 
@@ -461,7 +464,9 @@ return
                     )
                     val path = saveImage(bitmap)
                     Toast.makeText(requireContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+                    Log.e("data fhoto", "onActivityResult: $path " )
                     binding?.imageView2!!.setImageBitmap(bitmap)
+                    hasilFhoto = path
 
                 } catch (e: IOException) {
                     e.printStackTrace()
