@@ -17,8 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/atass"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewInformasi"
+
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
-        android:text="apsensi"
+        android:text="@string/absensi"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewInformasi"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_margin="15dp"
@@ -206,8 +207,8 @@
                 app:cardCornerRadius="15dp">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="111dp"
+                    android:layout_height="90dp"
                     android:background="@color/white">
 
                     <TextView
@@ -231,8 +232,8 @@
 
                     <TextView
                         android:id="@+id/textView8"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
+                        android:layout_width="81dp"
+                        android:layout_height="14dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
@@ -240,7 +241,7 @@
                         android:layout_marginStart="17dp"
                         android:layout_marginTop="76dp"
                         android:layout_marginEnd="13dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="0dp"
                         android:text="Terlambat"
 
                         android:textAlignment="center"
@@ -520,15 +521,18 @@
 
 
     <ImageView
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
         android:layout_height="91dp"
         android:src="@drawable/bawah"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+
+        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998" />
+        app:layout_constraintTop_toBottomOf="@+id/btnDetailApsen"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

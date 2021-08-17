@@ -11,43 +11,38 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextDate"
-        android:layout_width="150dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-
         android:ems="10"
-
         android:hint="tanggal awal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.212" >
+        app:layout_constraintTop_toBottomOf="@+id/textView18">
 
-    <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tanggalAwal"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <ImageView
         android:id="@+id/lottieAnimationView3"
         android:layout_width="219dp"
-        android:layout_height="196dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/kalenderr"
 
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.916"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintStart_toEndOf="@id/editTextDate"
+        app:layout_constraintTop_toTopOf="@id/editTextDate"
 
         app:layout_constraintVertical_bias="0.157" />
 
@@ -55,72 +50,57 @@
         android:layout_width="409dp"
         android:layout_height="91dp"
         android:src="@drawable/atass"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextTextPersonName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="367dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-37dp">
+        android:layout_marginTop="15dp"
+        android:ems="10"
 
+        android:hint="keterangan"
+        android:inputType="textPersonName"
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editTextTextPersonName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="367dp"
-            android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lottieAnimationView3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tanggalKeterangan"
+            android:layout_width="match_parent"
+            android:gravity="top"
             android:layout_height="wrap_content"
-
-            android:ems="10"
-            android:hint="keterangan"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tanggalKeterangan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+            android:lines="5" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextDate2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="30dp"
         android:ems="10"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:inputType="date"
         android:hint="tanggal akhir"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/lottieAnimationView3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345" >
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate">
 
-    <com.google.android.material.textfield.TextInputEditText
-       android:id="@+id/tanggalAkhir"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:clickable="false"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tanggalAkhir"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -132,12 +112,9 @@
         android:text="Kirim"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/editTextTextPersonName" />
 
 
     <ImageView
@@ -147,22 +124,26 @@
         android:src="@drawable/bawahh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998" />
+
+        />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="253dp"
         android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:text="Daftar Cuti Kepedagawan"
+
+
         android:textColor="@color/purple_500"
+
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

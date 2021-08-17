@@ -1,28 +1,33 @@
 package sidiq.project.kepegawaian.View
 
-import android.Manifest.permission.CAMERA
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_cuti.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import sidiq.project.kepegawaian.MainActivity
@@ -54,6 +59,7 @@ class ProfileFragment : Fragment() {
     var namee: String? = null
     var isiNip: Int = 0
     var hasilFhoto: String? = null
+    private val REQUEST_PERMISSION = 201
 
     var n: Long? = 0
     var alamat: String? = null
@@ -61,10 +67,66 @@ class ProfileFragment : Fragment() {
     var pen: String? = null
     var th: String? = null
     var tgl: String? = null
-    var ph: String? = null
+
     val GALLERY = 1
     val CAMERA = 2
-    var lk: Int = 0
+
+    var uriPath: Uri? = null
+
+
+    fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                REQUEST_PERMISSION
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_PERMISSION) {
+
+            Log.e("permisson :", "data permission setuju")
+            val wallpaperDirectory = File(
+                (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
+            )
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                wallpaperDirectory.mkdir()
+                if (wallpaperDirectory.isDirectory) {
+                    Log.e("folder maASUK", " " + wallpaperDirectory.toString())
+
+                } else {
+                    Log.e("folder tidak maASUK", " " + wallpaperDirectory.toString())
+
+                }
+
+            } else {
+                Toast.makeText(requireContext(), "Permission is required", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -99,7 +161,39 @@ class ProfileFragment : Fragment() {
 
         Log.v("data id", "" + sharedPreferences?.getToken())
 
+
+
+
+
+
+
         GetData()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            val wallpaperDirectory = File(
+                (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
+            )
+            wallpaperDirectory.mkdirs()
+            if (wallpaperDirectory.isDirectory) {
+                Log.e("folder maASUK", " " + wallpaperDirectory.toString())
+
+            } else {
+                Log.e("folder tidak maASUK", " " + wallpaperDirectory.toString())
+
+            }
+            Log.e("permission", " disetujui ")
+        } else {
+
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 1
+            )
+            Log.e("permission", "tidak disetujui ")
+        }
 
 
         val c = Calendar.getInstance()
@@ -151,7 +245,7 @@ class ProfileFragment : Fragment() {
 
 
         binding?.imageView2?.setOnClickListener {
-
+            checkPermission()
             showPictureDialog()
 
         }
@@ -240,32 +334,45 @@ class ProfileFragment : Fragment() {
         id_agama: Int,
         gender: String,
         pendidikan: String,
-        foto:String
+        foto: Uri
 
     ) {
         retrofit.InsertPegawai(
-            nip,
-            nama_pegawai,
-            jabatan_id,
-            email,
-            no_tlp,
-            alamat,
-            tgl_masuk,
-            tmp_lahir,
-            id_agama,
-            gender,
-            pendidikan,
-            foto,
+            createPartFromString(nip.toString()),
+            createPartFromString(nama_pegawai),
+            createPartFromString(jabatan_id.toString()),
+            createPartFromString(email),
+            createPartFromString(no_tlp),
+            createPartFromString(alamat),
+            createPartFromString(tgl_masuk),
+            createPartFromString(tmp_lahir),
+            createPartFromString(id_agama.toString()),
+            createPartFromString(gender),
+            createPartFromString(pendidikan),
+            prepareFilePart("foto", foto),
             "Bearer " + sharedPreferences?.getToken()
         ).enqueue(object : retrofit2.Callback<PegawaiInsertResponse> {
             override fun onFailure(call: Call<PegawaiInsertResponse>, t: Throwable) {
-
+                Toast.makeText(requireContext(), "" + t.message, Toast.LENGTH_SHORT).show()
+                Log.e("data error failure", "" + t.message)
             }
 
             override fun onResponse(
                 call: Call<PegawaiInsertResponse>,
                 response: Response<PegawaiInsertResponse>
             ) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "data berhasil response", Toast.LENGTH_SHORT)
+                        .show()
+                    Log.e("data error response", " " + response.errorBody()?.string())
+                } else {
+                    Log.e("data error", " " + response.errorBody()?.string())
+                    Toast.makeText(
+                        requireContext(),
+                        "data gagal response" + response.errorBody()?.string(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
 
             }
@@ -358,7 +465,7 @@ class ProfileFragment : Fragment() {
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                                  val no = binding?.tvTelepon!!.setText(""+n!!)
+                                val no = binding?.tvTelepon!!.setText("" + n!!)
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()
@@ -368,6 +475,8 @@ class ProfileFragment : Fragment() {
 
 
                                 InsertData(
+
+
                                     isiNip,
                                     name!!,
                                     dataJabatan,
@@ -379,13 +488,8 @@ class ProfileFragment : Fragment() {
                                     dataAgama,
                                     jenisKelamin!!,
                                     pen!!,
-                                    hasilFhoto!!
+                                    uriPath!!
                                 )
-
-
-
-
-
 
                                 Log.e("email tidak ada ", "$")
 
@@ -462,19 +566,17 @@ return
                         requireContext().contentResolver,
                         contentURI
                     )
-                    val path = saveImage(bitmap)
+                    saveImage(bitmap)
                     Toast.makeText(requireContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
-                    Log.e("data fhoto", "onActivityResult: $path " )
+
                     binding?.imageView2!!.setImageBitmap(bitmap)
-                    hasilFhoto = path
+//                   hasilFhoto = ""path
 
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(requireContext(), "Failed!", Toast.LENGTH_SHORT).show()
                 }
-
             }
-
         } else if (requestCode == CAMERA) {
             val thumbnail = data!!.extras!!.get("data") as Bitmap
             binding?.imageView2!!.setImageBitmap(thumbnail)
@@ -483,7 +585,13 @@ return
         }
     }
 
-    fun saveImage(myBitmap: Bitmap): String {
+    fun saveImage(myBitmap: Bitmap) {
+        val path = uri(myBitmap)
+        uriPath = Uri.parse(path)
+        Log.e("data fhoto", "onActivityResult: $path ")
+    }
+
+    fun uri(myBitmap: Bitmap): String {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
         val wallpaperDirectory = File(
@@ -493,23 +601,25 @@ return
         Log.d("fee", wallpaperDirectory.toString())
         if (!wallpaperDirectory.exists()) {
 
-            wallpaperDirectory.mkdirs()
+            wallpaperDirectory.mkdir()
+        } else {
+            Log.e("folder", " " + wallpaperDirectory.toString())
         }
-
+        val f = File(
+            wallpaperDirectory, ((Calendar.getInstance()
+                .getTimeInMillis()).toString() + ".jpg")
+        )
         try {
             Log.d("heel", wallpaperDirectory.toString())
-            val f = File(
-                wallpaperDirectory, ((Calendar.getInstance()
-                    .getTimeInMillis()).toString() + ".jpg")
-            )
-            f.createNewFile()
-            val fo = FileOutputStream(f)
-            fo.write(bytes.toByteArray())
             MediaScannerConnection.scanFile(
                 requireContext(),
                 arrayOf(f.getPath()),
                 arrayOf("image/jpeg"), null
             )
+            f.createNewFile()
+            val fo = FileOutputStream(f)
+            fo.write(bytes.toByteArray())
+
             fo.close()
             Log.d("TAG", "File Saved::--->" + f.getAbsolutePath())
 
@@ -517,12 +627,14 @@ return
         } catch (e1: IOException) {
             e1.printStackTrace()
         }
+        return f.getAbsolutePath()
 
-        return ""
+
     }
 
+
     companion object {
-        private val IMAGE_DIRECTORY = "/bayunugrohoweb"
+        private val IMAGE_DIRECTORY = "/fhoto_pegawai"
     }
 
 
@@ -578,5 +690,23 @@ return
 
         })
     }
+
+    private fun createPartFromString(descriptionString: String): RequestBody? {
+        return descriptionString.toRequestBody(MultipartBody.FORM)
+    }
+
+    private fun prepareFilePart(
+
+        name: String,
+        file: Uri
+    ): MultipartBody.Part? {
+        val originalFile = File(file.toString())
+        val filePart = originalFile
+            .asRequestBody(
+                context?.contentResolver?.getType(file)?.toMediaTypeOrNull()
+            )
+        return MultipartBody.Part.createFormData(name, originalFile.name, filePart)
+    }
+
 
 }

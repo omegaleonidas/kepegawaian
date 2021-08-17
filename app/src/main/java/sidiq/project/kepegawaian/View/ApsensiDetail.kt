@@ -79,28 +79,27 @@ class ApsensiDetail : AppCompatActivity() {
 
 
 
-
-        btnAbsensiPagi.setOnClickListener {
-            //check permission
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this@ApsensiDetail,
-                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    , REQUEST_PERMISSION_REQUEST_CODE
-                )
-            } else {
-                tvAddress.text = ""
-                tvLatitude.text = ""
-                tvLongitude.text = ""
-                loader.visibility = View.VISIBLE
-
-                getCurrentLocation()
-                tambahAbsensi()
+            btnAbsensiPagi.setOnClickListener {
+                //check permission
+                if (ContextCompat.checkSelfPermission(
+                        applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        this@ApsensiDetail,
+                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        , REQUEST_PERMISSION_REQUEST_CODE
+                    )
+                } else {
+                    tvAddress.text = ""
+                    tvLatitude.text = ""
+                    tvLongitude.text = ""
+                    loader.visibility = View.VISIBLE
+                    Log.e("bottom", "data absensi pagi telah di klik " )
+                    getCurrentLocation()
+                    tambahAbsensi()
+                }
             }
-        }
 
         btnAbsensiSore.setOnClickListener {
             //check permission
@@ -160,17 +159,7 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//            //  val takenImage = data?.extras?.get("data") as Bitmap
-//            val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-//            imageView.setImageBitmap(takenImage)
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
 //
-//
-//    }
 
 
     override fun onRequestPermissionsResult(
@@ -207,7 +196,7 @@ class ApsensiDetail : AppCompatActivity() {
         )
             .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
                 override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    Log.e("data insert failed", ""+t.message )
                 }
 
                 override fun onResponse(
@@ -216,7 +205,12 @@ class ApsensiDetail : AppCompatActivity() {
                 ) {
                     val dataAbsensi = response.body()
                     if (response.isSuccessful) {
-
+                        Toast.makeText(
+                            applicationContext,
+                            "telah melakukan absensi pagi",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
                         sharedPreferences?.saveIdAbsensi(IDABSENSI, dataAbsensi!!.data.id_absensi)
                         Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
 
@@ -331,7 +325,7 @@ class ApsensiDetail : AppCompatActivity() {
 
                         jarak = getDistance(latitude, longitude, latitude, longitude)
 
-                       // -0.9095887, 100.3531456, latitude, longitude
+                        // -0.9095887, 100.3531456, latitude, longitude
 
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
@@ -348,31 +342,92 @@ class ApsensiDetail : AppCompatActivity() {
 
         if (jarak!! <= 1.00) {
 
+            if (hour < 6) {
+                //tidak bisa
+                Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
+                Log.e("kehadiran", " bisa ambil absen karean jam 6 kurang ")
 
 
-            Toast.makeText(applicationContext, "telah melakukan absensi pagi", Toast.LENGTH_SHORT)
-                .show()
+            } else if (hour >= 6 && hour <= 7) {
+                if (hour == 6) {
+                    Toast.makeText(
+                        applicationContext,
+                        "telah melakukan absensi pagi",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
 
-            if (hour <= 7 && minute <= 15) {
+                    data = "hadir"
+                    InsertAbsensi(
+                        sharedPreferences?.getNip()!!,
+                        date,
+                        "$waktu",
+                        "$lokasi",
+                        data!!
+                    )
+                    Log.e("kehadiran", "t bisa ambil absen karena sebelum jam 7 ")
 
 
-                data = "hadir"
+                } else if (hour == 7 && minute <= 15) {
+                    Toast.makeText(
+                        applicationContext,
+                        "telah melakukan absensi pagi",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    data = "hadir"
+                    InsertAbsensi(
+                        sharedPreferences?.getNip()!!,
+                        date,
+                        "$waktu",
+                        "$lokasi",
+                        data!!
+                    )
+                    Log.e("kehadiran", " bisa ambil absen karena sesudah  jam 7 sebelum jam 15 ")
 
 
-            } else if (hour <= 7 && minute <= 30) {
-                data = "terlambat"
+
+                } else if (minute <= 30) {
+                    Log.e("kehadiran", "terlambat ambil absen karena sesudah  jam 7 30  ")
+
+                    data = "telambat"
+                    InsertAbsensi(
+                        sharedPreferences?.getNip()!!,
+                        date,
+                        "$waktu",
+                        "$lokasi",
+                        data!!
+                    )
+
+                } else {
+                    data = "alfa"
+                    InsertAbsensi(
+                        sharedPreferences?.getNip()!!,
+                        date,
+                        "$waktu",
+                        "$lokasi",
+                        data!!
+                    )
+
+                }
+
 
             } else {
-                data = "alfa"
-            }
-            InsertAbsensi(
-                sharedPreferences?.getNip()!!,
-                date,
-                "$waktu",
-                "$lokasi",
-                data!!
-            )
+                Log.e("kehadiran", "alfa karena melebihi jam 6")
+                data = " alfa"
+                InsertAbsensi(
+                    sharedPreferences?.getNip()!!,
+                    date,
+                    "$waktu",
+                    "$lokasi",
+                    data!!
+                )
 
+            }
+
+
+
+            Toast.makeText(this, " mengambil absen", Toast.LENGTH_SHORT).show()
 
 
             Log.e("bisa ambil apsen ", "$jarak")
@@ -387,40 +442,37 @@ class ApsensiDetail : AppCompatActivity() {
 
     private fun tambahAbsensiSore() {
 
-        if (jarak!! <= 1.00) {
-            Toast.makeText(
-                applicationContext,
-                "telah melakukan absensi sore ",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            if (hour <= 17  ) {
+        if (jarak!! <= 2.00) {
 
 
+            if (hour < 16) {
+                Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
-                data = "hadir"
-
-
-            } else if (hour <= 7 && minute <= 30) {
-                data = "terlambat"
-
-            } else {
                 data = "alfa"
-            }
-            InsertAbsensiSore(
+            } else {
+                data = "hadir"
+                InsertAbsensiSore(
 
-                "$waktu",
-                lokasi!!,
-                data!!
-            )
+                    "$waktu",
+                    "$lokasi",
+                    data!!
+                )
+
+
+   }
+
+
+
+
+
+
 
 
             Log.e("bisa ambil apsen ", "$jarak")
         } else {
-            Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
-
 
     }
 
