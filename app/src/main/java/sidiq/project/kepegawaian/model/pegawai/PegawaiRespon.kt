@@ -7,7 +7,7 @@ data class PegawaiRespon(
 )
 
 data class Pegawai(
-    val alamat: String,
+    val alamat_pegawai: String,
     val created_at: String,
     val email: String,
     val foto: String,

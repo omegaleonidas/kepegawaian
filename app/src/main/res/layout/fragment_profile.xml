@@ -14,22 +14,17 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-
             android:layout_height="136dp"
-
-
             android:background="@drawable/atass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
-
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="87dp"
-            android:layout_height="84dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="72dp"
             android:src="@mipmap/ic_launcher"
@@ -62,7 +57,6 @@
             android:textSize="20dp"
 
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintHorizontal_bias="0.018"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +72,7 @@
 
             android:textSize="20dp"
 
+
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -86,60 +81,36 @@
             android:id="@+id/tvNip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
             android:text="121212121"
-            android:textSize="20dp"
 
-            app:layout_constraintEnd_toStartOf="@+id/btnLogout"
-            app:layout_constraintHorizontal_bias="0.404"
+            android:textSize="20dp"
             app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/tvNama" />
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout4"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvNoHpProfile"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+            android:hint="alamat"
+            android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfile1">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvNoHpProfile"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_alamat"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="alamat"
-                android:inputType="text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.529">
+                android:layout_height="wrap_content"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_alamat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:layout_width="37dp"
-                android:layout_height="40dp"
-
-
-                android:src="@drawable/ic_baseline_add_location_24" />
-
-
-        </RelativeLayout>
 
         <Button
             android:id="@+id/btnLogout"
@@ -155,316 +126,381 @@
             app:layout_constraintVertical_bias="0.151" />
 
 
-        <RelativeLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvNamaPegawai"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-            android:id="@+id/relativeLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/relativeLayout2"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+
+            android:hint="nama"
+
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvNip">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvNamaPegawai"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvNamaPegawaiInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-
-               
-                android:hint="nama"
-
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvNamaPegawaiInput"
-                    android:maxLines="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextTextPersonName4"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNamaPegawai"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="email"
-                android:inputType="textEmailAddress"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.113"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.264">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvEmail"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="39dp"
-                android:layout_height="50dp"
-
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/ic_baseline_phone_24"
-
-                />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextTextPersonName4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNamaPegawai"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+            android:hint="email"
+            android:inputType="textEmailAddress"
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNamaPegawai">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvEmail"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvNoHpProfile1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+            android:hint="No Hp"
+            android:inputType="number"
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvTelepon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvNoHpProfileasd"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+            android:hint="Agama"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfile">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvNoHpProfile1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <AutoCompleteTextView
+                android:id="@+id/spinnerAgamaInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="No Hp"
-                android:inputType="number"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.126"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.387">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvTelepon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageView
-                android:layout_width="41dp"
-                android:layout_height="38dp"
-                android:src="@drawable/ic_baseline_phone_24" />
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout6"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinnerJabatan"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Jabatan"
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfileasd">
+
+            <AutoCompleteTextView
+                android:id="@+id/spinnerJabatanInput"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvTglMasuk"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_below="@+id/spinnerJabatan"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+
+            android:ems="10"
+            android:hint="tahun Masuk"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintStart_toStartOf="parent"
 
+            app:layout_constraintTop_toBottomOf="@+id/spinnerJabatan"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvTglMasukInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvTglLahir"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_below="@+id/tvTglMasuk"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:ems="10"
+            android:hint="tanggal lahir"
+
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/tvTglMasuk"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvTglLahirInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/spinnerGender"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTglLahir"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTglLahir">
+
+            <AutoCompleteTextView
+                android:id="@+id/SpinnerGenderInput"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvPendidikan"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerGender"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="Pendidikan terankhir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerGender">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvPendidikanInput"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPendidikan"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:text="Edit"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPendidikan"
+
+            />
+
+
+        <ImageView
+            android:id="@+id/gambarNama"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_baseline_account_box_24"
+            app:layout_constraintEnd_toStartOf="@+id/tvNamaPegawai"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <ImageView
+            android:id="@+id/gambarEmail"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_baseline_attach_email_24"
+            app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName4"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarNama" />
+
+        <ImageView
+            android:id="@+id/gambarNohp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_phone_24"
+            app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfile1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+            app:layout_constraintTop_toBottomOf="@+id/gambarEmail" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvNoHpProfileasd"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
+        <ImageView
+            android:id="@+id/gambarAlamat"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_baseline_add_location_24"
+            app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfile1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarNohp" />
 
 
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="Agama"
-                android:inputType="text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.478"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.513">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinnerAgamaInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:id="@+id/gambarAgama"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_public_24"
+            app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfileasd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarAlamat" />
 
 
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/gambarJabatan"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="23dp"
+            android:src="@drawable/ic_baseline_assignment_ind_24"
+
+            app:layout_constraintEnd_toStartOf="@+id/spinnerJabatan"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarAgama" />
 
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/gambarTahunMasuk"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_baseline_assignment_ind_24"
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout6"
-            tools:layout_editor_absoluteX="0dp">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/spinnerJabatan"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:hint="Jabatan">
-
-                <AutoCompleteTextView
-                    android:id="@+id/spinnerJabatanInput"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toStartOf="@+id/tvTglMasuk"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarJabatan" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvTglMasuk"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_below="@+id/spinnerJabatan"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="tahun Masuk"
-                android:inputType="number"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.126"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.387">
+        <ImageView
+            android:id="@+id/gambarTanggalLahir"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_baseline_date_range_24"
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvTglMasukInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toStartOf="@+id/tvTglLahir"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarTahunMasuk" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvTglLahir"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_below="@+id/tvTglMasuk"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:ems="10"
-                android:hint="tanggal lahir"
-                android:inputType="number"
+        <ImageView
+            android:id="@+id/gambarGender"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_baseline_person_24"
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.126"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.387">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvTglLahirInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toStartOf="@+id/spinnerGender"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarTanggalLahir" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/spinnerGender"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_below="@+id/tvTglLahir"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:hint="Gender">
+        <ImageView
+            android:id="@+id/gambarPendidikanTerakhir"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_date_range_24"
 
-                <AutoCompleteTextView
-                    android:id="@+id/SpinnerGenderInput"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tvPendidikan"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_below="@+id/spinnerGender"
-                android:layout_marginStart="50dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:hint="Pendidikan terankhir">
-
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tvPendidikanInput"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPendidikan"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Edit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.678"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.853" />
-
-
-        </RelativeLayout>
+            app:layout_constraintEnd_toStartOf="@+id/tvPendidikan"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gambarGender" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

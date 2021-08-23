@@ -1,14 +1,14 @@
 package sidiq.project.kepegawaian.View
 
-import android.app.Activity
-import android.content.Intent
+import android.app.AppOpsManager
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.os.Process
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -27,10 +27,7 @@ import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
-import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
-
-import java.io.File
 import java.util.*
 
 
@@ -70,7 +67,7 @@ class ApsensiDetail : AppCompatActivity() {
         setContentView(R.layout.activity_apsensi_detail)
         sharedPreferences = PreferenceManager(this)
 
-        tvTanggal.text = time
+        tvTanggal.text = date+""+waktu
         getCurrentLocation()
 
         Log.e("jumlah jam ", "" + hour)
@@ -266,6 +263,7 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
+
     private fun getCurrentLocation() {
 
         var locationRequest = LocationRequest()
@@ -362,7 +360,7 @@ class ApsensiDetail : AppCompatActivity() {
                         sharedPreferences?.getNip()!!,
                         date,
                         "$waktu",
-                        "$lokasi",
+                        lokasi!!,
                         data!!
                     )
                     Log.e("kehadiran", "t bisa ambil absen karena sebelum jam 7 ")
@@ -399,7 +397,10 @@ class ApsensiDetail : AppCompatActivity() {
                         data!!
                     )
 
-                } else {
+                } else if(hour >= 16) {
+                    Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
+
+                }else{
                     data = "alfa"
                     InsertAbsensi(
                         sharedPreferences?.getNip()!!,
@@ -450,6 +451,7 @@ class ApsensiDetail : AppCompatActivity() {
 
                 data = "alfa"
             } else {
+                Toast.makeText(this, "bisa mengambil absensi", Toast.LENGTH_SHORT).show()
                 data = "hadir"
                 InsertAbsensiSore(
 

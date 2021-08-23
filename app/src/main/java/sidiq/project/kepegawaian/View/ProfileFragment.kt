@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_profile.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -57,6 +58,7 @@ class ProfileFragment : Fragment() {
     var jenisKelamin: String? = null
     var name: String? = null
     var namee: String? = null
+    var imagee: String? = null
     var isiNip: Int = 0
     var hasilFhoto: String? = null
     private val REQUEST_PERMISSION = 201
@@ -305,14 +307,40 @@ class ProfileFragment : Fragment() {
 
         btnLogout.setOnClickListener {
 
-            sharedPreferences?.saveToken(KEY_TOKEN, null)
-            sharedPreferences?.saveId(ID, 0)
+            val builder = AlertDialog.Builder(requireContext())
+            //set title for alert dialog
+            builder.setTitle(R.string.dialogTitle)
+            //set message for alert dialog
+            builder.setMessage(R.string.dialogMessage)
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            //performing positive action
+            builder.setPositiveButton("Yes"){dialogInterface, which ->
+                sharedPreferences?.saveToken(KEY_TOKEN, null)
+                sharedPreferences?.saveId(ID, 0)
 
-            auth.signOut()
+                val intent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
+
+                auth.signOut()
+
+            }
+            //performing cancel action
+            builder.setNeutralButton("Cancel"){dialogInterface , which ->
+                Toast.makeText(requireContext(),"clicked cancel\n operation cancel",Toast.LENGTH_LONG).show()
+            }
+            //performing negative action
+            builder.setNegativeButton("No"){dialogInterface, which ->
+                Toast.makeText(requireContext(),"clicked No",Toast.LENGTH_LONG).show()
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
+
 
             // navControler.navigate(R.id.action_navigation_profile_to_loginOTP2)
         }
@@ -410,12 +438,14 @@ class ProfileFragment : Fragment() {
                             // binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
                             binding?.tvEmail!!.setText(data.pegawai.email)
                             binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
-                            binding?.tvAlamat!!.setText(data.pegawai.alamat)
+                            binding?.tvAlamat!!.setText(data.pegawai.alamat_pegawai)
                             binding?.tvTglMasukInput!!.setText(data.pegawai.tgl_masuk)
                             binding?.tvTglLahirInput!!.setText(data.pegawai.tmp_lahir)
                             // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
                             //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
+                            Glide.with  (binding?.imageView2!!).load("http://192.168.1.8/api/public/foto_pegawai/"+ data.pegawai.foto)
+                                .into(binding?.imageView2!!)
 
                             binding?.btnEdit!!.setText("edit")
                             btnEdit.setOnClickListener {
@@ -425,29 +455,47 @@ class ProfileFragment : Fragment() {
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                                //   val no = binding?.tvTelepon!!.setText(n!!)
+                                   var no = binding?.tvTelepon!!.text.toString()
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()
 //                                id_agama
                                 //gender
                                 pen = binding?.tvPendidikanInput?.text.toString()
+                                imagee = ""+data.pegawai
 
                                 Log.e("data jenis :", "$jenisKelamin!!")
 
-                                UpdateData(
-                                    isiNip,
-                                    namee!!,
-                                    dataJabatan,
-                                    em!!,
-                                    "$n",
-                                    alamat!!,
-                                    th!!,
-                                    tgl!!,
-                                    dataAgama,
-                                    jenisKelamin!!,
-                                    pen!!
-                                )
+                               if(tvEmail.text.toString().length==0){
+                                        tvEmail.setError("Email harus di isi")
+
+                                }else if(tvTelepon.text.toString().length==0){
+                                   tvTelepon.setError("Telepon harus di isi")
+                               }else if (tv_alamat.text.toString().length==0){
+                                   tv_alamat.setError("Alamat harus di isi")
+                               }else if (tvTglMasukInput.text.toString().length==0){
+                                   tvTglMasukInput.setError("tanggal masuk harus di isi")
+                               }else if (tvTglMasukInput.text.toString().length==0){
+                                   tvTglMasukInput.setError("tanggal masuk harus di isi")
+                               }else{
+                                   UpdateData(
+                                       isiNip,
+                                       namee!!,
+                                       dataJabatan,
+                                       em!!,
+                                       "$no",
+                                       alamat!!,
+                                       th!!,
+                                       tgl!!,
+                                       dataAgama,
+                                       jenisKelamin!!,
+                                       pen!!,
+                                       uriPath!!
+
+                                   )
+
+                               }
+
 
 
                             }
@@ -481,7 +529,7 @@ class ProfileFragment : Fragment() {
                                     name!!,
                                     dataJabatan,
                                     em!!,
-                                    "$n",
+                                    "$no",
                                     alamat!!,
                                     th!!,
                                     tgl!!,
@@ -560,7 +608,7 @@ return
 }*/
         if (requestCode == GALLERY) {
             if (data != null) {
-                val contentURI = data!!.data
+                val contentURI = data.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(
                         requireContext().contentResolver,
@@ -649,23 +697,25 @@ return
         tmp_lahir: String,
         id_agama: Int,
         gender: String,
-        pendidikan: String
+        pendidikan: String,
+        foto: Uri
 
     ) {
         retrofit.UpdatePegawai(
-            sharedPreferences?.getNip()!!
-            , nip,
-            nama_pegawai,
-            jabatan_id,
-            email,
-            no_tlp,
-            alamat,
-            tgl_masuk,
-            tmp_lahir,
-            id_agama,
-            gender,
-            pendidikan,
-            "foto",
+            sharedPreferences?.getNip()!!,
+
+            createPartFromString(nip.toString()),
+            createPartFromString(nama_pegawai),
+            createPartFromString(jabatan_id.toString()),
+            createPartFromString(email),
+            createPartFromString(no_tlp),
+            createPartFromString(alamat),
+            createPartFromString(tgl_masuk),
+            createPartFromString(tmp_lahir),
+            createPartFromString(id_agama.toString()),
+            createPartFromString(gender),
+            createPartFromString(pendidikan),
+            prepareFilePart("foto", foto),
             "Bearer " + sharedPreferences?.getToken()
         ).enqueue(object : retrofit2.Callback<PegawaiInsertResponse> {
             override fun onFailure(call: Call<PegawaiInsertResponse>, t: Throwable) {

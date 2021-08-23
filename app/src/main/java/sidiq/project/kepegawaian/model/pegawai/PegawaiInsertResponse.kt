@@ -7,7 +7,7 @@ data class PegawaiInsertResponse(
 )
 
 data class Data1(
-    val alamat: String,
+    val alamat_pegawai: String,
     val created_at: String,
     val email: String,
     val gender: String,

@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9FAFF"
-    android:orientation="vertical"
-    android:weightSum="2"
+
+    android:padding="15dp"
+
     tools:context=".verivikasiOTP">
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:gravity="center|bottom"
-    android:layout_weight="1">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_school_24"
-        android:paddingBottom="40dp"/>
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="bottom|center"
-        android:layout_weight="1">
+
+       >
+
         <TextView
+            android:id="@+id/tv_text"
             android:layout_width="match_parent"
-            android:paddingLeft="40dp"
             android:layout_height="wrap_content"
-            android:text="Verify mobile"
             android:paddingBottom="15dp"
+            android:text="insert your code "
+            android:textAlignment="center"
+            android:textColor="#444444"
             android:textSize="20sp"
-              android:textColor="#444444"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
+    <com.chaos.view.PinView
+        android:id="@+id/id_otp"
+        style="@style/PinWidget.PinView"
 
-        <com.chaos.view.PinView
-            android:id="@+id/id_otp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:itemCount="6"
-            android:layout_margin="10dp"
-            android:itemBackground="#F4F6F9"
-            android:cursorVisible="true"
-            app:lineColor="#2196F3"
-            android:textColor="#1F1F1F"
-            android:inputType="number"
-            app:hideLineWhenFilled="true"
-            style="@style/PinWidget.PinView"
-            app:itemRadius="5dp"/>
-        <Button
+        android:layout_width="316dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="36dp"
+        android:cursorVisible="true"
+        android:inputType="number"
+        android:itemBackground="#F4F6F9"
+
+        android:textAlignment="center"
+        android:textColor="#1F1F1F"
+        app:hideLineWhenFilled="true"
+        app:itemCount="6"
+        app:itemRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/tv_text"
+        app:lineColor="#2196F3" />
+
+    <Button
             android:id="@+id/verifyBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:background="#6372FF"
             android:text="Verify"
             android:textAllCaps="false"
-              android:layout_margin="40dp"
             android:textColor="#ffffff"
-            android:background="#6372FF"/>
-    </LinearLayout>
-</LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_otp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

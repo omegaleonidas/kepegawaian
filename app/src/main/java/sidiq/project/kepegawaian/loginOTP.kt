@@ -86,7 +86,7 @@ class loginOTP : AppCompatActivity() {
     private fun login() {
 
 
-        val mobileNumber = "" + sharedPreferences?.getNoHp()!!
+        val mobileNumber = phoneNumber.text.toString()
         var number = mobileNumber
 
 

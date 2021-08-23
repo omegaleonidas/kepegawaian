@@ -98,32 +98,34 @@ interface ApiInterface {
         @Part("jabatan_id") jabatan_id: RequestBody?,
         @Part("email") email: RequestBody?,
         @Part("no_tlp") no_tlp: RequestBody?,
-        @Part("alamat") alamat: RequestBody?,
+        @Part("alamat_pegawai") alamat_pegawai: RequestBody?,
         @Part("tgl_masuk") tgl_masuk: RequestBody?,
         @Part("tmp_lahir") tmp_lahir: RequestBody?,
         @Part("id_agama") ig_agama: RequestBody?,
         @Part("gender") gender: RequestBody?,
         @Part("pendidikan") pendidikan: RequestBody?,
-        @Part  foto: MultipartBody.Part?,
+        @Part foto: MultipartBody.Part?,
         @Header("Authorization") token: String
     )
             : Call<PegawaiInsertResponse>
 
-    @PUT("ApiPegawaiEdit/{id_pegawai}")
+
+    @Multipart
+    @POST("ApiPegawaiEdit/{id_pegawai}")
     fun UpdatePegawai(
         @Path("id_pegawai") id_pegawai: Int,
-        @Query("nip") nip: Int,
-        @Query("nama_pegawai") nama_pegawai: String,
-        @Query("jabatan_id") jabatan_id: Int,
-        @Query("email") email: String,
-        @Query("no_tlp") no_tlp: String,
-        @Query("alamat") alamat: String,
-        @Query("tgl_masuk") tgl_masuk: String,
-        @Query("tmp_lahir") tmp_lahir: String,
-        @Query("id_agama") ig_agama: Int,
-        @Query("gender") gender: String,
-        @Query("pendidikan") pendidikan: String,
-        @Query("foto") foto: String,
+        @Part("nip") nip: RequestBody?,
+        @Part("nama_pegawai") nama_pegawai: RequestBody?,
+        @Part("jabatan_id") jabatan_id: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("no_tlp") no_tlp: RequestBody?,
+        @Part("alamat_pegawai") alamat_pegawai: RequestBody?,
+        @Part("tgl_masuk") tgl_masuk: RequestBody?,
+        @Part("tmp_lahir") tmp_lahir: RequestBody?,
+        @Part("id_agama") ig_agama: RequestBody?,
+        @Part("gender") gender: RequestBody?,
+        @Part("pendidikan") pendidikan: RequestBody?,
+        @Part foto: MultipartBody.Part?,
         @Header("Authorization") token: String
     )
             : Call<PegawaiInsertResponse>

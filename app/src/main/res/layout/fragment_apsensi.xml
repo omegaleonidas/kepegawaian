@@ -12,14 +12,12 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="440dp"
-        android:layout_height="134dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/atass"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewInformasi"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
 
-        app:layout_constraintHorizontal_bias="0.545"
+        android:background="@drawable/atass"
+
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,480 +26,176 @@
         android:id="@+id/btnDetailApsen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
+
+        android:layout_marginTop="184dp"
+
         android:text="@string/absensi"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardHome"
+        app:layout_constraintVertical_bias="0.605" />
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="202dp"
+        android:layout_height="197dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.778" />
+        app:layout_constraintVertical_bias="0.701"
+        app:lottie_autoPlay="true"
+
+        app:lottie_rawRes="@raw/date">
+
+
+    </com.airbnb.lottie.LottieAnimationView>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:text="hidayatul sidiq"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/purple_500"
+
+
+        android:textSize="20dp"
+
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewInformasi"
+        android:id="@+id/cardHome"
         android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_margin="15dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/purple_500"
+        android:layout_height="150dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        app:cardBackgroundColor="@color/purple_500"
         app:cardCornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6">
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_goneMarginTop="15dp"
 
-        <RelativeLayout
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
-            android:background="@color/purple_500"
-
             android:layout_height="match_parent">
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/hadir"
-                android:layout_width="100dp"
+            <TextView
 
-                android:layout_height="100dp"
-                android:background="@color/purple_500"
-
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
+                android:id="@+id/tanggalHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="6dp"
-                app:cardCornerRadius="15dp">
+                android:layout_marginTop="5dp"
+                android:text=" hari ini 21 juli 2020"
+                android:textColor="@color/white"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginTop="5dp" />
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                 >
-
-
-                    <TextView
-
-                        android:id="@+id/TvHadir"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="26dp"
-                        android:layout_marginBottom="34dp"
-                        android:text="45"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="35dp" />
-
-                    <TextView
-
-                        android:id="@+id/textView6"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginTop="76dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginBottom="8dp"
-
-                        android:text="Hadir Pagi "
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/textJam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:text=" Waktu pengambilan absen :"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tanggalHome" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/alfa"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="7dp"
-                android:layout_toRightOf="@+id/hadir"
-                app:cardCornerRadius="15dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.848"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textJam">
 
+                <TextView
+                    android:id="@+id/jam_pagi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
 
-                <RelativeLayout
+                    android:text="16:00 - 18:00"
+                    android:textColor="@color/purple_500"
+                    android:textSize="25dp"
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/TvAlfa"
-                        android:layout_width="100dp"
-
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="26dp"
-                        android:layout_marginBottom="34dp"
-                        android:text="45"
-                        android:textColor="@color/purple_500"
-
-                        android:textSize="35dp" />
-
-
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginTop="76dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="Alfa"
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
+                    />
 
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/terlambat"
-                android:layout_width="100dp"
+                android:id="@+id/cardJamPagi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
 
-                android:layout_height="100dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_toRightOf="@+id/alfa"
-                app:cardCornerRadius="15dp">
-
-                <RelativeLayout
-                    android:layout_width="111dp"
-                    android:layout_height="90dp"
-                    android:background="@color/white">
-
-                    <TextView
-                        android:id="@+id/TvTerlambat"
-
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="26dp"
-
-                        android:layout_marginBottom="34dp"
-                        android:text="45"
-                        android:textColor="#00BCD4"
-                        android:textSize="35dp" />
+                app:cardCornerRadius="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.067"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textJam">
 
 
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="81dp"
-                        android:layout_height="14dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginTop="76dp"
-                        android:layout_marginEnd="13dp"
-                        android:layout_marginBottom="0dp"
-                        android:text="Terlambat"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/jam_sore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="06:30 - 07:30"
+                    android:textColor="@color/purple_500"
+                    android:textSize="25dp" />
 
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/izin"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/hadir"
-                android:layout_marginLeft="5dp"
-
-                android:layout_marginTop="11dp"
-
-                app:cardCornerRadius="15dp"
-
-                >
-
-                <RelativeLayout
-
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                    <TextView
-                        android:id="@+id/TvIzin"
-                        android:layout_width="wrap_content"
-
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="18dp"
-
-                        android:layout_marginBottom="34dp"
-
-                        android:text="45"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="35dp" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="74dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Izin"
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/hadirSore"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/hadir"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="11dp"
-                android:layout_toRightOf="@+id/izin"
-                app:cardCornerRadius="15dp"
-
-
-                >
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
-
-
-                    <TextView
-                        android:id="@+id/TvHadirSore"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="34dp"
-                        android:text="45"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="35dp" />
-
-                    <TextView
-                        android:id="@+id/TextHadirSore"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="74dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Hadir Sore"
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/AlfaSore"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/hadir"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="11dp"
-
-
-                android:layout_toRightOf="@+id/hadirSore"
-                app:cardCornerRadius="15dp"
-
-
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
-
-
-                    <TextView
-                        android:id="@+id/TvAlfaSore"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginBottom="34dp"
-
-                        android:text="45"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="35dp" />
-
-                    <TextView
-                        android:id="@+id/TextAlfaSore"
-                        android:layout_width="70dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="74dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Alfa Sore"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/TerlambatSore"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/hadir"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginRight="5dp"
-                android:layout_toRightOf="@+id/AlfaSore"
-                app:cardCornerRadius="15dp"
-
-
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-
-                    android:layout_height="match_parent"
-                    android:background="@color/white">
-
-
-                    <TextView
-                        android:id="@+id/TvTerlambatSore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="18dp"
-
-                        android:layout_marginBottom="34dp"
-                        android:text="45"
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="35dp" />
-
-                    <TextView
-                        android:id="@+id/TextTerlambatSore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginTop="74dp"
-                        android:layout_marginBottom="10dp"
-
-                        android:text="Terlambat Sore"
-
-                        android:textAlignment="center"
-                        android:textColor="@color/purple_500"
-                        android:textSize="10dp" />
-
-
-                </RelativeLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="5dp"
+                android:text="-------- Pagi --------"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardJamPagi" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216dp"
+                android:layout_marginTop="5dp"
+
+                android:text="-------- Pagi --------"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardJamPagi" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
@@ -511,12 +205,15 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:text="124565654"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/purple_500"
+        android:textSize="18dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.139" />
 
 
