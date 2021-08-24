@@ -107,4 +107,9 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+//    time internasional
+    implementation 'com.github.instacart.truetime-android:library-extension-rx:3.4'
+
+    // or if you want the vanilla version of Truetime:
+    implementation 'com.github.instacart.truetime-android:library:3.4'
 }

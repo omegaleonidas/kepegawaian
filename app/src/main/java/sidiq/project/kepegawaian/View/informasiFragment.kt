@@ -61,8 +61,6 @@ class informasiFragment : Fragment() {
                     val informasi = response.body()
 
                     if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "" + informasi?.data, Toast.LENGTH_SHORT)
-                            .show()
 
                         showData(informasi!!.data?.informasi)
                     }

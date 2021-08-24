@@ -1,14 +1,11 @@
 package sidiq.project.kepegawaian.View
 
-import android.app.AppOpsManager
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
-import android.os.Process
-import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -20,6 +17,8 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.instacart.library.truetime.TrueTime
+import com.instacart.library.truetime.TrueTimeRx
 import kotlinx.android.synthetic.main.activity_apsensi_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -28,6 +27,8 @@ import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -41,6 +42,7 @@ class ApsensiDetail : AppCompatActivity() {
 
 
     var tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
+
     val c = Calendar.getInstance(tz)
     val year = c.get(Calendar.YEAR)
     val month = c.get(Calendar.MONTH)
@@ -67,13 +69,21 @@ class ApsensiDetail : AppCompatActivity() {
         setContentView(R.layout.activity_apsensi_detail)
         sharedPreferences = PreferenceManager(this)
 
-        tvTanggal.text = date+""+waktu
+
+      //  TrueTime.build().initialize();
+//        val trueTime = TrueTime.now()
+//        val deviceTime = Date()
+//
+        tvTanggal.text =date+waktu
         getCurrentLocation()
+
+
 
         Log.e("jumlah jam ", "" + hour)
 
 
-
+//        tvTanggal.setText(getString(R.string.tt_time_gmt,
+//            _formatDate(trueTime, "yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT"))))
 
 
             btnAbsensiPagi.setOnClickListener {
@@ -121,15 +131,6 @@ class ApsensiDetail : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-
-
-
-
         btnGetLocation.setOnClickListener {
             //check permission
             if (ContextCompat.checkSelfPermission(
@@ -155,8 +156,9 @@ class ApsensiDetail : AppCompatActivity() {
 
     }
 
+    //
 
-//
+
 
 
     override fun onRequestPermissionsResult(
@@ -173,7 +175,15 @@ class ApsensiDetail : AppCompatActivity() {
             }
         }
     }
-
+    private fun _formatDate(
+        date: Date,
+        pattern: String,
+        timeZone: TimeZone
+    ): String? {
+        val format: DateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
+        format.setTimeZone(timeZone)
+        return format.format(date)
+    }
 
     private fun InsertAbsensi(
         nip: Int,

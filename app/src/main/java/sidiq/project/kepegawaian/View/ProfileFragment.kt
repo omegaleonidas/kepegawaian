@@ -430,6 +430,7 @@ class ProfileFragment : Fragment() {
                     if (response.isSuccessful) {
 
                         n = sharedPreferences?.getNoHp()!!.toLong()
+                      tvNama.text= sharedPreferences?.getNama()!!.toString()
                         Log.e("data pegawai masuk", "${data?.pegawai?.no_tlp}")
 
                         if (data?.pegawai != null) {
@@ -503,7 +504,9 @@ class ProfileFragment : Fragment() {
                         } else {
 
                             Log.e("nip :", " " + sharedPreferences?.getNip()!!)
-                            tvNip.setText("" + sharedPreferences?.getNip()!!)
+                            tvNip.text = sharedPreferences?.getNip().toString()
+                            tvNama.text = sharedPreferences?.getNama()
+
                             binding?.tvTelepon!!.setText("" + sharedPreferences?.getNoHp()!!)
 
 
