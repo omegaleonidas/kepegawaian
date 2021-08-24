@@ -5,6 +5,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Looper
 import android.util.Log
 import android.view.View
@@ -13,12 +14,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.cazaea.sweetalert.SweetAlertDialog
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.instacart.library.truetime.TrueTime
-import com.instacart.library.truetime.TrueTimeRx
 import kotlinx.android.synthetic.main.activity_apsensi_detail.*
 import retrofit2.Call
 import retrofit2.Response
@@ -27,8 +27,6 @@ import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -50,13 +48,16 @@ class ApsensiDetail : AppCompatActivity() {
     val hour = c.get(Calendar.HOUR_OF_DAY)
     val minute = c.get(Calendar.MINUTE)
     val second = c.get(Calendar.MILLISECOND)
+    lateinit var alertDialog: SweetAlertDialog
+
 
     var lat: Double = 0.0
     var jarak: Double? = 0.0
     var lokasi: String? = null
 
 
-    val date = "" + year + "-" + month + "-" + day
+    val date =
+        StringBuilder().append(year).append("-").append(month).append("-").append(day).toString()
     val waktu = "" + hour + ":" + minute
 
 
@@ -69,12 +70,15 @@ class ApsensiDetail : AppCompatActivity() {
         setContentView(R.layout.activity_apsensi_detail)
         sharedPreferences = PreferenceManager(this)
 
+        alertDialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Bagus")
+            .setContentText("anda sudah mengambil absensi")
 
-      //  TrueTime.build().initialize();
-//        val trueTime = TrueTime.now()
-//        val deviceTime = Date()
-//
-        tvTanggal.text =date+waktu
+
+
+
+
+        tvTanggal.text = StringBuilder().append(date).append(" ").append(waktu).toString()
         getCurrentLocation()
 
 
@@ -82,31 +86,29 @@ class ApsensiDetail : AppCompatActivity() {
         Log.e("jumlah jam ", "" + hour)
 
 
-//        tvTanggal.setText(getString(R.string.tt_time_gmt,
-//            _formatDate(trueTime, "yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT"))))
 
 
-            btnAbsensiPagi.setOnClickListener {
-                //check permission
-                if (ContextCompat.checkSelfPermission(
-                        applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        this@ApsensiDetail,
-                        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        , REQUEST_PERMISSION_REQUEST_CODE
-                    )
-                } else {
-                    tvAddress.text = ""
-                    tvLatitude.text = ""
-                    tvLongitude.text = ""
-                    loader.visibility = View.VISIBLE
-                    Log.e("bottom", "data absensi pagi telah di klik " )
-                    getCurrentLocation()
-                    tambahAbsensi()
-                }
+        btnAbsensiPagi.setOnClickListener {
+            //check permission
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this@ApsensiDetail,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    , REQUEST_PERMISSION_REQUEST_CODE
+                )
+            } else {
+                tvAddress.text = ""
+                tvLatitude.text = ""
+                tvLongitude.text = ""
+                loader.visibility = View.VISIBLE
+                Log.e("bottom", "data absensi pagi telah di klik ")
+                getCurrentLocation()
+                tambahAbsensi()
             }
+        }
 
         btnAbsensiSore.setOnClickListener {
             //check permission
@@ -159,8 +161,6 @@ class ApsensiDetail : AppCompatActivity() {
     //
 
 
-
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -175,15 +175,7 @@ class ApsensiDetail : AppCompatActivity() {
             }
         }
     }
-    private fun _formatDate(
-        date: Date,
-        pattern: String,
-        timeZone: TimeZone
-    ): String? {
-        val format: DateFormat = SimpleDateFormat(pattern, Locale.ENGLISH)
-        format.setTimeZone(timeZone)
-        return format.format(date)
-    }
+
 
     private fun InsertAbsensi(
         nip: Int,
@@ -203,7 +195,7 @@ class ApsensiDetail : AppCompatActivity() {
         )
             .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
                 override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
-                    Log.e("data insert failed", ""+t.message )
+                    Log.e("data insert failed", "" + t.message)
                 }
 
                 override fun onResponse(
@@ -258,10 +250,6 @@ class ApsensiDetail : AppCompatActivity() {
                     response: Response<AbsensiInsertResponse>
                 ) {
 
-                    if (response.isSuccessful) {
-
-
-                    }
 
                     Log.e("data abnsensi tersimpan", "")
 
@@ -272,11 +260,29 @@ class ApsensiDetail : AppCompatActivity() {
 
     }
 
+    val timer = object : CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+
+
+        }
+
+        override fun onFinish() {
+            cancel()
+            alertDialog.dismiss()
+
+        }
+    }
+
+
+    fun showAlertDialogSave() {
+
+
+    }
 
 
     private fun getCurrentLocation() {
 
-        var locationRequest = LocationRequest()
+        val locationRequest = LocationRequest()
         locationRequest.interval = 10000
         locationRequest.fastestInterval = 5000
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -331,9 +337,9 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        jarak = getDistance(latitude, longitude, latitude, longitude)
+                        jarak = getDistance(-0.9095887, 100.3531456, latitude, longitude)
 
-                        // -0.9095887, 100.3531456, latitude, longitude
+                        //      -0.9095887, 100.3531456, latitude, longitude
 
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
@@ -358,12 +364,9 @@ class ApsensiDetail : AppCompatActivity() {
 
             } else if (hour >= 6 && hour <= 7) {
                 if (hour == 6) {
-                    Toast.makeText(
-                        applicationContext,
-                        "telah melakukan absensi pagi",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    alertDialog.show()
+                    timer.start()
+
 
                     data = "hadir"
                     InsertAbsensi(
@@ -377,12 +380,8 @@ class ApsensiDetail : AppCompatActivity() {
 
 
                 } else if (hour == 7 && minute <= 15) {
-                    Toast.makeText(
-                        applicationContext,
-                        "telah melakukan absensi pagi",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    alertDialog.show()
+                    timer.start()
                     data = "hadir"
                     InsertAbsensi(
                         sharedPreferences?.getNip()!!,
@@ -392,7 +391,6 @@ class ApsensiDetail : AppCompatActivity() {
                         data!!
                     )
                     Log.e("kehadiran", " bisa ambil absen karena sesudah  jam 7 sebelum jam 15 ")
-
 
 
                 } else if (minute <= 30) {
@@ -407,10 +405,12 @@ class ApsensiDetail : AppCompatActivity() {
                         data!!
                     )
 
-                } else if(hour >= 16) {
+                } else if (hour >= 16) {
                     Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
 
-                }else{
+                } else {
+                    alertDialog.show()
+                    timer.start()
                     data = "alfa"
                     InsertAbsensi(
                         sharedPreferences?.getNip()!!,
@@ -426,7 +426,10 @@ class ApsensiDetail : AppCompatActivity() {
             } else {
                 Log.e("kehadiran", "alfa karena melebihi jam 6")
                 data = " alfa"
+                alertDialog.show()
+                timer.start()
                 InsertAbsensi(
+
                     sharedPreferences?.getNip()!!,
                     date,
                     "$waktu",
@@ -443,6 +446,13 @@ class ApsensiDetail : AppCompatActivity() {
 
             Log.e("bisa ambil apsen ", "$jarak")
         } else {
+            SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Oops...")
+                .setContentText(" tidak Jarak anda Terlalu dari lokasi ")
+                .setConfirmText("OK")
+                .show()
+            Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
+
             Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
@@ -458,9 +468,15 @@ class ApsensiDetail : AppCompatActivity() {
 
             if (hour < 16) {
                 Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
-
+                SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Good job!")
+                    .setContentText("You clicked the button!")
+                    .show()
                 data = "alfa"
             } else {
+
+//
+
                 Toast.makeText(this, "bisa mengambil absensi", Toast.LENGTH_SHORT).show()
                 data = "hadir"
                 InsertAbsensiSore(
@@ -471,14 +487,7 @@ class ApsensiDetail : AppCompatActivity() {
                 )
 
 
-   }
-
-
-
-
-
-
-
+            }
 
             Log.e("bisa ambil apsen ", "$jarak")
         } else {
@@ -487,7 +496,6 @@ class ApsensiDetail : AppCompatActivity() {
         }
 
     }
-
 
     private fun getDistance(
         latitudeSekolah: Double,
