@@ -18,7 +18,6 @@ class Detail_informasi : AppCompatActivity() {
 
 
 
-
         val title = intent.getStringExtra("judul")
         val image = intent.getStringExtra("image")
         val desc = intent.getStringExtra("descripsi")

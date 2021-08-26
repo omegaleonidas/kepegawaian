@@ -16,7 +16,7 @@ data class Data1(
     val jabatan_id: String,
     val nama_pegawai: String,
     val nip: String,
-    val no_tlp: String,
+    val no_tlp: Long,
     val pendidikan: String,
     val tgl_masuk: String,
     val tmp_lahir: String,

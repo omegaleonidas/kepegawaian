@@ -29,7 +29,9 @@ class AdapterApsensi(private val data: List<Absensi>) :
 
             binding.tvTanggal1.text = item?.tanggal
             binding.tvJamMasuk.text = item?.jam_masuk
+            binding.tvJamMasukKeterangan.text = item?.keterangan
             binding.tvJamKeluar.text = item?.jam_selesai
+            binding.tvJamKeluarketerangan.text = item?.keterangan_sore
             binding.tvAlamat.text = item?.alamat
             binding.tvAlamatSore.text = item?.alamat_sore
 

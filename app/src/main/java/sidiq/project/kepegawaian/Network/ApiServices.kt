@@ -11,7 +11,7 @@ class ApiServices {
 
     companion object {
 
-        val baseUrl = "http://192.168.1.8:8001/api/"
+        val baseUrl = "http://192.168.1.8:8000/api/"
         fun restApi(): ApiInterface{
 
             val intercepton = HttpLoggingInterceptor()

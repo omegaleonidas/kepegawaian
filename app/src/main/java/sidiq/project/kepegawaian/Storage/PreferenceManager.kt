@@ -9,6 +9,8 @@ class PreferenceManager (private  val context: Context) {
 
 
 
+
+
     private  val sharePreference : SharedPreferences = context.getSharedPreferences("TAG",Context.MODE_PRIVATE)
 
     private  val editor : SharedPreferences.Editor = sharePreference.edit()
@@ -20,7 +22,17 @@ class PreferenceManager (private  val context: Context) {
         const val  NOHP  = "no_hp"
         const val IDABSENSI = "id_absensi"
         const val NAMAPEGAWAI = "nama_pegawai"
+        const val LOGIN = "login"
 
+    }
+
+    fun saveLoginState(key:String, value: Boolean){
+        editor.putBoolean(key,value)
+        editor.apply()
+    }
+
+    fun isloged():Boolean{
+        return sharePreference.getBoolean(LOGIN,false)
     }
 
 

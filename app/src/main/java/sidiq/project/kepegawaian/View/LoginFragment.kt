@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.cazaea.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.fragment_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -115,6 +116,9 @@ class LoginFragment : Fragment() {
                     Log.e("token1","${user?.user!!.id}")
                     Log.e("nip", "${user?.user!!.nip}" )
 
+                    Log.e("nohp", "${user?.user!!.nohp}" )
+                    Log.e("nnama", "${user?.user!!.name}" )
+
 
                     shareferenceManager?.saveToken(KEY_TOKEN,user?.token!!)
                     shareferenceManager?.saveNip(NIP,user?.user!!.nip!!)
@@ -132,7 +136,11 @@ class LoginFragment : Fragment() {
                 }
 
             }else{
-                Toast.makeText(requireContext(), " data tidak ada", Toast.LENGTH_SHORT).show()
+                SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Maaf")
+                    .setContentText("username dan password salah ")
+                    .setConfirmText("OK")
+                    .show()
              Log.e("error","data tidak ada")
             }
             }

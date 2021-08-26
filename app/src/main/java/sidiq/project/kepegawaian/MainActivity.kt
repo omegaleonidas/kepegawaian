@@ -31,13 +31,13 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onStart()
-        if (sharedPreferences?.getToken()!= null){
-
-            val intent = Intent(this,Home::class.java)
-            startActivity(intent)
-            finish()
-
-        }
+//        if (sharedPreferences?.getToken()!= null){
+//
+//            val intent = Intent(this,Home::class.java)
+//            startActivity(intent)
+//            finish()
+//
+//        }
 
 
     }

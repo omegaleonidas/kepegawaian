@@ -1,5 +1,6 @@
 package sidiq.project.kepegawaian
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -34,13 +35,15 @@ class loginOTP : AppCompatActivity() {
         setContentView(R.layout.activity_login_o_t_p)
 
         auth = FirebaseAuth.getInstance()
+        Activity().finish()
 
         sharedPreferences = PreferenceManager(this)
 //        Reference
         val Login = findViewById<Button>(R.id.loginBtn)
 
-//        var nohp = +sharedPreferences?.getNoHp()!!
-//         phoneNumber.setText(""+nohp)
+
+       var nohp = +sharedPreferences?.getNoHp()!!
+         phoneNumber.setText(""+nohp)
 
         var currentUser = auth.currentUser
         if (currentUser != null) {
@@ -90,7 +93,8 @@ class loginOTP : AppCompatActivity() {
         var number = mobileNumber
 
 
-        Log.e("nomor telepon terbaca", "" + sharedPreferences?.getNoHp()!!)
+  //      Log.e("nomor telepon terbaca", "" + sharedPreferences?.getNoHp()!!)
+
 
         if (!number.isEmpty()) {
             number = "+62" + number

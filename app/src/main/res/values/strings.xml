@@ -14,8 +14,8 @@
     <string name="menu_jadwal">Riwayat</string>
 
     <string name="button">click button</string>
-    <string name="dialogTitle">Delete File</string>
-    <string name="dialogMessage">Deleting file may be harm your system</string>
+    <string name="dialogTitle">Keluar</string>
+    <string name="dialogMessage">Apakah anda mau keluar?</string>
     <string name="menu_informasi">informasi</string>
     <string name="menu_profile">profile</string>
 

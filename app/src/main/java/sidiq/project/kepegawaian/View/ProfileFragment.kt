@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
@@ -18,10 +19,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.cazaea.sweetalert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_profile.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -56,6 +59,8 @@ class ProfileFragment : Fragment() {
     var dataAgama: Int = 0
     var dataJabatan: Int = 0
     var jenisKelamin: String? = null
+    lateinit var alertDialog: SweetAlertDialog
+    lateinit var alertDialog1: SweetAlertDialog
     var name: String? = null
     var namee: String? = null
     var imagee: String? = null
@@ -143,6 +148,7 @@ class ProfileFragment : Fragment() {
 
         // Inflate the layout for this fragment
 
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,7 +170,12 @@ class ProfileFragment : Fragment() {
         Log.v("data id", "" + sharedPreferences?.getToken())
 
 
-
+        alertDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Selamat")
+            .setContentText("data telah disimpan")
+        alertDialog1 = SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Selamat")
+            .setContentText("data telah di ubah")
 
 
 
@@ -203,7 +214,8 @@ class ProfileFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        tvTglMasuk.setOnClickListener {
+
+        tvTglMasukInput.setOnClickListener {
 
             val dpd = DatePickerDialog(
                 requireContext(),
@@ -219,6 +231,22 @@ class ProfileFragment : Fragment() {
 
         }
 
+
+        tvTglLahirInput.setOnClickListener {
+
+            val dpd = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in TextView
+                    tvTglLahirInput.setText("" + year + "-" + month + "-" + dayOfMonth)
+                },
+                year,
+                month,
+                day
+            )
+            dpd.show()
+
+        }
 
         val agamas = resources.getStringArray(R.array.agama)
         val jabatas = resources.getStringArray(R.array.jabatan)
@@ -315,25 +343,23 @@ class ProfileFragment : Fragment() {
             builder.setIcon(android.R.drawable.ic_dialog_alert)
 
             //performing positive action
-            builder.setPositiveButton("Yes"){dialogInterface, which ->
+            builder.setPositiveButton("Yes") { dialogInterface, which ->
                 sharedPreferences?.saveToken(KEY_TOKEN, null)
                 sharedPreferences?.saveId(ID, 0)
 
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
-
+                sharedPreferences!!.saveLoginState(PreferenceManager.LOGIN,false)
                 auth.signOut()
 
             }
             //performing cancel action
-            builder.setNeutralButton("Cancel"){dialogInterface , which ->
-                Toast.makeText(requireContext(),"clicked cancel\n operation cancel",Toast.LENGTH_LONG).show()
+            builder.setNeutralButton("Cancel") { dialogInterface, which ->
+
             }
             //performing negative action
-            builder.setNegativeButton("No"){dialogInterface, which ->
-                Toast.makeText(requireContext(),"clicked No",Toast.LENGTH_LONG).show()
-            }
+
             // Create the AlertDialog
             val alertDialog: AlertDialog = builder.create()
             // Set other dialog properties
@@ -341,11 +367,22 @@ class ProfileFragment : Fragment() {
             alertDialog.show()
 
 
-
             // navControler.navigate(R.id.action_navigation_profile_to_loginOTP2)
         }
 
 
+    }
+    val timer = object : CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+
+
+        }
+
+        override fun onFinish() {
+            cancel()
+            alertDialog.dismiss()
+
+        }
     }
 
     val retrofit = ApiServices.restApi()
@@ -430,22 +467,25 @@ class ProfileFragment : Fragment() {
                     if (response.isSuccessful) {
 
                         n = sharedPreferences?.getNoHp()!!.toLong()
-                      tvNama.text= sharedPreferences?.getNama()!!.toString()
+                        tvNama.text = sharedPreferences?.getNama()!!.toString()
                         Log.e("data pegawai masuk", "${data?.pegawai?.no_tlp}")
 
                         if (data?.pegawai != null) {
                             binding?.tvNip!!.setText(data.pegawai.nip)
                             binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
+                            binding?.tvNamaPegawaiInput!!.setText(data.pegawai.nama_pegawai)
                             // binding?.spinnerJabatanInput!!.setText(data.pegawai.nama_jabatan)
                             binding?.tvEmail!!.setText(data.pegawai.email)
                             binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
                             binding?.tvAlamat!!.setText(data.pegawai.alamat_pegawai)
                             binding?.tvTglMasukInput!!.setText(data.pegawai.tgl_masuk)
+
                             binding?.tvTglLahirInput!!.setText(data.pegawai.tmp_lahir)
                             // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
                             //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
-                            Glide.with  (binding?.imageView2!!).load("http://192.168.1.8/api/public/foto_pegawai/"+ data.pegawai.foto)
+                            Glide.with(binding?.imageView2!!)
+                                .load("http://192.168.1.8/api/public/foto_pegawai/" + data.pegawai.foto)
                                 .into(binding?.imageView2!!)
 
                             binding?.btnEdit!!.setText("edit")
@@ -456,47 +496,57 @@ class ProfileFragment : Fragment() {
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                                   var no = binding?.tvTelepon!!.text.toString()
+                                var no = binding?.tvTelepon!!.text.toString()
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()
 //                                id_agama
                                 //gender
                                 pen = binding?.tvPendidikanInput?.text.toString()
-                                imagee = ""+data.pegawai
+                                imagee = StringBuilder().append(data.pegawai).toString()
 
                                 Log.e("data jenis :", "$jenisKelamin!!")
 
-                               if(tvEmail.text.toString().length==0){
-                                        tvEmail.setError("Email harus di isi")
+                                if (tvEmail.text.toString().length == 0) {
+                                    tvEmail.setError("Email harus di isi")
 
-                                }else if(tvTelepon.text.toString().length==0){
-                                   tvTelepon.setError("Telepon harus di isi")
-                               }else if (tv_alamat.text.toString().length==0){
-                                   tv_alamat.setError("Alamat harus di isi")
-                               }else if (tvTglMasukInput.text.toString().length==0){
-                                   tvTglMasukInput.setError("tanggal masuk harus di isi")
-                               }else if (tvTglMasukInput.text.toString().length==0){
-                                   tvTglMasukInput.setError("tanggal masuk harus di isi")
-                               }else{
-                                   UpdateData(
-                                       isiNip,
-                                       namee!!,
-                                       dataJabatan,
-                                       em!!,
-                                       "$no",
-                                       alamat!!,
-                                       th!!,
-                                       tgl!!,
-                                       dataAgama,
-                                       jenisKelamin!!,
-                                       pen!!,
-                                       uriPath!!
+                                } else if (tvTelepon.text.toString().length == 0) {
+                                    tvTelepon.setError("Telepon harus di isi")
+                                } else if (tv_alamat.text.toString().length == 0) {
+                                    tv_alamat.setError("Alamat harus di isi")
+                                } else if (tvTglMasukInput.text.toString().length == 0) {
+                                    tvTglMasukInput.setError("tanggal masuk harus di isi")
+                                } else if (tvTglMasukInput.text.toString().length == 0) {
+                                    tvTglMasukInput.setError("tanggal masuk harus di isi")
+                                } else if (SpinnerGenderInput.text.toString().length == 0) {
+                                    SpinnerGenderInput.setError("jenis kelamin  harus di isi")
+                                } else if (spinnerAgamaInput.text.toString().length == 0){
+                                    spinnerAgamaInput.setError("agama  harus di isi")
+                                }else  if (spinnerJabatanInput.text.toString().length == 0){
+                                    spinnerJabatanInput.setError("jabatan  harus di isi")
 
-                                   )
+                                }else {
 
-                               }
+                                    alertDialog1.show()
+                                    timer.start()
+                                    UpdateData(
+                                        isiNip,
+                                        namee!!,
+                                        dataJabatan,
+                                        em!!,
+                                        "$no",
+                                        alamat!!,
+                                        th!!,
+                                        tgl!!,
+                                        dataAgama,
+                                        jenisKelamin!!,
+                                        pen!!,
+                                        uriPath!!
+                                      //  imagee!!.toUri()
 
+                                    )
+
+                                }
 
 
                             }
@@ -523,7 +573,8 @@ class ProfileFragment : Fragment() {
 //                                id_agama
                                 //gender
                                 pen = binding?.tvPendidikanInput?.text.toString()
-
+                                alertDialog.show()
+                                timer.start()
 
                                 InsertData(
 
@@ -733,7 +784,6 @@ return
             ) {
                 val dataPegawai = response.body()
                 if (response.isSuccessful) {
-
                     Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
 
                 }
