@@ -15,6 +15,7 @@ import sidiq.project.kepegawaian.model.jam.timeResponse
 import sidiq.project.kepegawaian.model.login.DataUserRespon
 import sidiq.project.kepegawaian.model.pegawai.PegawaiInsertResponse
 import sidiq.project.kepegawaian.model.pegawai.PegawaiRespon
+import sidiq.project.kepegawaian.model.user.userResponse
 
 
 interface ApiInterface {
@@ -143,6 +144,17 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<timeResponse>
 
+
+    @POST("updateProfile/{id_pegawai}")
+    fun UpdateUser(
+        @Path("id_pegawai") id_absensi: Int,
+        @Query("name") name: String,
+        @Query("nip") nip: String,
+        @Query("nohp") nohp: String,
+        @Query("email") email: String,
+        @Query("password") password: String, @Header("Authorization") token: String
+    )
+            : Call<userResponse>
 
 
 

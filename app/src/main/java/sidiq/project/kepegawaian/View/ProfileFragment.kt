@@ -43,6 +43,7 @@ import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.KEY_TOKEN
 import sidiq.project.kepegawaian.databinding.FragmentProfileBinding
 import sidiq.project.kepegawaian.model.pegawai.PegawaiInsertResponse
 import sidiq.project.kepegawaian.model.pegawai.PegawaiRespon
+import sidiq.project.kepegawaian.model.user.userResponse
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -65,7 +66,7 @@ class ProfileFragment : Fragment() {
     var namee: String? = null
     var imagee: String? = null
     var isiNip: Int = 0
-    var hasilFhoto: String? = null
+
     private val REQUEST_PERMISSION = 201
 
     var n: Long? = 0
@@ -155,9 +156,8 @@ class ProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        var currentUser = auth.currentUser
 
-//        Reference
+
 
     }
 
@@ -191,14 +191,7 @@ class ProfileFragment : Fragment() {
                 (Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
             )
             wallpaperDirectory.mkdirs()
-            if (wallpaperDirectory.isDirectory) {
-                Log.e("folder maASUK", " " + wallpaperDirectory.toString())
 
-            } else {
-                Log.e("folder tidak maASUK", " " + wallpaperDirectory.toString())
-
-            }
-            Log.e("permission", " disetujui ")
         } else {
 
             ActivityCompat.requestPermissions(
@@ -350,7 +343,7 @@ class ProfileFragment : Fragment() {
                 val intent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
-                sharedPreferences!!.saveLoginState(PreferenceManager.LOGIN,false)
+                sharedPreferences!!.saveLoginState(PreferenceManager.LOGIN, false)
                 auth.signOut()
 
             }
@@ -372,6 +365,7 @@ class ProfileFragment : Fragment() {
 
 
     }
+
     val timer = object : CountDownTimer(2000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
 
@@ -443,6 +437,30 @@ class ProfileFragment : Fragment() {
             }
 
         })
+    }
+
+
+    fun UpdateUser(name: String, nip: String, nohp: String, email: String, password: String) {
+        retrofit.UpdateUser(
+            sharedPreferences?.getId()!!,
+            name, nip, nohp, email, password, "Bearer " + sharedPreferences?.getToken()
+
+        ).enqueue(object : retrofit2.Callback<userResponse> {
+            override fun onFailure(call: Call<userResponse>, t: Throwable) {
+                Log.e("update user", "onFailure: " + t.message)
+
+            }
+
+            override fun onResponse(call: Call<userResponse>, response: Response<userResponse>) {
+
+
+                if (response.isSuccessful) {
+
+                }
+            }
+
+        })
+
     }
 
     fun GetData() {
@@ -520,10 +538,13 @@ class ProfileFragment : Fragment() {
                                     tvTglMasukInput.setError("tanggal masuk harus di isi")
                                 } else if (SpinnerGenderInput.text.toString().length == 0) {
                                     SpinnerGenderInput.setError("jenis kelamin  harus di isi")
-                                } else if (spinnerAgamaInput.text.toString().length == 0){
+                                } else if (spinnerAgamaInput.text.toString().length == 0) {
                                     spinnerAgamaInput.setError("agama  harus di isi")
-                                }else  if (spinnerJabatanInput.text.toString().length == 0){
+                                } else if (spinnerJabatanInput.text.toString().length == 0) {
                                     spinnerJabatanInput.setError("jabatan  harus di isi")
+                                } else if(tvPasswordInput.text.toString().length == 0){
+                                    tvPasswordInput.setError("Password  harus di isi")
+
 
                                 }else {
 
@@ -542,7 +563,17 @@ class ProfileFragment : Fragment() {
                                         jenisKelamin!!,
                                         pen!!,
                                         uriPath!!
-                                      //  imagee!!.toUri()
+                                        //  imagee!!.toUri()
+
+                                    )
+                                    val password = binding?.tvPasswordInput?.text.toString()
+                                    UpdateUser(
+
+                                        namee!!,
+                                        isiNip.toString(),
+                                        "$no",
+                                        em!!,
+                                        password!!
 
                                     )
 
@@ -782,11 +813,7 @@ return
 
 
             ) {
-                val dataPegawai = response.body()
-                if (response.isSuccessful) {
-                    Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
 
-                }
 
 
             }
