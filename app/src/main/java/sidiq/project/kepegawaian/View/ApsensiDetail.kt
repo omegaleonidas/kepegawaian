@@ -27,10 +27,9 @@ import sidiq.project.kepegawaian.R
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
+import sidiq.project.kepegawaian.model.jam.timeResponse
 import java.util.*
 
-
-private var sharedPreferences: PreferenceManager? = null
 
 class ApsensiDetail : AppCompatActivity() {
 
@@ -41,24 +40,28 @@ class ApsensiDetail : AppCompatActivity() {
 
     var tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
 
+    private var sharedPreferences: PreferenceManager? = null
+
+    var waktu: String? = null
     val c = Calendar.getInstance(tz)
     val year = c.get(Calendar.YEAR)
     val month = c.get(Calendar.MONTH)
     val day = c.get(Calendar.DAY_OF_MONTH)
-    val hour = c.get(Calendar.HOUR_OF_DAY)
-    val minute = c.get(Calendar.MINUTE)
+    var hour: Int = 0
+    var minute: Int = 0
     val second = c.get(Calendar.MILLISECOND)
     lateinit var alertDialog: SweetAlertDialog
 
 
     var lat: Double = 0.0
+    var jarakWaktu: Double? = 0.0
     var jarak: Double? = 0.0
     var lokasi: String? = null
 
 
     val date =
         StringBuilder().append(year).append("-").append(month).append("-").append(day).toString()
-    val waktu = "" + hour + ":" + minute
+    //   val waktu = "" + hour + ":" + minute
 
 
     var calender = Calendar.getInstance()
@@ -70,6 +73,7 @@ class ApsensiDetail : AppCompatActivity() {
         setContentView(R.layout.activity_apsensi_detail)
         sharedPreferences = PreferenceManager(this)
         getCurrentLocation()
+        getTime()
         alertDialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText("Bagus")
             .setContentText("anda sudah mengambil absensi")
@@ -87,7 +91,7 @@ class ApsensiDetail : AppCompatActivity() {
 
 
 
-        tvTanggal.text = StringBuilder().append(date).append(" ").append(waktu).toString()
+
 
 
 
@@ -234,6 +238,37 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
+    private fun getTime() {
+        val retrofit = ApiServices.restApi()
+
+        retrofit.getTime("Bearer " + sharedPreferences?.getToken())
+            .enqueue(object : retrofit2.Callback<timeResponse> {
+                override fun onFailure(call: Call<timeResponse>, t: Throwable) {
+                    Log.e("data_jam", "data jam " + t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<timeResponse>,
+                    response: Response<timeResponse>
+                ) {
+                    val dataWaktu = response.body()
+                    if (response.isSuccessful) {
+                        tvTanggal.text = dataWaktu?.data?.date_time
+                        hour = dataWaktu!!.data.Hour
+                        waktu = dataWaktu!!.data.jam
+                        minute = dataWaktu!!.data.minute
+                        Log.e("data_jam", "data jam " + dataWaktu!!.data.Hour)
+
+                    } else {
+                        Log.e("data_jam", "tidak response " + response.message())
+
+                    }
+
+                }
+
+            })
+    }
+
     private fun InsertAbsensiSore(
 
         jam_selesai: String,
@@ -241,8 +276,6 @@ class ApsensiDetail : AppCompatActivity() {
         keterangan_sore: String
     ) {
         val retrofit = ApiServices.restApi()
-
-
 
 
         retrofit.InsertAbsensiSore(
@@ -334,9 +367,10 @@ class ApsensiDetail : AppCompatActivity() {
                         lat = latitude
 
 
-                        tvLatitude.text = "$latitude"
+//                        tvLatitude.text = "$latitude"
+
                         Log.e("latitude", "$latitude")
-                        tvLongitude.text = "Longitude: " + longitude
+//                        tvLongitude.text = "Longitude: " + longitude
 
                         addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
@@ -346,8 +380,9 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        jarak = getDistance(latitude, longitude, latitude, longitude)
+                        jarak = getDistance(  -0.9095887, 100.3531456, latitude, longitude)
 
+                        jarakWaktu  = jarak!!/1000
                         //      -0.9095887, 100.3531456, latitude, longitude
 
                         if (tvAddress != null) {
@@ -363,7 +398,7 @@ class ApsensiDetail : AppCompatActivity() {
     var data: String? = null
     private fun tambahAbsensi() {
 
-        if (jarak!! <= 1.00) {
+        if (jarakWaktu!! <= 1.00) {
 
             if (hour < 6) {
                 //tidak bisa
@@ -460,17 +495,17 @@ class ApsensiDetail : AppCompatActivity() {
             Toast.makeText(this, " mengambil absen", Toast.LENGTH_SHORT).show()
 
 
-            Log.e("bisa ambil apsen ", "$jarak")
+            Log.e("bisa ambil apsen ", "$jarakWaktu")
         } else {
             SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Oops...")
-                .setContentText(" tidak Jarak anda Terlalu dari lokasi ")
+                .setContentText("  jarak anda  $jarakWaktu jauh dari lokasi    ")
                 .setConfirmText("OK")
                 .show()
             Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
             Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
-            Log.e("tidak bisa ambil absen", "$jarak ")
+            Log.e("tidak bisa ambil absen", "$jarakWaktu ")
         }
 
 
@@ -479,8 +514,7 @@ class ApsensiDetail : AppCompatActivity() {
 
     private fun tambahAbsensiSore() {
 
-        if (jarak!! <= 2.00) {
-
+        if (jarakWaktu!! <= 2.00) {
 
             if (hour < 16) {
                 SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -512,7 +546,7 @@ class ApsensiDetail : AppCompatActivity() {
         } else {
             SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Oops...")
-                .setContentText(" tidak Jarak anda Terlalu dari lokasi ")
+                .setContentText("  jarak anda  $jarakWaktu jauh dari lokasi    ")
                 .setConfirmText("OK")
                 .show()
             Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()

@@ -11,6 +11,7 @@ import sidiq.project.kepegawaian.model.absensi.absensiResponse
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
 import sidiq.project.kepegawaian.model.informasi.InformasiResponse
+import sidiq.project.kepegawaian.model.jam.timeResponse
 import sidiq.project.kepegawaian.model.login.DataUserRespon
 import sidiq.project.kepegawaian.model.pegawai.PegawaiInsertResponse
 import sidiq.project.kepegawaian.model.pegawai.PegawaiRespon
@@ -136,6 +137,13 @@ interface ApiInterface {
         @Path("id_absensi") id_absensi: Int,
         @Header("Authorization") token: String
     ): Call<DataInformasiAbsensiRespon>
+
+    @GET("time")
+    fun getTime(
+        @Header("Authorization") token: String
+    ): Call<timeResponse>
+
+
 
 
 }
