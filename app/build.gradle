@@ -118,4 +118,8 @@ dependencies {
     //alert dialog
     implementation 'com.github.cazaea:sweet-alert-dialog:1.0.0'
 
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+//leakcanry
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
 }

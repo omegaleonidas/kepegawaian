@@ -380,9 +380,16 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        jarak = getDistance(  -0.9095887, 100.3531456, latitude, longitude)
+                        jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                       // (    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                        //(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479) == lokasi 1
+                        //(   -0.9094329061193681, 100.35503269141843, -0.9091398069107424, 100.3546317084189)  == lokasi 2
+                        //(   -0.9094329061193681, 100.35503269141843, -0.9099941692193596, 100.3556551789124)  == lokasi 3
+                        //(   -0.9094329061193681, 100.35503269141843,   -0.9087005388791217, 100.35603431952079) == lokasi 4
+                        //(   -0.9094329061193681, 100.35503269141843,    -0.9104934983568482, 100.35293589302698) == lokasi 5
 
-                        jarakWaktu  = jarak!!/1000
+
+                        jarakWaktu  = jarak!!/1
                         //      -0.9095887, 100.3531456, latitude, longitude
 
                         if (tvAddress != null) {
@@ -398,7 +405,7 @@ class ApsensiDetail : AppCompatActivity() {
     var data: String? = null
     private fun tambahAbsensi() {
 
-        if (jarakWaktu!! <= 1.00) {
+        if (jarakWaktu!! <= 50) {
 
             if (hour < 6) {
                 //tidak bisa
@@ -525,7 +532,7 @@ class ApsensiDetail : AppCompatActivity() {
                 Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
                 data = "alfa"
-            } else {
+            } else if (hour < 19) {
 
 //
                 alertDialog.show()
@@ -538,6 +545,15 @@ class ApsensiDetail : AppCompatActivity() {
                     "$lokasi",
                     data!!
                 )
+
+
+            }else{
+                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText(" Belum bisa mengambil absen karena sudah lewat  ")
+                    .setConfirmText("OK")
+                    .show()
+                Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
 
             }

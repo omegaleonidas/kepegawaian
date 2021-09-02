@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
+import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -489,6 +491,8 @@ class ProfileFragment : Fragment() {
                         Log.e("data pegawai masuk", "${data?.pegawai?.no_tlp}")
 
                         if (data?.pegawai != null) {
+
+                            binding?.tvPassword?.visibility=View.VISIBLE
                             binding?.tvNip!!.setText(data.pegawai.nip)
                             binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
                             binding?.tvNamaPegawaiInput!!.setText(data.pegawai.nama_pegawai)
@@ -584,6 +588,7 @@ class ProfileFragment : Fragment() {
 
                         } else {
 
+
                             Log.e("nip :", " " + sharedPreferences?.getNip()!!)
                             tvNip.text = sharedPreferences?.getNip().toString()
                             tvNama.text = sharedPreferences?.getNama()
@@ -597,7 +602,7 @@ class ProfileFragment : Fragment() {
                                 //jabatanID
                                 em = binding?.tvEmail?.text.toString()
 
-                                val no = binding?.tvTelepon!!.setText("" + n!!)
+                                var no = binding?.tvTelepon!!.text.toString()
                                 alamat = binding?.tvAlamat?.text.toString()
                                 th = binding?.tvTglMasukInput?.text.toString()
                                 tgl = binding?.tvTglLahirInput?.text.toString()

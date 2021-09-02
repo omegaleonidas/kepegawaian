@@ -526,6 +526,7 @@
 
             android:ems="10"
             android:hint="passpwrd"
+            android:visibility="gone"
 
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
