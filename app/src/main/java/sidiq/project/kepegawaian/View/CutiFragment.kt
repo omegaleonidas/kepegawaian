@@ -2,6 +2,7 @@ package sidiq.project.kepegawaian.View
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import android.view.ViewGroup
 
 import android.widget.TextView
 import android.widget.Toast
+import com.cazaea.sweetalert.SweetAlertDialog
 import kotlinx.android.synthetic.main.fragment_cuti.*
+import okhttp3.internal.format
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +28,10 @@ class CutiFragment : androidx.fragment.app.Fragment() {
 
     var viewmodelCuti: CutiViewModel? = null
     var textview_date: TextView? = null
+    lateinit var alertDialog: SweetAlertDialog
     var binding: FragmentCutiBinding? = null
+    var hitung:Int = 0
+    var hitung1:Int  = 0
 
     var cal = Calendar.getInstance()
     private var sharedPreferences: PreferenceManager? = null
@@ -47,18 +53,29 @@ class CutiFragment : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        viewmodelCuti = ViewModelProviders.of(this).get(CutiViewModel::class.java)
-//        viewmodelCuti?.cutiMVVMmodel?.observe(this, Observer {
-
 //
-//
-//        })
+
+    }
+
+    val timer = object : CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
 
 
+        }
+
+        override fun onFinish() {
+            cancel()
+            alertDialog.dismiss()
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        alertDialog = SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Bagus")
+            .setContentText("anda sudah mengajukan cuti")
 
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -94,34 +111,40 @@ class CutiFragment : androidx.fragment.app.Fragment() {
 
         }
 
-
         }
-
-
-
-
-
-
-
-
-
 
     fun insertData() {
 
-
         val nip =  sharedPreferences!!.getNip()
-        val lama_cuti = 2
-        val alasan_cuti = binding?.tanggalKeterangan?.text.toString()
 
+
+
+
+        var tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
+        val alasan_cuti = binding?.tanggalKeterangan?.text.toString()
+        val c = Calendar.getInstance(tz)
 
         var tanggal_awal = binding?.tanggalAwal?.text.toString()
-       // var awal = tanggal_awal.toInt()
+
         var tanggal_akhir = binding?.tanggalAkhir?.text.toString()
-      //  var akhir = tanggal_akhir.toInt()
+
         var calender = Calendar.getInstance()
         val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val date =
+            StringBuilder().append(year).append("-").append(month).append("-").append(day).toString()
 
-        Log.e("data tanggal  ","$time")
+
+
+
+
+
+
+
+
+            Log.e("data tanggal  ","$time")
 
 
         var retrofit = ApiServices.restApi()
@@ -130,14 +153,19 @@ class CutiFragment : androidx.fragment.app.Fragment() {
             tanggal_awal,
             tanggal_akhir,
             alasan_cuti,
-            time,
-            lama_cuti,
+            date,
+
             "Bearer " + sharedPreferences?.getToken()
         )
             .enqueue(object : Callback<CutiResponse> {
 
                 override fun onFailure(call: Call<CutiResponse>, t: Throwable) {
                     Log.e("data simpan tidak masuk", t.message)
+                    SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  jaringan tidak ada atau gangguan   ")
+                        .setConfirmText("OK")
+                        .show()
                 }
 
                 override fun onResponse(
@@ -147,7 +175,8 @@ class CutiFragment : androidx.fragment.app.Fragment() {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "data telah di kirim", Toast.LENGTH_SHORT)
                             .show()
-
+                        alertDialog.show()
+                        timer.start()
 
                     } else {
                         Log.e("data tidak response", "${response.message()}")

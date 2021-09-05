@@ -52,7 +52,6 @@ class ApsensiDetail : AppCompatActivity() {
     val second = c.get(Calendar.MILLISECOND)
     lateinit var alertDialog: SweetAlertDialog
 
-
     var lat: Double = 0.0
     var jarakWaktu: Double? = 0.0
     var jarak: Double? = 0.0
@@ -61,7 +60,7 @@ class ApsensiDetail : AppCompatActivity() {
 
     val date =
         StringBuilder().append(year).append("-").append(month).append("-").append(day).toString()
-    //   val waktu = "" + hour + ":" + minute
+     //   val waktu = "" + hour + ":" + minute
 
 
     var calender = Calendar.getInstance()
@@ -74,6 +73,7 @@ class ApsensiDetail : AppCompatActivity() {
         sharedPreferences = PreferenceManager(this)
         getCurrentLocation()
         getTime()
+
         alertDialog = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText("Bagus")
             .setContentText("anda sudah mengambil absensi")
@@ -209,6 +209,11 @@ class ApsensiDetail : AppCompatActivity() {
             .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
                 override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
                     Log.e("data insert failed", "" + t.message)
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  jaringan tidak ada atau bermasalah   ")
+                        .setConfirmText("OK")
+                        .show()
                 }
 
                 override fun onResponse(
@@ -217,15 +222,18 @@ class ApsensiDetail : AppCompatActivity() {
                 ) {
                     val dataAbsensi = response.body()
                     if (response.isSuccessful) {
-                        Toast.makeText(
-                            applicationContext,
-                            "telah melakukan absensi pagi",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+
                         sharedPreferences?.saveIdAbsensi(IDABSENSI, dataAbsensi!!.data.id_absensi)
                         Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
 
+                        if(dataAbsensi!!.data.alamat == null){
+                            SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Oops...")
+                                .setContentText("  alamat tidak terdeteksi   ")
+                                .setConfirmText("OK")
+                                .show()
+
+                        }
                     }
 
                     Log.e("data abnsensi tersimpan", "")
@@ -284,13 +292,29 @@ class ApsensiDetail : AppCompatActivity() {
         )
             .enqueue(object : retrofit2.Callback<AbsensiInsertResponse> {
                 override fun onFailure(call: Call<AbsensiInsertResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  jaringan tidak ada atau bermasalah   ")
+                        .setConfirmText("OK")
+                        .show()
+
+                      }
 
                 override fun onResponse(
                     call: Call<AbsensiInsertResponse>,
                     response: Response<AbsensiInsertResponse>
                 ) {
+                    val dataWaktu = response.body()
+                   if (response.isSuccessful){
+                       if(dataWaktu!!.data.alamat == null){
+                           SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                               .setTitleText("Oops...")
+                               .setContentText("  alamat tidak terdeteksi   ")
+                               .setConfirmText("OK")
+                               .show()
+
+                       }
+                   }
 
 
                     Log.e("data abnsensi tersimpan", "")
@@ -380,13 +404,13 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
-                       // (    -0.9094216623870202,  100.35502462911867, latitude, longitude)
-                        //(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479) == lokasi 1
-                        //(   -0.9094329061193681, 100.35503269141843, -0.9091398069107424, 100.3546317084189)  == lokasi 2
-                        //(   -0.9094329061193681, 100.35503269141843, -0.9099941692193596, 100.3556551789124)  == lokasi 3
-                        //(   -0.9094329061193681, 100.35503269141843,   -0.9087005388791217, 100.35603431952079) == lokasi 4
-                        //(   -0.9094329061193681, 100.35503269141843,    -0.9104934983568482, 100.35293589302698) == lokasi 5
+                        //jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                        // jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                          jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479)
+                       //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9091398069107424, 100.3546317084189)
+                      //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9099941692193596, 100.3556551789124)
+                        // jarak = getDistance(   -0.9094329061193681, 100.35503269141843,   -0.9087005388791217, 100.35603431952079)
+                         // jarak = getDistance(   -0.9094329061193681, 100.35503269141843,    -0.9104934983568482, 100.35293589302698)
 
 
                         jarakWaktu  = jarak!!/1
@@ -521,7 +545,7 @@ class ApsensiDetail : AppCompatActivity() {
 
     private fun tambahAbsensiSore() {
 
-        if (jarakWaktu!! <= 2.00) {
+        if (jarakWaktu!! <=  50) {
 
             if (hour < 16) {
                 SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -565,6 +589,7 @@ class ApsensiDetail : AppCompatActivity() {
                 .setContentText("  jarak anda  $jarakWaktu jauh dari lokasi    ")
                 .setConfirmText("OK")
                 .show()
+
             Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
@@ -581,6 +606,7 @@ class ApsensiDetail : AppCompatActivity() {
         val pi = 3.14159265358979
         val R = 6371e3
         val latRad1 = latitudeSekolah * (pi / 180)
+        Log.e("latRad1", "= $latRad1 " )
         val latRad2 = latitudeUser * (pi / 180)
         val deltaLatRad = (latitudeUser - latitudeSekolah) * (pi / 180)
         val deltaLonRad = (longitudeUser - longitudeSekolah) * (pi / 180)
@@ -592,10 +618,21 @@ class ApsensiDetail : AppCompatActivity() {
             ) * Math.cos(latRad2) * Math.sin(deltaLonRad / 2) * Math.sin(
                 deltaLonRad / 2
             )
+
         val c =
             2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
         return R * c
+
+
+
+
     }
+
+
+
+
+
+
 
 
 }

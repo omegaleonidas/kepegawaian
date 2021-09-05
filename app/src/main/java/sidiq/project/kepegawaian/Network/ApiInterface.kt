@@ -48,7 +48,7 @@ interface ApiInterface {
         @Query("tanggal_akhir") tanggal_akhir: String,
         @Query("alasan_cuti") alasan_cuti: String,
         @Query("tanggal") tanggal: String,
-        @Query("lama_cuti") lama_cuti: Int, @Header("Authorization") token: String
+        @Header("Authorization") token: String
     )
             : Call<CutiResponse>
 

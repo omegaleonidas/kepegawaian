@@ -27,7 +27,7 @@
             android:layout_height="80dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="72dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
 
             app:layout_constraintStart_toStartOf="parent"
 
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="96dp"
-            android:text="Nama : "
+            android:text="@string/nama"
             android:textColor="@color/black"
 
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
-            android:text="hidayatul sidiq"
+            android:text=""
             android:textSize="20dp"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
-            android:text="121212121"
+            android:text=""
 
             android:textSize="20dp"
             app:layout_constraintStart_toEndOf="@+id/textView11"
@@ -118,13 +118,13 @@
             android:layout_height="40dp"
             android:background="@drawable/ic_baseline_exit_to_app_24"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintBottom_toTopOf="@+id/tvNamaPegawai"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.916"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.151" />
-
+            app:layout_constraintVertical_bias="0.903" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tvNamaPegawai"
@@ -516,7 +516,7 @@
             android:id="@+id/tvPassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
 
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
@@ -525,7 +525,7 @@
             android:layout_marginRight="32dp"
 
             android:ems="10"
-            android:hint="passpwrd"
+            android:hint="password"
             android:visibility="gone"
 
             android:inputType="textPassword"

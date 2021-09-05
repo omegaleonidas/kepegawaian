@@ -11,11 +11,12 @@ import kotlinx.android.synthetic.main.fragment_apsensi.*
 import retrofit2.Call
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
-import sidiq.project.kepegawaian.R
+
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.databinding.FragmentApsensiBinding
-import sidiq.project.kepegawaian.databinding.FragmentProfileBinding
+
 import sidiq.project.kepegawaian.model.absensi.DataInformasiAbsensiRespon
+import java.util.*
 
 class ApsensiFragment : Fragment() {
 
@@ -43,6 +44,16 @@ class ApsensiFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         GetData()
+
+        val calender = Calendar.getInstance()
+        val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
+
+        binding?.tanggalHome?.text = time
+
+
+
+        binding?.textView2?.text = sharedPreferences?.getNama()
+        binding?.textView5?.text = sharedPreferences?.getNip().toString()
         btnDetailApsen.setOnClickListener {
             val intent = Intent(context, ApsensiDetail::class.java)
             startActivity(intent)
@@ -62,7 +73,7 @@ class ApsensiFragment : Fragment() {
             "Bearer " + sharedPreferences?.getToken()
         ).enqueue(object : retrofit2.Callback<DataInformasiAbsensiRespon> {
             override fun onFailure(call: Call<DataInformasiAbsensiRespon>, t: Throwable) {
-                Log.e("data failure", t.message )
+
             }
 
             override fun onResponse(

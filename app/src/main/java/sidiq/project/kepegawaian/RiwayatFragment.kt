@@ -6,31 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_riwayat.*
 import retrofit2.Call
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.ViewModel.AbsensiViewModel
 import sidiq.project.kepegawaian.adapter.AdapterApsensi
-import sidiq.project.kepegawaian.adapter.AdapterInformasi
-import sidiq.project.kepegawaian.databinding.ActivityMainBinding
 import sidiq.project.kepegawaian.databinding.FragmentRiwayatBinding
 import sidiq.project.kepegawaian.model.absensi.Absensi
-
-import sidiq.project.kepegawaian.model.absensi.DataItemAbsensi
 import sidiq.project.kepegawaian.model.absensi.absensiResponse
-import sidiq.project.kepegawaian.model.informasi.Informasi
+import java.util.*
 
 class RiwayatFragment : Fragment() {
 
     private var binding: FragmentRiwayatBinding? = null
     private var viewModel: AbsensiViewModel? = null
     private var sharedPreferences: PreferenceManager? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,6 +79,8 @@ class RiwayatFragment : Fragment() {
 
     }
 
+
+
     fun showData(riwayat: List<Absensi>) {
 
         binding?.recylerRiwayat?.apply {
@@ -93,9 +89,9 @@ class RiwayatFragment : Fragment() {
             adapter = AdapterApsensi(riwayat)
 
         }
+      }
 
 
-    }
 
 }
 
