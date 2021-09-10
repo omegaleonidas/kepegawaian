@@ -2,11 +2,10 @@ package sidiq.project.kepegawaian
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
+
 import com.bumptech.glide.Glide
 import sidiq.project.kepegawaian.databinding.ActivityDetailInformasiBinding
-import sidiq.project.kepegawaian.databinding.FragmentInformasiBinding
+
 
 class Detail_informasi : AppCompatActivity() {
 

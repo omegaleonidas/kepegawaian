@@ -49,7 +49,7 @@ class ApsensiDetail : AppCompatActivity() {
     val day = c.get(Calendar.DAY_OF_MONTH)
     var hour: Int = 0
     var minute: Int = 0
-    val second = c.get(Calendar.MILLISECOND)
+
     lateinit var alertDialog: SweetAlertDialog
 
     var lat: Double = 0.0
@@ -199,7 +199,7 @@ class ApsensiDetail : AppCompatActivity() {
     ) {
         val retrofit = ApiServices.restApi()
 
-        val c = Calendar.getInstance()
+
 
 
         retrofit.InsertAbsensi(
@@ -226,14 +226,13 @@ class ApsensiDetail : AppCompatActivity() {
                         sharedPreferences?.saveIdAbsensi(IDABSENSI, dataAbsensi!!.data.id_absensi)
                         Log.e("data id masuk", " " + sharedPreferences?.getIdAbsensi())
 
-                        if(dataAbsensi!!.data.alamat == null){
-                            SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Oops...")
-                                .setContentText("  alamat tidak terdeteksi   ")
-                                .setConfirmText("OK")
-                                .show()
+                    }else{
+                        SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("  alamat tidak terdeteksi   ")
+                            .setConfirmText("OK")
+                            .show()
 
-                        }
                     }
 
                     Log.e("data abnsensi tersimpan", "")
@@ -263,12 +262,12 @@ class ApsensiDetail : AppCompatActivity() {
                     if (response.isSuccessful) {
                         tvTanggal.text = dataWaktu?.data?.date_time
                         hour = dataWaktu!!.data.Hour
-                        waktu = dataWaktu!!.data.jam
-                        minute = dataWaktu!!.data.minute
-                        Log.e("data_jam", "data jam " + dataWaktu!!.data.Hour)
+                        waktu = dataWaktu.data.jam
+                        minute = dataWaktu.data.minute
+
 
                     } else {
-                        Log.e("data_jam", "tidak response " + response.message())
+
 
                     }
 
@@ -340,10 +339,6 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
 
-    fun showAlertDialogSave() {
-
-
-    }
 
 
     private fun getCurrentLocation() {
@@ -404,9 +399,9 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        //jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                        jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
                         // jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
-                          jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479)
+                      //    jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479)
                        //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9091398069107424, 100.3546317084189)
                       //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9099941692193596, 100.3556551789124)
                         // jarak = getDistance(   -0.9094329061193681, 100.35503269141843,   -0.9087005388791217, 100.35603431952079)
@@ -511,7 +506,6 @@ class ApsensiDetail : AppCompatActivity() {
                 alertDialog.show()
                 timer.start()
                 InsertAbsensi(
-
                     sharedPreferences?.getNip()!!,
                     date,
                     "$waktu",
@@ -523,7 +517,7 @@ class ApsensiDetail : AppCompatActivity() {
 
 
 
-            Toast.makeText(this, " mengambil absen", Toast.LENGTH_SHORT).show()
+
 
 
             Log.e("bisa ambil apsen ", "$jarakWaktu")

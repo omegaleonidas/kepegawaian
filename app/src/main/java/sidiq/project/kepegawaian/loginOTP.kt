@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
+
 import android.widget.Toast
-import androidx.navigation.NavController
+
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -42,10 +42,10 @@ class loginOTP : AppCompatActivity() {
         val Login = findViewById<Button>(R.id.loginBtn)
 
 
-       var nohp = +sharedPreferences?.getNoHp()!!
-         phoneNumber.setText(""+nohp)
+       val nohp = +sharedPreferences?.getNoHp()!!
+         phoneNumber.setText("$nohp")
 
-        var currentUser = auth.currentUser
+        val currentUser = auth.currentUser
         if (currentUser != null) {
             startActivity(Intent(this, Home::class.java))
             finish()
@@ -77,7 +77,7 @@ class loginOTP : AppCompatActivity() {
                 storedVerificationId = verificationId
                 resendToken = token
 
-                var intent = Intent(applicationContext, verivikasiOTP::class.java)
+                val intent = Intent(applicationContext, verivikasiOTP::class.java)
                 intent.putExtra("storedVerificationId", storedVerificationId)
                 startActivity(intent)
             }

@@ -26,14 +26,11 @@ import java.util.*
 
 class CutiFragment : androidx.fragment.app.Fragment() {
 
-    var viewmodelCuti: CutiViewModel? = null
+
     var textview_date: TextView? = null
     lateinit var alertDialog: SweetAlertDialog
     var binding: FragmentCutiBinding? = null
-    var hitung:Int = 0
-    var hitung1:Int  = 0
 
-    var cal = Calendar.getInstance()
     private var sharedPreferences: PreferenceManager? = null
 
 
@@ -120,15 +117,15 @@ class CutiFragment : androidx.fragment.app.Fragment() {
 
 
 
-        var tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
+        val tz: TimeZone? = TimeZone.getTimeZone("GMT+7")
         val alasan_cuti = binding?.tanggalKeterangan?.text.toString()
         val c = Calendar.getInstance(tz)
 
-        var tanggal_awal = binding?.tanggalAwal?.text.toString()
+        val tanggal_awal = binding?.tanggalAwal?.text.toString()
 
-        var tanggal_akhir = binding?.tanggalAkhir?.text.toString()
+        val tanggal_akhir = binding?.tanggalAkhir?.text.toString()
 
-        var calender = Calendar.getInstance()
+        val calender = Calendar.getInstance()
         val time = java.text.DateFormat.getDateTimeInstance().format(calender.time)
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -147,7 +144,7 @@ class CutiFragment : androidx.fragment.app.Fragment() {
             Log.e("data tanggal  ","$time")
 
 
-        var retrofit = ApiServices.restApi()
+        val retrofit = ApiServices.restApi()
         retrofit.InsertCuti(
             nip!!,
             tanggal_awal,
@@ -160,7 +157,7 @@ class CutiFragment : androidx.fragment.app.Fragment() {
             .enqueue(object : Callback<CutiResponse> {
 
                 override fun onFailure(call: Call<CutiResponse>, t: Throwable) {
-                    Log.e("data simpan tidak masuk", t.message)
+
                     SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Oops...")
                         .setContentText("  jaringan tidak ada atau gangguan   ")
@@ -179,7 +176,7 @@ class CutiFragment : androidx.fragment.app.Fragment() {
                         timer.start()
 
                     } else {
-                        Log.e("data tidak response", "${response.message()}")
+
                     }
                 }
 
