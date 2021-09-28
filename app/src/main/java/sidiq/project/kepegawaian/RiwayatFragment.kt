@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.Storage.PreferenceManager
-import sidiq.project.kepegawaian.ViewModel.AbsensiViewModel
+
 import sidiq.project.kepegawaian.adapter.AdapterApsensi
 import sidiq.project.kepegawaian.databinding.FragmentRiwayatBinding
 import sidiq.project.kepegawaian.model.absensi.Absensi
@@ -21,7 +21,7 @@ import java.util.*
 class RiwayatFragment : Fragment() {
 
     private var binding: FragmentRiwayatBinding? = null
-    private var viewModel: AbsensiViewModel? = null
+
     private var sharedPreferences: PreferenceManager? = null
 
 

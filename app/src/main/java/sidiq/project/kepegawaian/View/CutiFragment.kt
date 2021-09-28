@@ -18,7 +18,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import sidiq.project.kepegawaian.Network.ApiServices
 import sidiq.project.kepegawaian.Storage.PreferenceManager
-import sidiq.project.kepegawaian.ViewModel.CutiViewModel
+
 import sidiq.project.kepegawaian.databinding.FragmentCutiBinding
 import sidiq.project.kepegawaian.model.cuti.CutiResponse
 

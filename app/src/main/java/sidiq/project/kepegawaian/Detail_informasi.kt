@@ -21,7 +21,7 @@ class Detail_informasi : AppCompatActivity() {
         val image = intent.getStringExtra("image")
         val desc = intent.getStringExtra("descripsi")
 
-        Glide.with(this).load("http://192.168.1.8/api/public/foto_informasi/"+image).into(binding!!.image)
+        Glide.with(this).load("http://192.168.1.6/api/public/foto_informasi/"+image).into(binding!!.image)
         //  Log.e("data masuk","$title,$image,$desc")
 
         binding?.tvJudul!!.setText(title)

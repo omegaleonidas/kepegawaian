@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.cazaea.sweetalert.SweetAlertDialog
@@ -26,18 +25,18 @@ import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.KEY_TOKEN
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NAMAPEGAWAI
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NIP
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.NOHP
-import sidiq.project.kepegawaian.ViewModel.RegisterViewModel
+
 import sidiq.project.kepegawaian.databinding.FragmentLoginBinding
 import sidiq.project.kepegawaian.model.DataItem
 import sidiq.project.kepegawaian.model.login.DataUserRespon
-import sidiq.project.kepegawaian.model.login.UserRequest
+
 
 class LoginFragment : Fragment() {
 
     lateinit var navControler: NavController
 
     private val LoginDetail = MutableLiveData<sidiq.project.kepegawaian.model.Response>()
-    private var viewModel: RegisterViewModel? = null
+
     var binding: FragmentLoginBinding? = null
     private var shareferenceManager : PreferenceManager? =null
     private var item: DataItem? = null
@@ -51,19 +50,13 @@ class LoginFragment : Fragment() {
 
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         shareferenceManager = PreferenceManager(requireContext())
-        var view = binding?.root
+        val view = binding?.root
         return view
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RegisterViewModel::class.java)
-
-        //   viewModel?.getData()
-        viewModel?.registerMVVMModel?.observe(this, Observer {
-
-        })
 
     }
 
@@ -79,32 +72,21 @@ class LoginFragment : Fragment() {
 
     }
 
-//    override fun onClick(v: View?) {
-//        when (v?.id) {
-//            R.id.btnLogin ->
-//            {
-//                login()
-//                navControler.navigate(R.id.action_loginFragment_to_home2)
-//            }
-//
-//
-//
-//        }
-//    }
+
 
     fun login() {
-        val request = UserRequest()
+
     val  email = binding?.etNip!!.text.toString()
       val password = binding?.etpassword!!.text.toString()
 
         val retrofit = ApiServices.restApi()
         retrofit.getLogin(email,password).enqueue(object :Callback<DataUserRespon>{
             override fun onFailure(call: Call<DataUserRespon>, t: Throwable) {
-              Log.e("error",t.message)
+
             }
 
             override fun onResponse(call: Call<DataUserRespon>, response: Response<DataUserRespon>) {
-               val user = response.body()
+
                 Log.e("token",response.message())
 
             if (response.isSuccessful){
@@ -113,18 +95,14 @@ class LoginFragment : Fragment() {
 //
                 if (response.isSuccessful){
 
-                    Log.e("token1","${user?.user!!.id}")
-                    Log.e("nip", "${user?.user!!.nip}" )
-
-                    Log.e("nohp", "${user?.user!!.nohp}" )
-                    Log.e("nnama", "${user?.user!!.name}" )
 
 
-                    shareferenceManager?.saveToken(KEY_TOKEN,user?.token!!)
-                    shareferenceManager?.saveNip(NIP,user?.user!!.nip!!)
-                    shareferenceManager?.saveId(ID,user?.user!!.id!!)
-                    shareferenceManager?.saveNoHp(NOHP,user?.user!!.nohp!!)
-                    shareferenceManager?.saveNama(NAMAPEGAWAI,user?.user.name)
+
+                    shareferenceManager?.saveToken(KEY_TOKEN,user!!.token!!)
+                    shareferenceManager?.saveNip(NIP,user!!.user?.nip!!)
+                    shareferenceManager?.saveId(ID,user!!.user?.id!!)
+                    shareferenceManager?.saveNoHp(NOHP,user!!.user?.nohp!!)
+                    shareferenceManager?.saveNama(NAMAPEGAWAI,user!!.user?.name)
 
                     navControler.navigate(R.id.action_loginFragment_to_loginOTP)
 

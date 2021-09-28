@@ -29,7 +29,7 @@ class AdapterInformasi(private  val list: List<Informasi>) : RecyclerView.Adapte
 
             binding.tvJudul.text = item?.judul
             binding.tvDescripsi.text = item?.descripsi
-            Glide.with  (binding.gambar.context).load("http://192.168.1.8/api/public/foto_informasi/"+ item?.gambar)
+            Glide.with  (binding.gambar.context).load("http://192.168.1.6/api/public/foto_informasi/"+ item?.gambar)
                 .into(binding.gambar)
 
 

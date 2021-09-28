@@ -21,9 +21,6 @@ import sidiq.project.kepegawaian.model.user.userResponse
 interface ApiInterface {
 
 
-    @GET("register")
-    fun getUser(): Flowable<sidiq.project.kepegawaian.model.Response>
-
     @GET("apsensi")
     fun getAbsensi(): Flowable<sidiq.project.kepegawaian.model.absensi.Response>
 

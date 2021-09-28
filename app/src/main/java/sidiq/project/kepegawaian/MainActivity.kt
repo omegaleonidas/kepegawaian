@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.View.Home
-import sidiq.project.kepegawaian.ViewModel.RegisterViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
 
     private var sharedPreferences : PreferenceManager? = null
 
-    private var viewModel: RegisterViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,13 +31,7 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onStart()
-//        if (sharedPreferences?.getToken()!= null){
 //
-//            val intent = Intent(this,Home::class.java)
-//            startActivity(intent)
-//            finish()
-//
-//        }
 
 
     }

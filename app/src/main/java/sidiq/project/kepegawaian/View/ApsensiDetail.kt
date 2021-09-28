@@ -28,6 +28,8 @@ import sidiq.project.kepegawaian.Storage.PreferenceManager
 import sidiq.project.kepegawaian.Storage.PreferenceManager.Companion.IDABSENSI
 import sidiq.project.kepegawaian.model.absensiInsert.AbsensiInsertResponse
 import sidiq.project.kepegawaian.model.jam.timeResponse
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 
 
@@ -45,6 +47,7 @@ class ApsensiDetail : AppCompatActivity() {
     var waktu: String? = null
     val c = Calendar.getInstance(tz)
     val year = c.get(Calendar.YEAR)
+    val df = DecimalFormat("####.##")
     val month = c.get(Calendar.MONTH)
     val day = c.get(Calendar.DAY_OF_MONTH)
     var hour: Int = 0
@@ -53,8 +56,11 @@ class ApsensiDetail : AppCompatActivity() {
     lateinit var alertDialog: SweetAlertDialog
 
     var lat: Double = 0.0
-    var jarakWaktu: Double? = 0.0
+    var jarakWaktu: Double? =0.0
+
     var jarak: Double? = 0.0
+    var jarakUkur: String? = null
+
     var lokasi: String? = null
 
 
@@ -409,7 +415,9 @@ class ApsensiDetail : AppCompatActivity() {
 
 
                         jarakWaktu  = jarak!!/1
-                        //      -0.9095887, 100.3531456, latitude, longitude
+                        df.roundingMode = RoundingMode.FLOOR
+                        jarakUkur = (df.format(jarakWaktu!!))
+
 
                         if (tvAddress != null) {
                             loader.visibility = View.GONE
@@ -422,8 +430,12 @@ class ApsensiDetail : AppCompatActivity() {
     }
 
     var data: String? = null
-    private fun tambahAbsensi() {
+    val decimalFormat = DecimalFormat("#.##")
 
+    //val twoDigitsF: Float = java.lang.Float.valueOf(decimalFormat.format(jarakWaktu))
+    private fun tambahAbsensi() {
+        df.roundingMode = RoundingMode.FLOOR
+        Log.e("TAG", "jarak $jarakUkur ")
         if (jarakWaktu!! <= 50) {
 
             if (hour < 6) {
@@ -517,14 +529,11 @@ class ApsensiDetail : AppCompatActivity() {
 
 
 
-
-
-
             Log.e("bisa ambil apsen ", "$jarakWaktu")
         } else {
             SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Oops...")
-                .setContentText("  jarak anda  $jarakWaktu jauh dari lokasi    ")
+                .setContentText(     "  jarak anda $jarakUkur M jauh dari lokasi    ")
                 .setConfirmText("OK")
                 .show()
             Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
@@ -584,7 +593,7 @@ class ApsensiDetail : AppCompatActivity() {
                 .setConfirmText("OK")
                 .show()
 
-            Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "maaf anda terlalu jauh dari lokasi  $jarakWaktu", Toast.LENGTH_SHORT).show()
             Log.e("tidak bisa ambil absen", "$jarak ")
         }
 

@@ -82,6 +82,8 @@ class informasiFragment : Fragment() {
 
 
     }
+
+
 }
 
 
