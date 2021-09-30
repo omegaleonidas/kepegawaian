@@ -22,8 +22,10 @@ interface ApiInterface {
 
 
     @GET("apsensi")
-    fun getAbsensi(): Flowable<sidiq.project.kepegawaian.model.absensi.Response>
-
+    fun getAbsensi(
+        @Query("nip") nip: Int,
+        @Header("Authorization") token: String
+    )        : Call<AbsensiInsertResponse>
     //  @FormUrlEncoded
     @POST("login")
     fun getLogin(
@@ -129,6 +131,25 @@ interface ApiInterface {
     )
             : Call<PegawaiInsertResponse>
 
+    @Multipart
+    @POST("ApiPegawaiEdit/{id_pegawai}")
+    fun UpdatePegawai1(
+        @Path("id_pegawai") id_pegawai: Int,
+        @Part("nip") nip: RequestBody?,
+        @Part("nama_pegawai") nama_pegawai: RequestBody?,
+        @Part("jabatan_id") jabatan_id: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("no_tlp") no_tlp: RequestBody?,
+        @Part("alamat_pegawai") alamat_pegawai: RequestBody?,
+        @Part("tgl_masuk") tgl_masuk: RequestBody?,
+        @Part("tmp_lahir") tmp_lahir: RequestBody?,
+        @Part("id_agama") ig_agama: RequestBody?,
+        @Part("gender") gender: RequestBody?,
+        @Part("pendidikan") pendidikan: RequestBody?,
+
+        @Header("Authorization") token: String
+    )
+            : Call<PegawaiInsertResponse>
 
     @GET("ApiHitung/{id_absensi}")
     fun getInformasiAbsensi(

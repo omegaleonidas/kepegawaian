@@ -11,7 +11,7 @@ data class Data(
     val created_at: String,
     val id_absensi: Int,
     val jam_masuk: String,
-    val jam_selesai: Any,
+    val jam_selesai: String,
     val keterangan: String,
     val nip: String,
     val tanggal: String,

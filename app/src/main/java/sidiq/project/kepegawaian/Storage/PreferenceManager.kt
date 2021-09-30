@@ -18,7 +18,9 @@ class PreferenceManager (private  val context: Context) {
     companion object {
         const val KEY_TOKEN = "key_token"
         const val ID = "id_pegawai"
+        const val TANGGAL = "tanggal"
         const val NIP = "nip"
+        const val JAM = "jam"
         const val  NOHP  = "no_hp"
         const val IDABSENSI = "id_absensi"
         const val NAMAPEGAWAI = "nama_pegawai"
@@ -96,6 +98,30 @@ class PreferenceManager (private  val context: Context) {
 
         return sharePreference.getString(NAMAPEGAWAI,null)
     }
+
+    fun saveTanggal( key:String, value: String?){
+
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun getTanggal(): String? {
+
+        return sharePreference.getString(TANGGAL,null)
+    }
+
+    fun saveJam( key:String,value: String?){
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun getJam()  :String?{
+        return sharePreference.getString(JAM,null)
+    }
+
+
+
+
 
 
 }

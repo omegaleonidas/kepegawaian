@@ -121,14 +121,6 @@ class ProfileFragment : Fragment() {
             )
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 wallpaperDirectory.mkdir()
-                if (wallpaperDirectory.isDirectory) {
-                    Log.e("folder maASUK", " " + wallpaperDirectory.toString())
-
-                } else {
-                    Log.e("folder tidak maASUK", " " + wallpaperDirectory.toString())
-
-                }
-
             } else {
                 Toast.makeText(requireContext(), "Permission is required", Toast.LENGTH_SHORT)
                     .show()
@@ -474,7 +466,7 @@ class ProfileFragment : Fragment() {
         )
             .enqueue(object : retrofit2.Callback<PegawaiRespon> {
                 override fun onFailure(call: Call<PegawaiRespon>, t: Throwable) {
-                    Log.e("", t.message)
+
                 }
 
                 override fun onResponse(
@@ -507,7 +499,7 @@ class ProfileFragment : Fragment() {
                             //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
                             Glide.with(binding?.imageView2!!)
-                                .load("http://192.168.1.8/api/public/foto_pegawai/" + data.pegawai.foto)
+                                .load("http://192.168.1.3/api/public/foto_pegawai/" + data.pegawai.foto)
                                 .into(binding?.imageView2!!)
 
                             binding?.btnEdit!!.setText("edit")
@@ -550,8 +542,38 @@ class ProfileFragment : Fragment() {
                                     tvPasswordInput.setError("Password  harus di isi")
 
 
-                                }else {
+                                }else if (uriPath == null) {
 
+                                    alertDialog1.show()
+                                    timer.start()
+                                    UpdateData1(
+                                        isiNip,
+                                        namee!!,
+                                        dataJabatan,
+                                        em!!,
+                                        "$no",
+                                        alamat!!,
+                                        th!!,
+                                        tgl!!,
+                                        dataAgama,
+                                        jenisKelamin!!,
+                                        pen!!
+
+                                        //  imagee!!.toUri()
+
+                                    )
+                                    val password = binding?.tvPasswordInput?.text.toString()
+                                    UpdateUser(
+
+                                        namee!!,
+                                        isiNip.toString(),
+                                        "$no",
+                                        em!!,
+                                        password
+
+                                    )
+
+                                }else{
                                     alertDialog1.show()
                                     timer.start()
                                     UpdateData(
@@ -577,11 +599,13 @@ class ProfileFragment : Fragment() {
                                         isiNip.toString(),
                                         "$no",
                                         em!!,
-                                        password!!
+                                        password
 
                                     )
 
+
                                 }
+
 
 
                             }
@@ -593,7 +617,7 @@ class ProfileFragment : Fragment() {
                             tvNip.text = sharedPreferences?.getNip().toString()
                             tvNama.text = sharedPreferences?.getNama()
 
-                            binding?.tvTelepon!!.setText("" + sharedPreferences?.getNoHp()!!)
+                            binding?.tvTelepon!!.setText("${ sharedPreferences?.getNoHp()!!}")
 
 
                             btnEdit.setOnClickListener {
@@ -776,6 +800,57 @@ return
     }
 
 
+
+    private fun UpdateData1(
+        nip: Int,
+        nama_pegawai: String,
+        jabatan_id: Int,
+        email: String,
+        no_tlp: String,
+        alamat: String,
+        tgl_masuk: String,
+        tmp_lahir: String,
+        id_agama: Int,
+        gender: String,
+        pendidikan: String
+
+
+    ) {
+        retrofit.UpdatePegawai1(
+            sharedPreferences?.getNip()!!,
+
+            createPartFromString(nip.toString()),
+            createPartFromString(nama_pegawai),
+            createPartFromString(jabatan_id.toString()),
+            createPartFromString(email),
+            createPartFromString(no_tlp),
+            createPartFromString(alamat),
+            createPartFromString(tgl_masuk),
+            createPartFromString(tmp_lahir),
+            createPartFromString(id_agama.toString()),
+            createPartFromString(gender),
+            createPartFromString(pendidikan),
+
+            "Bearer " + sharedPreferences?.getToken()
+        ).enqueue(object : retrofit2.Callback<PegawaiInsertResponse> {
+            override fun onFailure(call: Call<PegawaiInsertResponse>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<PegawaiInsertResponse>,
+                response: Response<PegawaiInsertResponse>
+
+
+            ) {
+
+
+
+            }
+
+        })
+    }
+
     private fun UpdateData(
         nip: Int,
         nama_pegawai: String,
@@ -834,7 +909,7 @@ return
 
         name: String,
         file: Uri
-    ): MultipartBody.Part? {
+    ): MultipartBody.Part {
         val originalFile = File(file.toString())
         val filePart = originalFile
             .asRequestBody(
