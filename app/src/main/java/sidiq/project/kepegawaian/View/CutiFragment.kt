@@ -104,7 +104,6 @@ class CutiFragment : androidx.fragment.app.Fragment() {
 
             insertData()
 
-            Toast.makeText(context, " sudah di klik", Toast.LENGTH_SHORT).show()
 
         }
 

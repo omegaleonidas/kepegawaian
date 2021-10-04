@@ -51,8 +51,7 @@ class informasiFragment : Fragment() {
         retrofit.getInformasi("Bearer " + sharedPreferences?.getToken())
             .enqueue(object : retrofit2.Callback<InformasiResponse> {
                 override fun onFailure(call: Call<InformasiResponse>, t: Throwable) {
-                    Log.e("error", t.message)
-                }
+                            }
 
                 override fun onResponse(
                     call: Call<InformasiResponse>,
@@ -62,7 +61,7 @@ class informasiFragment : Fragment() {
 
                     if (response.isSuccessful) {
 
-                        showData(informasi!!.data?.informasi)
+                        showData(informasi!!.data.informasi)
                     }
                 }
 

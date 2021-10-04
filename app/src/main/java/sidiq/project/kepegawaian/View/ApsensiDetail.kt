@@ -63,10 +63,10 @@ class ApsensiDetail : AppCompatActivity() {
     var lat: Double = 0.0
     var jarakWaktu: Double? =0.0
 
-
+    var data: String? = null
     var jarak: Double? = 0.0
     var jarakUkur: String? = null
-    var tgl: String?= null
+
 
     var lokasi: String? = null
 
@@ -139,8 +139,11 @@ class ApsensiDetail : AppCompatActivity() {
                     GetData()
 
             }else if (sharedPreferences?.getTanggal() == date) {
-                         Toast.makeText(applicationContext, "ambil absensi besok ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  Anda sudah ambil absen coba besok lagi  ")
+                        .setConfirmText("OK")
+                        .show()
                 }else{
                     GetData()
 
@@ -171,24 +174,36 @@ class ApsensiDetail : AppCompatActivity() {
                 getCurrentLocation()
 
                 if(sharedPreferences?.getTanggal() == null){
-                    Toast.makeText(applicationContext, "isi absen pagi dahulu ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Ambil absen Pagi terlebih dahulu ")
+                        .setConfirmText("OK")
+                        .show()
 
                 }else if (sharedPreferences?.getJam() == null && sharedPreferences?.getTanggal() == date) {
 
                     tambahAbsensiSore()
                       }
                 else if ( sharedPreferences?.getJam() != null && sharedPreferences?.getTanggal() == date){
-                    Toast.makeText(applicationContext, "ambil absensi besok ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  Anda sudah ambil absen coba besok lagi  ")
+                        .setConfirmText("OK")
+                        .show()
 
 
                 }else if( sharedPreferences?.getJam() != null && sharedPreferences?.getTanggal() != date){
-                    Toast.makeText(applicationContext, "ambil absensi besok ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  Anda sudah ambil absen coba besok lagi  ")
+                        .setConfirmText("OK")
+                        .show()
                 }else {
-                    Toast.makeText(applicationContext, "ambil absen pagi  ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  Anda sudah ambil absen coba besok lagi  ")
+                        .setConfirmText("OK")
+                        .show()
                 }
 
 
@@ -372,7 +387,7 @@ class ApsensiDetail : AppCompatActivity() {
                         tvTanggal.text = dataWaktu?.data?.date_time
                       hour = dataWaktu!!.data.Hour
                       //  hour = 17
-                        waktu = dataWaktu!!.data.jam
+                        waktu = dataWaktu.data.jam
                         minute = dataWaktu.data.minute
                         date = dataWaktu.data.date
                     //     date = "2021-09-30"
@@ -502,13 +517,14 @@ class ApsensiDetail : AppCompatActivity() {
 
                         lokasi = address
 
-                        jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
-                        // jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
-                      //    jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.46243093864843976, 100.4014881049479)
+                     //   jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                         jarak = getDistance(    -0.9094216623870202,  100.35502462911867, latitude, longitude)
+                          //jarak = getDistance(   -0.462444, 100.401393, latitude, longitude)
                        //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9091398069107424, 100.3546317084189)
                       //  jarak = getDistance(   -0.9094329061193681, 100.35503269141843, -0.9099941692193596, 100.3556551789124)
                         // jarak = getDistance(   -0.9094329061193681, 100.35503269141843,   -0.9087005388791217, 100.35603431952079)
                          // jarak = getDistance(   -0.9094329061193681, 100.35503269141843,    -0.9104934983568482, 100.35293589302698)
+                         //jarak = getDistance(   -0.9301211, 100.428890,    latitude, longitude)
 
 
                         jarakWaktu  = jarak!!/1
@@ -526,7 +542,7 @@ class ApsensiDetail : AppCompatActivity() {
 
     }
 
-    var data: String? = null
+
     val decimalFormat = DecimalFormat("#.##")
 
     //val twoDigitsF: Float = java.lang.Float.valueOf(decimalFormat.format(jarakWaktu))
@@ -542,8 +558,7 @@ class ApsensiDetail : AppCompatActivity() {
                     .setContentText(" Belum bisa mengambil absen ")
                     .setConfirmText("OK")
                     .show()
-                Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
-                Log.e("kehadiran", " bisa ambil absen karean jam 6 kurang ")
+                 Log.e("kehadiran", " bisa ambil absen karean jam 6 kurang ")
 
 
             } else if (hour >= 6 && hour <= 7) {
@@ -563,7 +578,7 @@ class ApsensiDetail : AppCompatActivity() {
                     Log.e("kehadiran", "t bisa ambil absen karena sebelum jam 7 ")
 
 
-                } else if (hour == 7 && minute <= 15) {
+                } else if (hour == 7 && minute <= 30) {
                     alertDialog.show()
                     timer.start()
                     data = "hadir"
@@ -577,7 +592,7 @@ class ApsensiDetail : AppCompatActivity() {
                     Log.e("kehadiran", " bisa ambil absen karena sesudah  jam 7 sebelum jam 15 ")
 
 
-                } else if (minute <= 30) {
+                } else if (minute <= 45) {
                     alertDialog.show()
                     timer.start()
                     Log.e("kehadiran", "terlambat ambil absen karena sesudah  jam 7 30  ")
@@ -592,8 +607,11 @@ class ApsensiDetail : AppCompatActivity() {
                     )
 
                 } else if (hour >= 16) {
-                    Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
-
+                    SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("  tidak bisa mengambil absensi  ")
+                        .setConfirmText("OK")
+                        .show()
                 } else {
                     alertDialog.show()
                     timer.start()
@@ -621,8 +639,11 @@ class ApsensiDetail : AppCompatActivity() {
                 )
 
             } else {
-                Toast.makeText(this, "tidak bisa mengambil absen ", Toast.LENGTH_SHORT).show()
-
+                SweetAlertDialog(this@ApsensiDetail, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("  tidak bisa mengambil absensi  ")
+                    .setConfirmText("OK")
+                    .show()
 
 
             }
@@ -635,13 +656,10 @@ class ApsensiDetail : AppCompatActivity() {
         } else {
             SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                 .setTitleText("Oops...")
-                .setContentText(     "  jarak anda $jarakUkur M jauh dari lokasi    ")
+                .setContentText(     "  jarak anda $jarakUkur meter jauh dari lokasi    ")
                 .setConfirmText("OK")
                 .show()
-            Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
-
-            Toast.makeText(this, "maaf anda terlalu jauh dari lokasi ", Toast.LENGTH_SHORT).show()
-            Log.e("tidak bisa ambil absen", "$jarakWaktu ")
+             Log.e("tidak bisa ambil absen", "$jarakWaktu ")
         }
 
 
@@ -662,7 +680,6 @@ class ApsensiDetail : AppCompatActivity() {
                        .setContentText(" Belum bisa mengambil absen ")
                        .setConfirmText("OK")
                        .show()
-                   Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
                    data = "alfa"
                } else if (hour < 19) {
@@ -670,8 +687,7 @@ class ApsensiDetail : AppCompatActivity() {
 //
                    alertDialog.show()
                    timer.start()
-                   Toast.makeText(this, "bisa mengambil absensi", Toast.LENGTH_SHORT).show()
-                   data = "hadir"
+                     data = "hadir"
                    InsertAbsensiSore(
 
                        "$waktu",
@@ -686,7 +702,6 @@ class ApsensiDetail : AppCompatActivity() {
                        .setContentText(" Belum bisa mengambil absen karena sudah lewat  ")
                        .setConfirmText("OK")
                        .show()
-                   Toast.makeText(this, "belum bisa mengambil absen", Toast.LENGTH_SHORT).show()
 
 
                }
@@ -695,11 +710,10 @@ class ApsensiDetail : AppCompatActivity() {
            } else {
                SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                    .setTitleText("Oops...")
-                   .setContentText("  jarak anda  $jarakWaktu jauh dari lokasi    ")
+                   .setContentText(     "  jarak anda $jarakUkur meter jauh dari lokasi    ")
                    .setConfirmText("OK")
                    .show()
 
-               Toast.makeText(this, "maaf anda terlalu jauh dari lokasi  $jarakWaktu", Toast.LENGTH_SHORT).show()
                Log.e("tidak bisa ambil absen", "$jarak ")
            }
 

@@ -415,8 +415,9 @@ class ProfileFragment : Fragment() {
                 response: Response<PegawaiInsertResponse>
             ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), "data berhasil response", Toast.LENGTH_SHORT)
-                        .show()
+                    alertDialog.show()
+                    timer.start()
+
                     Log.e("data error response", " " + response.errorBody()?.string())
                 } else {
                     Log.e("data error", " " + response.errorBody()?.string())
@@ -484,7 +485,7 @@ class ProfileFragment : Fragment() {
 
                         if (data?.pegawai != null) {
 
-                            binding?.tvPassword?.visibility=View.VISIBLE
+                            binding?.tvPassword?.visibility = View.VISIBLE
                             binding?.tvNip!!.setText(data.pegawai.nip)
                             binding?.tvNama!!.setText(data.pegawai.nama_pegawai)
                             binding?.tvNamaPegawaiInput!!.setText(data.pegawai.nama_pegawai)
@@ -493,14 +494,14 @@ class ProfileFragment : Fragment() {
                             binding?.tvTelepon!!.setText(data.pegawai.no_tlp)
                             binding?.tvAlamat!!.setText(data.pegawai.alamat_pegawai)
                             binding?.tvTglMasukInput!!.setText(data.pegawai.tgl_masuk)
-
                             binding?.tvTglLahirInput!!.setText(data.pegawai.tmp_lahir)
-                            // binding?.spinnerAgamaInput!!.setText(data.pegawai.nama_agama)
-                            //  binding?.SpinnerGenderInput!!.setText(data.pegawai.gender)
+
                             binding?.tvPendidikanInput!!.setText(data.pegawai.pendidikan)
-                            Glide.with(binding?.imageView2!!)
-                                .load("http://192.168.1.3/api/public/foto_pegawai/" + data.pegawai.foto)
-                                .into(binding?.imageView2!!)
+                            Glide.with(requireContext())
+                                .load("http://34.101.240.57/public/foto_pegawai/${data.pegawai.foto}" )
+                                .into(binding!!.imageView2)
+                            Log.e(" isi gambar ", "${data!!.pegawai.foto} " )
+
 
                             binding?.btnEdit!!.setText("edit")
                             btnEdit.setOnClickListener {
@@ -516,6 +517,7 @@ class ProfileFragment : Fragment() {
                                 tgl = binding?.tvTglLahirInput?.text.toString()
 //                                id_agama
                                 //gender
+
                                 pen = binding?.tvPendidikanInput?.text.toString()
                                 imagee = StringBuilder().append(data.pegawai).toString()
 
@@ -538,14 +540,13 @@ class ProfileFragment : Fragment() {
                                     spinnerAgamaInput.setError("agama  harus di isi")
                                 } else if (spinnerJabatanInput.text.toString().length == 0) {
                                     spinnerJabatanInput.setError("jabatan  harus di isi")
-                                } else if(tvPasswordInput.text.toString().length == 0){
+                                } else if (tvPasswordInput.text.toString().length == 0) {
                                     tvPasswordInput.setError("Password  harus di isi")
 
 
-                                }else if (uriPath == null) {
+                                } else if (uriPath == null) {
 
-                                    alertDialog1.show()
-                                    timer.start()
+
                                     UpdateData1(
                                         isiNip,
                                         namee!!,
@@ -573,9 +574,9 @@ class ProfileFragment : Fragment() {
 
                                     )
 
-                                }else{
-                                    alertDialog1.show()
-                                    timer.start()
+                                } else {
+
+
                                     UpdateData(
                                         isiNip,
                                         namee!!,
@@ -589,6 +590,7 @@ class ProfileFragment : Fragment() {
                                         jenisKelamin!!,
                                         pen!!,
                                         uriPath!!
+
                                         //  imagee!!.toUri()
 
                                     )
@@ -603,21 +605,16 @@ class ProfileFragment : Fragment() {
 
                                     )
 
-
                                 }
-
-
-
                             }
 
                         } else {
-
 
                             Log.e("nip :", " " + sharedPreferences?.getNip()!!)
                             tvNip.text = sharedPreferences?.getNip().toString()
                             tvNama.text = sharedPreferences?.getNama()
 
-                            binding?.tvTelepon!!.setText("${ sharedPreferences?.getNoHp()!!}")
+                            binding?.tvTelepon!!.setText("${sharedPreferences?.getNoHp()!!}")
 
 
                             btnEdit.setOnClickListener {
@@ -633,8 +630,7 @@ class ProfileFragment : Fragment() {
 //                                id_agama
                                 //gender
                                 pen = binding?.tvPendidikanInput?.text.toString()
-                                alertDialog.show()
-                                timer.start()
+
 
                                 InsertData(
 
@@ -843,6 +839,8 @@ return
 
 
             ) {
+                alertDialog1.show()
+                timer.start()
 
 
 
@@ -893,7 +891,13 @@ return
 
 
             ) {
-
+                if (response.isSuccessful) {
+                    alertDialog1.show()
+                    timer.start()
+                    Log.e("data", "data update response " )
+                    GetData()
+                    binding!!.imageView2.setImageResource(0);
+                }
 
 
             }

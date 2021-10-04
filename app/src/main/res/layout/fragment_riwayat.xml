@@ -14,8 +14,10 @@
         android:background="@drawable/atass"
 
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/textRiwayat"
@@ -32,14 +34,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyler_riwayat"
-        android:layout_width="match_parent"
+        android:layout_width="410dp"
 
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+
+
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textRiwayat"
 
-        />
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/imageView6"
+       />
 </androidx.constraintlayout.widget.ConstraintLayout>

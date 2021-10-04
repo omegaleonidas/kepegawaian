@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:ems="10"
@@ -188,7 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:ems="10"
@@ -215,7 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:ems="10"
@@ -240,7 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:hint="Jabatan"
@@ -261,10 +261,8 @@
             android:layout_height="54dp"
             android:layout_below="@+id/spinnerJabatan"
             android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
 
             android:ems="10"
             android:hint="tahun Masuk"
@@ -297,7 +295,7 @@
             android:layout_below="@+id/tvTglMasuk"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:ems="10"
@@ -316,7 +314,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:clickable="false"
                 android:cursorVisible="false"
                 android:focusable="false"
@@ -333,7 +331,7 @@
             android:layout_below="@+id/tvTglLahir"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:hint="Gender"
@@ -356,10 +354,10 @@
             android:layout_below="@+id/spinnerGender"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
-            android:hint="Pendidikan terankhir"
+            android:hint="Pendidikan terakhir"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerGender">
@@ -393,7 +391,7 @@
             android:id="@+id/gambarNama"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_baseline_account_box_24"
             app:layout_constraintEnd_toStartOf="@+id/tvNamaPegawai"
             app:layout_constraintHorizontal_bias="1.0"
@@ -404,86 +402,86 @@
             android:id="@+id/gambarEmail"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_attach_email_24"
             app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName4"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarNama" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNamaPegawai" />
 
         <ImageView
             android:id="@+id/gambarNohp"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_phone_24"
             app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfile1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
 
 
         <ImageView
             android:id="@+id/gambarAlamat"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_add_location_24"
             app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfile1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarNohp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfile1" />
 
 
         <ImageView
             android:id="@+id/gambarAgama"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_public_24"
             app:layout_constraintEnd_toStartOf="@+id/tvNoHpProfileasd"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarAlamat" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfile" />
 
 
         <ImageView
             android:id="@+id/gambarJabatan"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_assignment_ind_24"
 
             app:layout_constraintEnd_toStartOf="@+id/spinnerJabatan"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarAgama" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNoHpProfileasd" />
 
 
         <ImageView
             android:id="@+id/gambarTahunMasuk"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="24dp"
             android:src="@drawable/ic_baseline_assignment_ind_24"
-
             app:layout_constraintEnd_toStartOf="@+id/tvTglMasuk"
+
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarJabatan" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerJabatan"
+      android:layout_marginTop="15dp" />
 
 
         <ImageView
             android:id="@+id/gambarTanggalLahir"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_date_range_24"
 
             app:layout_constraintEnd_toStartOf="@+id/tvTglLahir"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarTahunMasuk" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTglMasuk" />
 
 
         <ImageView
@@ -496,20 +494,20 @@
             app:layout_constraintEnd_toStartOf="@+id/spinnerGender"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarTanggalLahir" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTglLahir" />
 
 
         <ImageView
             android:id="@+id/gambarPendidikanTerakhir"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_baseline_date_range_24"
 
             app:layout_constraintEnd_toStartOf="@+id/tvPendidikan"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambarGender" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerGender" />
 
 
         <com.google.android.material.textfield.TextInputLayout

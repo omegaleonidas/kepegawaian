@@ -11,7 +11,7 @@
     tools:context=".verivikasiOTP">
 
 
-       >
+
 
         <TextView
             android:id="@+id/tv_text"
