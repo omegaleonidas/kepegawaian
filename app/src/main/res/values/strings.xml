@@ -28,10 +28,10 @@
     </string-array>
 
     <string-array name="jabatan">
-        <item>Kepala Sekolah</item>
-        <item>Admin</item>
-        <item>Bendahara</item>
-        <item>Seketaris</item>
+        <item>Pegawai Tetap</item>
+        <item>Calon Pegawai Tetap</item>
+        <item>Kontrak</item>
+        <item>Magang</item>
 
     </string-array>
 
