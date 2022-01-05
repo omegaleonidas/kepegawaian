@@ -7,5 +7,9 @@ fitur dari aplikasi ini :
 4. informasi sekolah 
 5. profile dari kepegawaian 
 
+tampilan dari aplikasi absensi kepegawaian :
+
+![absensi](https://user-images.githubusercontent.com/39238118/148162325-6a63d465-f3d7-4904-b512-58b9a8282213.JPG)
+
 
 
